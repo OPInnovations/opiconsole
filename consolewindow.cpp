@@ -877,7 +877,6 @@ void ConsoleWindow::on_contRefreshPB_clicked()
 
     HANDLE comport;
     if(conBorrowCom()) return;  // check if comport can be borrowed, if not do nothing
-
     if(opi_openucd_com(&comport))
     {
         defaultConsoleState();

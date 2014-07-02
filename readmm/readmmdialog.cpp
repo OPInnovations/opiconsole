@@ -95,5 +95,5 @@ void ReadMMDialog::on_outDirBrwsPB_clicked()
     QString dirName = QFileDialog::getExistingDirectory(this, tr("Out Directory"), QDir::currentPath());
 
     if(!dirName.isEmpty())
-        ui->outDirLE->setText(dirName.append("\\"));
+        ui->outDirLE->setText(dirName.append("/"));
 }

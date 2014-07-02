@@ -669,7 +669,7 @@ void twoDaccelviewer::on_genActTextPB_clicked()
     QString outfileName;
     QMessageBox msgBox;
 
-    outfileName = QFileDialog::getExistingDirectory(0, "Activity Summary Output Directory", QDir::currentPath()).append("\\");
+    outfileName = QFileDialog::getExistingDirectory(0, "Activity Summary Output Directory", QDir::currentPath()).append("/");
     outfileName.append(QString("D%1_%2_act.txt").arg(firstFrmDT.toString("yyyyMMdd_hhmmss")).arg(mypdn));
     outfileTp = new QFile(outfileName);
     if(outfileTp->exists())

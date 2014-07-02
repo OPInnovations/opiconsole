@@ -2,7 +2,7 @@
 #define STARTWINDOWBF_H
 
 #include <QtGui>
-#include "opi_win.h"
+#include "opi_osx.h"
 #include "biofeedback.h"
 
 

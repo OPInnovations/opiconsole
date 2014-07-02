@@ -3,7 +3,7 @@
 
 #include <QtGui>
 #include "showdatawindow.h"
-#include "opi_win.h"
+#include "opi_osx.h"
 
 #define WORNNINGWORDSIZE 10
 //get package time (ms)

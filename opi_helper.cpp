@@ -632,7 +632,7 @@ qint32 readMMPktsToEDF(HANDLE *comportptr, qint32 fromPktNum, qint32 toPktNum)
     QString localPatientID;
     QString localRecordID;
     qint32 currMonth;
-    qint64 frmTS, prevFrmTS, absFirstTS, absLastTS, frmOffset;
+    qint64 frmTS, prevFrmTS, absFirstTS, absLastTS;
     quint8 pdn;
     qint16 adcData[ADCLEN];
     qint32 usedFrmCt;
@@ -915,7 +915,6 @@ qint32 readMMPktsToEDF(HANDLE *comportptr, qint32 fromPktNum, qint32 toPktNum)
     oldPktCt = 5;
     totalDataRecCt = 0; // no data written to edf yet
     usedFrmCt = 5;
-    frmOffset = 0;
 
     stDT = QDateTime::currentDateTime();
     for(i = fromPktNum+5; i < toPktNum; i += 5)
@@ -971,13 +970,13 @@ qint32 readMMPktsToEDF(HANDLE *comportptr, qint32 fromPktNum, qint32 toPktNum)
             frmTS = (((qint64) tmpOpipkt.payload[WFRMHDRLEN-1]) << 40) + (((qint64) tmpOpipkt.payload[WFRMHDRLEN-1+1]) << 32) +
                     (((qint64) tmpOpipkt.payload[WFRMHDRLEN-1+2]) << 24) + ((tmpOpipkt.payload[WFRMHDRLEN-1+3]) << 16) +
                     (tmpOpipkt.payload[WFRMHDRLEN-1+4] << 8) + (tmpOpipkt.payload[WFRMHDRLEN-1+5]);
-//            if(frmTS < prevFrmTS)     // make sure monotonically increasing
-//            {
-//                currpl += mmOpipkt.payload[currpl]+1; // go to next packet
-//                rmmWinp->setStatusText(QString("Error: TimeStamp not increasing"));
-//                qApp->processEvents();
-//                continue;
-//            }
+            if(frmTS < prevFrmTS)     // make sure monotonically increasing
+            {
+                currpl += mmOpipkt.payload[currpl]+1; // go to next packet
+                rmmWinp->setStatusText(QString("Error: TimeStamp not increasing"));
+                qApp->processEvents();
+                continue;
+            }
             pdn = tmpOpipkt.payload[WFRMHDRLEN-1+TSLEN];
             if (pdn != tspdn)
             {
@@ -986,27 +985,11 @@ qint32 readMMPktsToEDF(HANDLE *comportptr, qint32 fromPktNum, qint32 toPktNum)
                 qApp->processEvents();
                 continue;
             }
-            if((frmTS + frmOffset) < (prevFrmTS - FRMTSBEFORETHRES))
-            {
-                frmOffset = prevFrmTS+((double) (ADCLEN*UCRTCFREQ))/((double) (TSRTCFREQ)) - frmTS;
-            }
-            else if((frmTS + frmOffset) > (prevFrmTS + FRMTSAFTERTHRES))
-            {
-                frmOffset = prevFrmTS+((double) (ADCLEN*UCRTCFREQ))/((double) (TSRTCFREQ)) - frmTS;
-            }
-            else if((frmTS + frmOffset) < prevFrmTS)
-            {
-                currpl += mmOpipkt.payload[currpl]+1; // go to next packet
-                rmmWinp->setStatusText(QString("Error: TimeStamp not increasing"));
-                qApp->processEvents();
-                continue;
-            }
-
             // if reached here, then this packet will be used
             usedFrmCt++;
 
-            prevFrmTS = frmTS + frmOffset;
-            tsQV.append(frmTS + frmOffset);
+            prevFrmTS = frmTS;
+            tsQV.append(frmTS);
             skpQV.append(tmpOpipkt.payload[WFRMHDRLEN-1+TSLEN+1] >> 7);
             batQV.append(tmpOpipkt.payload[WFRMHDRLEN+TSLEN+1] & 0x01);
 

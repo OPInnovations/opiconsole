@@ -13,7 +13,7 @@
 #define OPI_HELPER_H
 
 #include <QtGui>
-#include "opi_win.h"
+#include "opi_osx.h"
 
 // EDF related
 #define EDFDRDURSEC 8   // EDF data record duration in seconds
@@ -26,11 +26,6 @@
 #define ACTOFFSET   0    // offset of activity data when written to file
 #define ACTGAIN     1   // gain of activity data when written to file
 #define VALIDTAGTHRESMS  360000000   // number of milliseconds a tag has to be within system time to be valid
-
-// for file conversion
-#define FRMTSBEFORETHRES 691200 // if timestamp is 24 hours before previous, then accept and reset timestamp
-#define FRMTSAFTERTHRES 691200 // if timestmap is 24 hours after previous, then accept and reset timestamp
-
 
 /***
   * Prototypes

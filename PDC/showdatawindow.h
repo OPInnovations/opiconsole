@@ -4,7 +4,7 @@
 #include <QtGui>
 #include "../FFT/qfouriertransformer.h"
 #include "../FFT/qcomplexnumber.h"
-#include "opi_win.h"
+#include "opi_osx.h"
 #include "../converter/twodaccelviewer.h"
 
 

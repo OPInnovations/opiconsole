@@ -1,6 +1,6 @@
 #include "convertoptionswindow.h"
 #include "ui_convertoptionswindow.h"
-#include "opi_win.h"
+#include "opi_osx.h"
 #include "opi_helper.h"
 #include "profile/profiledialog.h"
 

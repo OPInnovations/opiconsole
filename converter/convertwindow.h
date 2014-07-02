@@ -104,11 +104,6 @@
 #define HFB      0.400 //HF high bin=51
 #define LFHFTOINDEXRATIO 0.00781 //ensure integer+ bins 0.00390625*2
 
-// for file conversion
-#define FRMTSBEFORETHRES 691200 // if timestamp is 24 hours before previous, then accept and reset timestamp
-#define FRMTSAFTERTHRES 691200 // if timestmap is 24 hours after previous, then accept and reset timestamp
-
-
 namespace Ui {
 class ConvertWindow;
 }

@@ -2,7 +2,7 @@
 #define FILEVIEW_H
 
 #include <QtGui>
-#include "../opi_win.h"
+#include "../opi_osx.h"
 #include "../opi_helper.h"
 #include "twodaccelviewer.h"
 #include "mixsignaldialog.h"

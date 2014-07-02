@@ -872,6 +872,15 @@ font: 75 8pt &quot;Arial&quot;;</string>
       <height>17</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <family>Ubuntu</family>
+      <pointsize>9</pointsize>
+      <weight>50</weight>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
+    </property>
     <property name="text">
      <string> ( 194 )</string>
     </property>
