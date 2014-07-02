@@ -3,13 +3,13 @@
 ######################################################################
 
 TEMPLATE = app
-TARGET = OPIconsole
+TARGET = 
 DEPENDPATH += . PDC
 INCLUDEPATH += .
+
 # Input
 HEADERS += \
            consolewindow.h \
-           opi_win.h \
            FFT/Array.h \
            FFT/Array.hpp \
            FFT/def.h \
@@ -53,6 +53,7 @@ HEADERS += \
     converter/twodaccelviewer.h \
     medanalysis/medanalysiswindow.h \
     converter/mixsignaldialog.h \
+    opi_linux.h \
     converter/spectrogram.h \
     converter/qqwidget.h
 
@@ -77,7 +78,6 @@ FORMS += consolewindow.ui \
 
 SOURCES += consolewindow.cpp \
            main.cpp \
-           opi_win.cpp \
            FFT/qcomplexnumber.cpp \
            FFT/qfouriercalculator.cpp \
            FFT/qfourierfixedcalculator.cpp \
@@ -101,10 +101,12 @@ SOURCES += consolewindow.cpp \
     converter/twodaccelviewer.cpp \
     medanalysis/medanalysiswindow.cpp \
     converter/mixsignaldialog.cpp \
+    opi_linux.cpp \
     converter/spectrogram.cpp \
     converter/qqwidget.cpp
 
 RESOURCES += opiconsole.qrc
+
 RC_FILE += images/myIcon.rc
 
 

@@ -1,6 +1,6 @@
 #include "convertwindow.h"
 #include "ui_convertwindow.h"
-#include "opi_win.h"
+#include "opi_linux.h"
 #include "opi_helper.h"
 #include "convertoptionswindow.h"
 
@@ -4473,7 +4473,7 @@ qint32 ConvertWindow::opiDread(QDataStream *instrp, quint8 pdnDes,
                                QVector<qint16> *sqQVp, QVector<quint8> *edQVp)
 {
     OPIPKT_t inpkt;
-    qint64 frmTS, frmOffset;
+    qint64 frmTS;
     quint8 wSubDataCode, pdn;
     qint16 adcData[ADCLEN];
     quint8 sampQual;
@@ -4548,7 +4548,6 @@ qint32 ConvertWindow::opiDread(QDataStream *instrp, quint8 pdnDes,
     for(i = 0; i < ADCLEN; i++) adcQVp->append(adcData[i]);
 
     usedFrmCt = 1;
-    frmOffset = 0;
     progQPDp = new QProgressDialog("Reading input file", QString(), 0, instrp->device()->size()/(TSFRMLEN+6));
     progQPDp->setWindowModality(Qt::WindowModal);
     progQPDp->setMinimumDuration(2000);
@@ -4569,26 +4568,14 @@ qint32 ConvertWindow::opiDread(QDataStream *instrp, quint8 pdnDes,
         frmTS = (((qint64) inpkt.payload[WFRMHDRLEN-1]) << 40) + (((qint64) inpkt.payload[WFRMHDRLEN-1+1]) << 32) +
                 (((qint64) inpkt.payload[WFRMHDRLEN-1+2]) << 24) + ((inpkt.payload[WFRMHDRLEN-1+3]) << 16) +
                 (inpkt.payload[WFRMHDRLEN-1+4] << 8) + (inpkt.payload[WFRMHDRLEN-1+5]);
+        if(frmTS < tsQVp->at(tsQVp->size()-1)) continue;    // make sure monotonically increasing
         pdn = inpkt.payload[WFRMHDRLEN-1+TSLEN];
         if (pdn != pdnDes) continue;
-        if((frmTS + frmOffset) < (tsQVp->at(tsQVp->size()-1) - FRMTSBEFORETHRES))
-        {
-            frmOffset = tsQVp->at(tsQVp->size()-1)+((double) (ADCLEN*UCRTCFREQ))/((double) (TSRTCFREQ)) - frmTS;
-            qDebug() << "neg exercised";
-        }
-        else if((frmTS + frmOffset) > (tsQVp->at(tsQVp->size()-1) + FRMTSAFTERTHRES))
-        {
-            frmOffset = tsQVp->at(tsQVp->size()-1)+((double) (ADCLEN*UCRTCFREQ))/((double) (TSRTCFREQ)) - frmTS;
-            qDebug() << "pos exercised";
-        }
-        else if((frmTS + frmOffset) < tsQVp->at(tsQVp->size()-1))
-        {
-            continue;   // make sure monotonically increasing
-        }
+
         // if reached here, then this packet will be used
         usedFrmCt++;
 
-        tsQVp->append(frmTS+frmOffset);
+        tsQVp->append(frmTS);
         skpQVp->append(inpkt.payload[WFRMHDRLEN-1+TSLEN+1] >> 7);
         batQVp->append(inpkt.payload[WFRMHDRLEN+TSLEN+1] & 0x01);
 

@@ -42,7 +42,7 @@ void ConfigWindow::on_ucStatusPB_clicked()
     qint32 i, pdnCt;
     QString tempstr;
 
-    if (opi_openucd_com(&comport))
+    if(opi_openucd_com(&comport))
     {
         ErrorMsgBox(QString("No UC attached (COM1-COM50)"));
         opi_closeucd_com(&comport);

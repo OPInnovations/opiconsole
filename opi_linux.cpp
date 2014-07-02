@@ -7,57 +7,81 @@
   * --------------------------
   * 1. Added "on" and "off" mode setting for controller (UC).
   * 2. Added micro SD slot SPI interface on and off commands.
-  * 3. Added opitsign trigger command (needs uSD SPI interface to be turned off)
+  * 3. Added opitsign trigger command (needs uSD SPI interface to be turned off
   * 4. Added battery cycling command
   *
-  * v1.05 - 20130705    mpeng
+  * v1.05 - 20130603	mpeng
   * --------------------------
-  * 1. Increased COM ports scanned from 20 to 50
+  * 1. Modified opening of serial port to looking for existing
   *
-  * v1.00 - 20130417	mpeng
+  * v1.00 - 20130517	mpeng
   * --------------------------
-  * 1. Changed opiucd_settsrtc so it doesn't take an input timestamp. It sets the
-  *  TrueSense time to the same as in the unified controller.
-  *
-  * v0.99 - 20130216	mpeng
-  * --------------------------
-  * 1. Changed put_com and get_com so that they put blocks onto usb com
-  * 	to speed up transfer and minimize usb transactions
-  *
-  * v0.98 - 20130207	mpeng
-  * --------------------------
-  * 1. Changed get_com and put_com and openucd_com functions so that allow 2 bytes for
-  *      length and 2 bytes for checksum
-  * 2. Changed opiucd_getmmtsdata to opiucd_get5mmtsdata which gets 5 packets at a time
-  *
-  * v0.97 - 20130128	mpeng
-  * --------------------------
-  * 1. Changed all functions so that if get anything other than ok from
-  *      opipkt_get_com and opipkt_put_com, it is an error
-  *
-  * v0.95 - 20130117	mpeng
-  * --------------------------
-  * 1. Added controller shutdown function
-  * 2. Added checking of packet number in opiucd_getmmtsdata
-  *
-  * v0.7 - 20121213	mpeng
-  * --------------------------
-  * 1. Split header and function definitions
-  * 2. Updated names of functions
+  * 1. Release
   *
   * ****************************/
 
-#include "opi_win.h"
+#include "opi_linux.h"
+#include <fcntl.h>
+#include <termios.h>
+#include <unistd.h>
+#include <sys/ioctl.h>
+#include <dirent.h>
+#include <string.h>
 
 /***
   * Function definitions
   */
 
 /***
+  *	Get a specified number of bytes from the serial com port
+  * with the specified number of bytes to the specified buffer in
+  * a specified number of retries
+  *	Inputs:
+  *		comportptr, pointer to int
+  *     bytep, pointer to the unsigned char buffer where data will be put
+  *     bytesToRead, number of bytes to read
+  *     retries, number of retries (in terms of loop)
+  *	Returns:
+  *		non-negative number of bytes read
+  *     -1 if error
+  */
+int getCOMBytes(int *comportptr, unsigned char* bytep, int bytesToRead, int retries)
+{
+    int bytesRead;
+    int bytesToGo;
+    unsigned char *nextBytep;
+
+    bytesToGo = bytesToRead;
+    nextBytep = bytep;
+
+    for(; retries; retries--)
+    {
+        bytesRead = read(*comportptr, (char *)nextBytep, bytesToGo);
+        if(bytesRead < 0)
+        {
+            continue;
+        }
+        else if(bytesRead < bytesToGo)
+        {
+            nextBytep = &(nextBytep[bytesRead]);
+            bytesToGo -= bytesRead;
+        }
+        else
+        {
+            bytesToGo -= bytesRead;
+            break;
+        }
+    }
+
+    return (bytesToRead-bytesToGo);
+}
+
+
+/***
   *	Get an OPI packet from the com port,
   *	Inputs:
   *		pktptr, pointer to the packet
-  *		comportptr, pointer to handle
+  *		comportptr, pointer to int
   *	Returns:
   *		code:
   *			0	// valid packet
@@ -65,32 +89,31 @@
   *			2	// null packet
   *			-1 	// couldn't get packet in 20 tries
   */
-int opipkt_get_com(OPIPKT_t* pktptr, HANDLE *comportptr)
+int opipkt_get_com(OPIPKT_t* pktptr, int *comportptr)
 {
     unsigned short i, j;
     unsigned short pktChksm, calcChksm=0;
-    unsigned char tempuint8;
+    unsigned char tempui8;
     unsigned char buf[10];
-    DWORD readIn;
 
     for (j = 0; j < 20; j++)	// 20 retries
     {
-        if(!(ReadFile (*comportptr, &tempuint8, 1, &readIn, 0))) continue;
-        if (tempuint8 != SYNCBYTE) continue;
-        if(!(ReadFile (*comportptr, buf, 4, &readIn, 0))) continue;
-        if (buf[0] != SYNCBYTE) continue;
+        if(getCOMBytes(comportptr, &tempui8, 1, 100000) < 1) continue;
+        if(tempui8 != SYNCBYTE) continue;
+        if(getCOMBytes(comportptr, buf, 4, 100000) < 4) continue;
+        if(buf[0] != SYNCBYTE) continue;
         pktptr->length = buf[1] << 8;
         pktptr->length += buf[2] - 1;
 
-        if (!(pktptr->length+1)) return 2; // empty packet
+        if(!(pktptr->length+1)) return 2; // empty packet
         pktptr->dataCode = buf[3];
         calcChksm += buf[3];
 
-        if(!(ReadFile (*comportptr, pktptr->payload, pktptr->length, &readIn, 0))) continue;
+        if(getCOMBytes(comportptr, pktptr->payload, pktptr->length, 100000) < pktptr->length) continue;
 
         for(i = 0; i < pktptr->length; i++) calcChksm += pktptr->payload[i];
 
-        if(!(ReadFile (*comportptr, buf, 2, &readIn, 0))) continue;
+        if(getCOMBytes(comportptr, buf, 2, 100000) < 2) continue;
         pktChksm = buf[0] << 8;
         pktChksm += buf[1];
 
@@ -106,18 +129,17 @@ int opipkt_get_com(OPIPKT_t* pktptr, HANDLE *comportptr)
   *	Put an OPI packet to the com port,
   *	Inputs:
   *		pktptr, pointer to the packet
-  *		comportptr, pointer to handle
+  *		comportptr, pointer to int
   *	Returns:
   *		code:
   *			0	// successful
   *			-1	// error
   */
-int opipkt_put_com(OPIPKT_t* pktptr, HANDLE* comportptr)
+int opipkt_put_com(OPIPKT_t* pktptr, int *comportptr)
 {
     unsigned short i;
     unsigned short calcChksm=0;
     unsigned char buf[256];
-    DWORD writeOut;
 
     buf[0] = SYNCBYTE;
     buf[1] = SYNCBYTE;
@@ -131,8 +153,8 @@ int opipkt_put_com(OPIPKT_t* pktptr, HANDLE* comportptr)
     }
     pktptr->payload[i] = calcChksm >> 8;    // use these unused bytes
     pktptr->payload[i+1] = calcChksm;       // so one less call to com port
-    if(!WriteFile(*comportptr, buf, 5, &writeOut, 0)) return -1;
-    if(!WriteFile(*comportptr, pktptr->payload, pktptr->length+2, &writeOut, 0)) return -1;
+    if(write(*comportptr, buf, 5) < 5) return -1;
+    if(write(*comportptr, pktptr->payload, pktptr->length+2) < pktptr->length+2) return -1;
     return 0;
 }	
 
@@ -147,218 +169,240 @@ int opipkt_put_com(OPIPKT_t* pktptr, HANDLE* comportptr)
   *		0 if successful
   *		-1 if not successful
   */
-int opi_openucd_com(HANDLE* comportptr)
+int opi_openucd_com(int *comportptr)
 {
     int i, j, pktLen;
-    DCB dcbPort;
-    COMMTIMEOUTS comTimeOut;
-    HANDLE comPort;
-    char pcCommPort[80];
     char comName[80];
     unsigned char recBuf[256];
     unsigned short pktChksm, calcChksm;
-    unsigned char tempuint8;
+    unsigned char tempui8;
     unsigned short tempui16;
-    DWORD readIn, writeOut;
+    int comRetries;
+    struct termios newtio;
+    speed_t baud = B115200;
+    DIR *dp;
+    struct dirent *ep;
 
-    for (i = 1; i < 20; i++)
+    comRetries = 100000;
+
+    // compile list of devs
+    dp = opendir("/dev");
+    if(dp == NULL)
     {
-        sprintf(comName, "\\\\.\\COM%d", i);
-        strcpy(pcCommPort, comName);
-        comPort = CreateFileA( pcCommPort, (GENERIC_READ | GENERIC_WRITE), 0, NULL, OPEN_EXISTING, 0, NULL );
-        if (!(comPort))
-        {
-            printf("Couldn't open COM%d\n", i);
-            CloseHandle(comPort);
-            continue;
-        }
-        // Clear the comm port of errors and leftover junk
-        ClearCommError(comPort, 0, 0);
-        PurgeComm(comPort, PURGE_RXABORT|PURGE_TXABORT|PURGE_RXCLEAR|PURGE_TXCLEAR);
+        return -1;
+    }
 
-        if (!GetCommState(comPort,&dcbPort))
+    for (i = 0; i < 20; i++)
+    {
+        // get a dev that looks like a usb cdc device
+        while(ep = readdir(dp))
         {
-            printf("Couldn't get COM%d state\n", i);
-            CloseHandle(comPort);
-            continue;
+            if(!strncmp(ep->d_name,"ttyACM",6)) break;
         }
+        if(!ep)
+        {
+            break;
+        }
+        sprintf(comName, "/dev/%s", ep->d_name);   // may need to change this to what OS lists USB CDC
 
-        // Set port characteristics
-        dcbPort.BaudRate = CBR_115200;
-        dcbPort.ByteSize = 8;
-        dcbPort.Parity = NOPARITY;
-        dcbPort.StopBits = ONESTOPBIT;
-
-        if (!SetCommState(comPort,&dcbPort))
+        *comportptr=open(comName, O_RDWR | O_NDELAY);
+        if(*comportptr < 0)
         {
-            printf("Couldn't set COM%d state\n", i);
-            continue;
-        }
-        if (!GetCommTimeouts(comPort,&comTimeOut))
-        {
-            printf("Couldn't get COM%d timeouts\n", i);
-            CloseHandle(comPort);
-            continue;
-        }
-        // Set timeout characteristics to be more forgiving
-        comTimeOut.ReadIntervalTimeout = 25;	// ms
-        comTimeOut.ReadTotalTimeoutMultiplier = 25;
-        comTimeOut.ReadTotalTimeoutConstant = 25;
-        comTimeOut.WriteTotalTimeoutMultiplier = 25;
-        comTimeOut.WriteTotalTimeoutConstant = 25;
-        if (!SetCommTimeouts(comPort,&comTimeOut))
-        {
-            printf("Couldn't set COM%d timeouts\n", i);
-            CloseHandle(comPort);
+            printf("Couldn't open port %s", comName);
+            opi_closeucd_com(comportptr);
             continue;
         }
 
-        // Clear the comm port of leftover junk
-        PurgeComm(comPort, PURGE_RXABORT|PURGE_TXABORT|PURGE_RXCLEAR|PURGE_TXCLEAR);
+        // flush is to be done after opening
+        tcflush(*comportptr, TCIOFLUSH);
+
+        // set port parameters
+        cfsetospeed(&newtio, baud);
+        cfsetispeed(&newtio, baud);
+        newtio.c_cflag = (newtio.c_cflag & ~CSIZE) | CS8;
+        newtio.c_cflag |= CLOCAL | CREAD;
+        newtio.c_cflag &= ~(PARENB | PARODD);   // no parity
+        newtio.c_cflag &= ~CRTSCTS; // no hardware handshake
+        newtio.c_cflag &= ~CSTOPB;  // 1 stop bit
+        newtio.c_iflag = IGNBRK;
+        newtio.c_iflag &= ~(IXON|IXOFF|IXANY); // no software handshake
+        newtio.c_lflag=0;
+        newtio.c_oflag=0;
+        newtio.c_cc[VTIME]=1;
+        newtio.c_cc[VMIN]=60;
+        if (tcsetattr(*comportptr, TCSANOW, &newtio)!=0)
+        {
+            printf("tcsetattr() 1 failed");
+            opi_closeucd_com(comportptr);
+	    continue;
+        }
 
         // Starting putting stuff on the comport
-        tempuint8 = SYNCBYTE;
-        if (!(WriteFile(comPort, &tempuint8, 1, &writeOut, 0)))	// first sync byte
+        tempui8 = SYNCBYTE;
+        if(write(*comportptr, &tempui8, 1) < 0)
         {
-            printf("Couldn't put 1st sync byte in COM%d\n", i);
-            CloseHandle(comPort);
+            printf("Couldn't put 1st sync byte");
+            opi_closeucd_com(comportptr);
             continue;
         }
-        if (!(WriteFile(comPort, &tempuint8, 1, &writeOut, 0)))	// second sync byte
+        if(write(*comportptr, &tempui8, 1) < 0)
         {
-            printf("Couldn't put 2nd sync byte in COM%d\n", i);
-            CloseHandle(comPort);
+            printf("Couldn't put 2nd sync byte");
+            opi_closeucd_com(comportptr);
             continue;
         }
+
         tempui16 = 2;
-        tempuint8 = (tempui16 >> 8) & 0xFF;
-        if (!(WriteFile(comPort, &tempuint8, 1, &writeOut, 0)))	// length
+        tempui8 = (tempui16 >> 8) & 0xFF;
+        if(write(*comportptr, &tempui8, 1) < 0)
         {
-            printf("Couldn't put length high byte in COM%d\n", i);
-            CloseHandle(comPort);
+            printf("Couldn't put length high byte");
+            opi_closeucd_com(comportptr);
             continue;
         }
-        tempuint8 = tempui16 & 0xFF;
-        if (!(WriteFile(comPort, &tempuint8, 1, &writeOut, 0)))	// length
+        tempui8 = tempui16 & 0xFF;
+        if(write(*comportptr, &tempui8, 1) < 0)
         {
-            printf("Couldn't put length low byte in COM%d\n", i);
-            CloseHandle(comPort);
+            printf("Couldn't put length low byte");
+            opi_closeucd_com(comportptr);
             continue;
         }
-
-        tempuint8 = 0x10;
-        if (!(WriteFile(comPort, &tempuint8, 1, &writeOut, 0)))	// dataCode
+        tempui8 = 0x10;
+        if(write(*comportptr, &tempui8, 1) < 0)
         {
-            printf("Couldn't put dataCode byte in COM%d\n", i);
-            CloseHandle(comPort);
+            printf("Couldn't put dataCode byte");
+            opi_closeucd_com(comportptr);
             continue;
         }
-
-        tempuint8 = 0x01;
-        if (!(WriteFile(comPort, &tempuint8, 1, &writeOut, 0)))	// payload
+        tempui8 = 0x01;
+        if(write(*comportptr, &tempui8, 1) < 0)
         {
-            printf("Couldn't put payload[0] byte in COM%d\n", i);
-            CloseHandle(comPort);
+            printf("Couldn't put payload[0] byte");
+            opi_closeucd_com(comportptr);
             continue;
         }
-        tempuint8 = 0x00;	// precalculated
-        if (!(WriteFile(comPort, &tempuint8, 1, &writeOut, 0)))	// chksm high byte
+        tempui8 = 0x00;	// precalculated
+        if(write(*comportptr, &tempui8, 1) < 0)
         {
-            printf("Couldn't put checksum byte in COM%d\n", i);
-            CloseHandle(comPort);
+            printf("Couldn't put chksm high byte");
+            opi_closeucd_com(comportptr);
             continue;
         }
-        tempuint8 = 0x11;	// precalculated
-        if (!(WriteFile(comPort, &tempuint8, 1, &writeOut, 0)))	// chksm low byte
+        tempui8 = 0x11;	// precalculated
+        if(write(*comportptr, &tempui8, 1) < 0)
         {
-            printf("Couldn't put checksum byte in COM%d\n", i);
-            CloseHandle(comPort);
+            printf("Couldn't put chksm low byte");
+            opi_closeucd_com(comportptr);
             continue;
         }
 
         // Put was successful, now get
-        for (j = 0; j < 3; j++)	// must get a syncbyte in 3 (not needed since buff cleared)
+        for(j = 0; j < 3; j++)
         {
-            if (!(ReadFile (comPort, &tempuint8, 1, &readIn, 0))) continue;
-            if ((tempuint8 != SYNCBYTE) && (!(readIn))) continue;	// first sync byte
-            if (!(ReadFile (comPort, &tempuint8, 1, &readIn, 0))) continue;
-            if ((tempuint8 != SYNCBYTE) && (!(readIn))) continue;	// second sync byte
-            break;	// got 2 sync bytes
+            if(getCOMBytes(comportptr, &tempui8, 1, comRetries) < 1)
+            {
+                printf("Couldn't get 1st sync byte");
+                opi_closeucd_com(comportptr);
+                continue;
+            }
+            if(tempui8 != SYNCBYTE)
+            {
+                printf("1st sync byte wrong");
+                opi_closeucd_com(comportptr);
+                continue;
+            }
+            if(getCOMBytes(comportptr, &tempui8, 1, comRetries) < 1)
+            {
+                printf("Couldn't get 2nd sync byte");
+                opi_closeucd_com(comportptr);
+                continue;
+            }
+            if(tempui8 != SYNCBYTE)
+            {
+                printf("2nd sync byte wrong");
+                opi_closeucd_com(comportptr);
+                continue;
+            }
+            break;  // if got here sync bytes right
         }
-        if (j >= 3)
+        if(j == 3)
         {
-            CloseHandle(comPort);
-            printf("Couldn't get sync bytes in COM%d\n", i);
-            continue;	// did not get 2 sync bytes
-        }
-        if (!(ReadFile (comPort, &tempuint8, 1, &readIn, 0)))
-        {
-            CloseHandle(comPort);
-            printf("Couldn't get length high byte in COM%d\n", i);
+            printf("Couldn't get sync bytes");
+            opi_closeucd_com(comportptr);
             continue;
         }
-        tempui16 = tempuint8 << 8;
-        if (!(ReadFile (comPort, &tempuint8, 1, &readIn, 0)))
+
+        if(getCOMBytes(comportptr, &tempui8, 1, comRetries) < 1)
         {
-            CloseHandle(comPort);
-            printf("Couldn't get length low byte in COM%d\n", i);
+            printf("Couldn't get length high byte");
+            opi_closeucd_com(comportptr);
             continue;
         }
-        tempui16 += tempuint8;
-        // if ((tempuint8 != (32+96)) || (!(readIn)))
-        if ((tempui16 != (OPIUCDSTLEN)) || (!(readIn)))
+        tempui16 = tempui8 << 8;
+
+        if(getCOMBytes(comportptr, &tempui8, 1, comRetries) < 1)
         {
-            CloseHandle(comPort);
-            printf("Packet length not right in COM%d, Length %d\n", i, tempui16);
-            continue;	// packet length not right
+            printf("Couldn't get length low byte");
+            opi_closeucd_com(comportptr);
+            continue;
+        }
+
+        tempui16 += tempui8;
+        if(tempui16 != OPIUCDSTLEN)
+        {
+            printf("Packet length incorrect, Length %d", tempui16);
+            opi_closeucd_com(comportptr);
+            continue;
         }
         calcChksm = 0;
-        pktLen = tempuint8;
-        for (j = 0; j < pktLen; j++)
+        pktLen = tempui8;
+        for(j = 0; j < pktLen; j++)
         {
-            if(!(ReadFile (comPort, &tempuint8, 1, &readIn, 0))) break;
-            recBuf[j] = tempuint8;
+            if(getCOMBytes(comportptr, &tempui8, 1, comRetries) < 1)
+            {
+                break;
+            }
+            recBuf[j] = tempui8;
             calcChksm += recBuf[j];
         }
-        if (j < pktLen)
+        if(j < pktLen)
         {
-            CloseHandle(comPort);
-            printf("Didn't get all data in payload in COM%d\n", i);
-            continue;	// didn't get all the data
+            printf("Didn't get all data in payload");
+            opi_closeucd_com(comportptr);
+            continue;
         }
-        if(!(ReadFile (comPort, &tempuint8, 1, &readIn, 0)))
+        if(getCOMBytes(comportptr, &tempui8, 1, comRetries) < 1)
         {
-            CloseHandle(comPort);
-            printf("Didn't get checksum high byte in COM%d\n", i);
-            continue;	// didn't get checksum data
+            printf("Couldn't get chksm high byte");
+            opi_closeucd_com(comportptr);
+            continue;
         }
-        pktChksm = tempuint8 << 8;
-        if(!(ReadFile (comPort, &tempuint8, 1, &readIn, 0)))
+
+        pktChksm = tempui8 << 8;
+        if(getCOMBytes(comportptr, &tempui8, 1, comRetries) < 1)
         {
-            CloseHandle(comPort);
-            printf("Didn't get checksum low byte in COM%d\n", i);
-            continue;	// didn't get checksum data
+            printf("Couldn't get chksm low byte");
+            opi_closeucd_com(comportptr);
+            continue;
         }
-        pktChksm += tempuint8;
+
+        pktChksm += tempui8;
         if(pktChksm != calcChksm)
         {
-            CloseHandle(comPort);
-            printf("Checksum didn't match in COM%d\n", i);
+           printf("Checksum didn't match");
+            opi_closeucd_com(comportptr);
             continue;
         }
         if(!((recBuf[12] == 'O') && (recBuf[13] == 'P') && (recBuf[14] == 'I')
              && (recBuf[15] == 'U') && (recBuf[16] == 'C') && (recBuf[17] == 'D')))
         {
-            CloseHandle(comPort);
-            printf("Device not OPIUCD in COM%d\n", i);
+            printf("Device not OPIUCD");
+            opi_closeucd_com(comportptr);
             continue;
         }
-        // everything checks out if it gets here so get out
-        printf("OPIUCD found on COM%d\n", i);
-
-        *comportptr = comPort;	// Need to copy to passed pointer so that it still works
         return 0;
     }
+    // failed if got here
     return -1;
 }
 
@@ -370,9 +414,12 @@ int opi_openucd_com(HANDLE* comportptr)
   *	Returns:
   *		nothing
   */
-void opi_closeucd_com(HANDLE* comportptr)
+void opi_closeucd_com(int *comportptr)
 {
-    CloseHandle(*comportptr);
+    if(comportptr == NULL)
+        return;
+    close(*comportptr);
+    *comportptr = -1;
 }
 
 
@@ -387,8 +434,8 @@ void opipkt_dump(OPIPKT_t* pktptr)
 {
     int i;
 
-    printf("DataCode: %02X, Length: %02X\nContents: ", pktptr->dataCode, pktptr->length);
-    for (i = 0; i < pktptr->length; i++) printf("%02X ", pktptr->payload[i]);
+    printf("DataCode: 0x%02X, Length: %02X\nContents: ", pktptr->dataCode, pktptr->length);
+    for (i = 0; i < pktptr->length; i++) printf("0x%02X ", pktptr->payload[i]);
     printf("\n");
 }
 
@@ -403,7 +450,7 @@ void opipkt_dump(OPIPKT_t* pktptr)
   *		0 if successful
   *		-1 if error
   */
-int opiucd_status(HANDLE *comportptr, OPIPKT_t* pktptr)
+int opiucd_status(int *comportptr, OPIPKT_t* pktptr)
 {
     pktptr->dataCode = 0x10;
     pktptr->payload[0] = 0x01;
@@ -425,7 +472,7 @@ int opiucd_status(HANDLE *comportptr, OPIPKT_t* pktptr)
   *		0 if successful
   *		-1 if error
   */
-int opiucd_tsstatus(HANDLE *comportptr, OPIPKT_t* pktptr)
+int opiucd_tsstatus(int *comportptr, OPIPKT_t* pktptr)
 {
     pktptr->dataCode = 0x20;
     pktptr->payload[0] = 0x00;
@@ -449,7 +496,7 @@ int opiucd_tsstatus(HANDLE *comportptr, OPIPKT_t* pktptr)
   *		0 if successful
   *		-1 if error
   */
-int opiucd_settspdn(HANDLE *comportptr, int pdn)
+int opiucd_settspdn(int *comportptr, int pdn)
 {
     OPIPKT_t opipkt;
 
@@ -474,7 +521,7 @@ int opiucd_settspdn(HANDLE *comportptr, int pdn)
   *		0 if successful
   *		-1 if error
   */
-int opiucd_settszbchan(HANDLE *comportptr, int zbChan)
+int opiucd_settszbchan(int *comportptr, int zbChan)
 {
     OPIPKT_t opipkt;
 
@@ -502,7 +549,7 @@ int opiucd_settszbchan(HANDLE *comportptr, int zbChan)
   *		0 if successful
   *		-1 if error
   */
-int opiucd_settsrfmode(HANDLE *comportptr, int rfmode)
+int opiucd_settsrfmode(int *comportptr, int rfmode)
 {
     OPIPKT_t opipkt;
 
@@ -527,7 +574,7 @@ int opiucd_settsrfmode(HANDLE *comportptr, int rfmode)
   *		0 if successful
   *		-1 if error
   */
-int opiucd_settsrftxpwr(HANDLE *comportptr, int rftxpwr)
+int opiucd_settsrftxpwr(int *comportptr, int rftxpwr)
 {
     OPIPKT_t opipkt;
 
@@ -542,8 +589,6 @@ int opiucd_settsrftxpwr(HANDLE *comportptr, int rftxpwr)
 }
 
 
-
-
 /***
   *	Sets the plugged in truesense Memory Module Write Feature.
   *	True value means truesense will try to write to memory module.
@@ -555,7 +600,7 @@ int opiucd_settsrftxpwr(HANDLE *comportptr, int rftxpwr)
   *		0 if successful
   *		-1 if error
   */
-int opiucd_settsmmwrite(HANDLE *comportptr, int mmwrite)
+int opiucd_settsmmwrite(int *comportptr, int mmwrite)
 {
     OPIPKT_t opipkt;
 
@@ -579,7 +624,7 @@ int opiucd_settsmmwrite(HANDLE *comportptr, int mmwrite)
   *		0 if successful
   *		-1 if error
   */
-int opiucd_settsrftxtimeout(HANDLE *comportptr, int rftxtimeout)
+int opiucd_settsrftxtimeout(int *comportptr, int rftxtimeout)
 {
     OPIPKT_t opipkt;
 
@@ -603,7 +648,7 @@ int opiucd_settsrftxtimeout(HANDLE *comportptr, int rftxtimeout)
   *		0 if successful
   *		-1 if error
   */
-int opiucd_settsrtc(HANDLE *comportptr)
+int opiucd_settsrtc(int *comportptr)
 {
     OPIPKT_t opipkt;
 
@@ -626,7 +671,7 @@ int opiucd_settsrtc(HANDLE *comportptr)
   *		0 if successful
   *		-1 if error
   */
-int opiucd_setzbchan(HANDLE *comportptr, int zbChan)
+int opiucd_setzbchan(int *comportptr, int zbChan)
 {
     OPIPKT_t opipkt;
 
@@ -651,7 +696,7 @@ int opiucd_setzbchan(HANDLE *comportptr, int zbChan)
   *		0 if successful
   *		-1 if error
   */
-int opiucd_setpktts(HANDLE *comportptr, int* timeStamp)
+int opiucd_setpktts(int *comportptr, int* timeStamp)
 {
     int i;
     OPIPKT_t opipkt;
@@ -678,7 +723,7 @@ int opiucd_setpktts(HANDLE *comportptr, int* timeStamp)
   *		0 if successful
   *		-1 if error
   */
-int opiucd_copytssettings(HANDLE *comportptr, int pdnslot)
+int opiucd_copytssettings(int *comportptr, int pdnslot)
 {
     OPIPKT_t opipkt;
 
@@ -702,7 +747,7 @@ int opiucd_copytssettings(HANDLE *comportptr, int pdnslot)
   *		0 if successful
   *		-1 if error
   */
-int opiucd_forgettssettings(HANDLE *comportptr, int pdnslot)
+int opiucd_forgettssettings(int *comportptr, int pdnslot)
 {
     OPIPKT_t opipkt;
 
@@ -728,7 +773,7 @@ int opiucd_forgettssettings(HANDLE *comportptr, int pdnslot)
   *		0 if no data
   *		-1 if error
   */
-int opiucd_getwltsdata(HANDLE *comportptr, OPIPKT_t* pktptr)
+int opiucd_getwltsdata(int *comportptr, OPIPKT_t* pktptr)
 {
     pktptr->dataCode = 0x10;
     pktptr->payload[0] = 0x00;
@@ -751,7 +796,7 @@ int opiucd_getwltsdata(HANDLE *comportptr, OPIPKT_t* pktptr)
   *		0 if successful
   *		-1 if error
   */
-int opiucd_wlmeasure(HANDLE *comportptr, OPIPKT_t *pktptr)
+int opiucd_wlmeasure(int *comportptr, OPIPKT_t *pktptr)
 {
     pktptr->dataCode = 0x10;
     pktptr->payload[0] = 0x10;
@@ -772,7 +817,7 @@ int opiucd_wlmeasure(HANDLE *comportptr, OPIPKT_t *pktptr)
   *		0 if successful
   *		-1 if error
   */
-int opiucd_evcapread(HANDLE *comportptr, OPIPKT_t* pktptr)
+int opiucd_evcapread(int *comportptr, OPIPKT_t* pktptr)
 {
     pktptr->dataCode = 0x10;
     pktptr->payload[0] = 0x20;
@@ -792,7 +837,7 @@ int opiucd_evcapread(HANDLE *comportptr, OPIPKT_t* pktptr)
   *		0 if successful
   *		-1 if error
   */
-int opiucd_evcaperase(HANDLE *comportptr)
+int opiucd_evcaperase(int *comportptr)
 {
     OPIPKT_t opipkt;
 
@@ -815,7 +860,7 @@ int opiucd_evcaperase(HANDLE *comportptr)
   *		0 if successful
   *		-1 if error
   */
-int opiucd_mmerasest(HANDLE *comportptr)
+int opiucd_mmerasest(int *comportptr)
 {
     OPIPKT_t opipkt;
 
@@ -836,7 +881,7 @@ int opiucd_mmerasest(HANDLE *comportptr)
   *		1 if no reply
   *      	-1 if error,
   */
-int opiucd_mmeraseend(HANDLE *comportptr)
+int opiucd_mmeraseend(int *comportptr)
 {
     OPIPKT_t opipkt;
     int res;
@@ -866,7 +911,7 @@ int opiucd_mmeraseend(HANDLE *comportptr)
   *		0 if data read out
   *		-1 if error
   */
-int opiucd_get5mmtsdata(HANDLE *comportptr, int pktNumber, OPIPKT_t* pktptr)
+int opiucd_get5mmtsdata(int *comportptr, int pktNumber, OPIPKT_t* pktptr)
 {
     if ((pktNumber < 0) || (pktNumber > 327679)) return -1;
     pktNumber = (pktNumber/5)*5;    // rounding down to nearest multiple of 5
@@ -892,7 +937,7 @@ int opiucd_get5mmtsdata(HANDLE *comportptr, int pktNumber, OPIPKT_t* pktptr)
   *		0 if successful
   *		-1 if error
   */
-int opiucd_turnmodoff(HANDLE *comportptr)
+int opiucd_turnmodoff(int *comportptr)
 {
     OPIPKT_t opipkt;
 
@@ -914,7 +959,7 @@ int opiucd_turnmodoff(HANDLE *comportptr)
   *		0 if successful
   *		-1 if error
   */
-int opiucd_turnmodon(HANDLE *comportptr)
+int opiucd_turnmodon(int *comportptr)
 {
     OPIPKT_t opipkt;
 
@@ -936,7 +981,7 @@ int opiucd_turnmodon(HANDLE *comportptr)
   *		0 if successful
   *		-1 if error
   */
-int opiucd_shutdown(HANDLE *comportptr)
+int opiucd_shutdown(int *comportptr)
 {
     OPIPKT_t opipkt;
 
@@ -956,7 +1001,7 @@ int opiucd_shutdown(HANDLE *comportptr)
   *		0 if ok
   *		-1 if error
   */
-int opiucd_offmode(HANDLE *comportptr)
+int opiucd_offmode(int *comportptr)
 {
     OPIPKT_t opipkt;
 
@@ -979,7 +1024,7 @@ int opiucd_offmode(HANDLE *comportptr)
   *		0 if ok
   *		-1 if error
   */
-int opiucd_onmode(HANDLE *comportptr)
+int opiucd_onmode(int *comportptr)
 {
     OPIPKT_t opipkt;
 
@@ -1001,7 +1046,7 @@ int opiucd_onmode(HANDLE *comportptr)
   *		0 if ok
   *		-1 if error
   */
-int opiucd_turnusdspion(HANDLE *comportptr)
+int opiucd_turnusdspion(int *comportptr)
 {
     OPIPKT_t opipkt;
 
@@ -1023,7 +1068,7 @@ int opiucd_turnusdspion(HANDLE *comportptr)
   *		0 if ok
   *		-1 if error
   */
-int opiucd_turnusdspioff(HANDLE *comportptr)
+int opiucd_turnusdspioff(int *comportptr)
 {
     OPIPKT_t opipkt;
 
@@ -1046,7 +1091,7 @@ int opiucd_turnusdspioff(HANDLE *comportptr)
   *		0 if ok
   *		-1 if error
   */
-int opiucd_triggertsign(HANDLE *comportptr, OPIPKT_t* pktptr)
+int opiucd_triggertsign(int *comportptr, OPIPKT_t* pktptr)
 {
 
     pktptr->dataCode = 0x20;
@@ -1069,7 +1114,7 @@ int opiucd_triggertsign(HANDLE *comportptr, OPIPKT_t* pktptr)
   *		0 if successful
   *		-1 if error
   */
-int opiucd_battcycle(HANDLE *comportptr)
+int opiucd_battcycle(int *comportptr)
 {
     OPIPKT_t opipkt;
 
