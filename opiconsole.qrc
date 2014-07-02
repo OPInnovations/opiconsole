@@ -1,0 +1,38 @@
+<RCC>
+    <qresource prefix="/images">
+        <file>images/OPlogo307.png</file>
+        <file>images/bioshare1cropped800.png</file>
+        <file>images/bioshareWhiteRevamp500.png</file>
+        <file>images/Application-Big.jpg</file>
+        <file>images/bioshare-BGtiletexturedMixedGloss600px.jpg</file>
+        <file>images/User-Settings.png</file>
+        <file>images/Unpaired-Device.png</file>
+        <file>images/top-console.png</file>
+        <file>images/Sleep.png</file>
+        <file>images/shutdown-button.png</file>
+        <file>images/refresh.png</file>
+        <file>images/Paired-Device.png</file>
+        <file>images/orange-blank.png</file>
+        <file>images/Mood-Logger.png</file>
+        <file>images/Meditation.png</file>
+        <file>images/logo.png</file>
+        <file>images/Live-Display.png</file>
+        <file>images/Live-Biofeedback.png</file>
+        <file>images/Launch-Icon.png</file>
+        <file>images/Data-Setting.png</file>
+        <file>images/Data-File-Convert.png</file>
+        <file>images/Console-BGtilevert.png</file>
+        <file>images/bottom-slider.png</file>
+        <file>images/blueblank.png</file>
+        <file>images/Arrows.png</file>
+        <file>images/MM.png</file>
+        <file>images/uparrow.png</file>
+        <file>images/OPIICO.png</file>
+        <file>images/ball.png</file>
+        <file>images/button500x500.png</file>
+        <file>images/Button-ball.png</file>
+        <file>images/game-applet-logo.png</file>
+        <file>images/game-applet-logo-500.png</file>
+        <file>images/LEDbar.png</file>
+    </qresource>
+</RCC>
