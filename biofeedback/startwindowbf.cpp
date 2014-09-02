@@ -696,7 +696,7 @@ void startwindowbf::on_pushButton_2_clicked()
         if(ui->checkWriteFileBox->isChecked()) //if true then write it
         {
             firstfile=false;
-            file = fopen(regulatefilename.append(".opi").toAscii().data(), "wb+");
+            file = fopen(regulatefilename.append(".opi").toLatin1().data(), "wb+");
             // write opihdr information
             fwrite(opipkttmp.payload, 1, OPIUCDSTLEN-1, file);
             for(i = 0; i < (512-(OPIUCDSTLEN-1)); i++) tempui8arr[i] = 0xFF;

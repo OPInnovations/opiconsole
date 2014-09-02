@@ -1,0 +1,764 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{8ED1EA75-86BD-3AD8-92CF-355A17930580}</ProjectGuid>
+    <RootNamespace>OPIconsole</RootNamespace>
+    <Keyword>Qt4VSv1.0</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;" Label="Configuration">
+    <PlatformToolSet>v110</PlatformToolSet>
+    <OutputDirectory>release\</OutputDirectory>
+    <ATLMinimizesCRunTimeLibraryUsage>false</ATLMinimizesCRunTimeLibraryUsage>
+    <CharacterSet>NotSet</CharacterSet>
+    <ConfigurationType>Application</ConfigurationType>
+    <IntermediateDirectory>release\</IntermediateDirectory>
+    <PrimaryOutput>OPIconsole</PrimaryOutput>
+  </PropertyGroup>
+  <PropertyGroup Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;" Label="Configuration">
+    <PlatformToolSet>v110</PlatformToolSet>
+    <OutputDirectory>debug\</OutputDirectory>
+    <ATLMinimizesCRunTimeLibraryUsage>false</ATLMinimizesCRunTimeLibraryUsage>
+    <CharacterSet>NotSet</CharacterSet>
+    <ConfigurationType>Application</ConfigurationType>
+    <IntermediateDirectory>debug\</IntermediateDirectory>
+    <PrimaryOutput>OPIconsole</PrimaryOutput>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings" />
+  <ImportGroup Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists(&apos;$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props&apos;)" />
+  </ImportGroup>
+  <ImportGroup Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists(&apos;$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props&apos;)" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <OutDir Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">release\</OutDir>
+    <IntDir Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">release\</IntDir>
+    <TargetName Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">OPIconsole</TargetName>
+    <IgnoreImportLibrary Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">true</IgnoreImportLibrary>
+    <LinkIncremental Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">false</LinkIncremental>
+    <OutDir Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">debug\</OutDir>
+    <IntDir Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">debug\</IntDir>
+    <TargetName Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">OPIconsole</TargetName>
+    <IgnoreImportLibrary Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">true</IgnoreImportLibrary>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">
+    <ClCompile>
+      <AdditionalIncludeDirectories>&quot;.&quot;;&quot;..\Qt\5.3\msvc2012_opengl\include&quot;;&quot;..\Qt\5.3\msvc2012_opengl\include\QtWidgets&quot;;&quot;..\Qt\5.3\msvc2012_opengl\include\QtGui&quot;;&quot;..\Qt\5.3\msvc2012_opengl\include\QtCore&quot;;&quot;release&quot;;&quot;.&quot;;..\Qt\5.3\msvc2012_opengl\mkspecs\win32-msvc2012;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>-Zm200 -w34100 -w34189 %(AdditionalOptions)</AdditionalOptions>
+      <AssemblerListingLocation>release\</AssemblerListingLocation>
+      <BrowseInformation>false</BrowseInformation>
+      <DebugInformationFormat>None</DebugInformationFormat>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <ObjectFileName>release\</ObjectFileName>
+      <Optimization>MaxSpeed</Optimization>
+      <PreprocessorDefinitions>_WINDOWS;UNICODE;WIN32;QT_NO_DEBUG;QT_WIDGETS_LIB;QT_GUI_LIB;QT_CORE_LIB;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessToFile>false</PreprocessToFile>
+      <ProgramDataBaseFileName></ProgramDataBaseFileName>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+      <WarningLevel>Level3</WarningLevel>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>glu32.lib;opengl32.lib;gdi32.lib;user32.lib;C:\Work\Qt\5.3\msvc2012_opengl\lib\qtmain.lib;C:\Work\Qt\5.3\msvc2012_opengl\lib\Qt5Widgets.lib;C:\Work\Qt\5.3\msvc2012_opengl\lib\Qt5Gui.lib;C:\Work\Qt\5.3\msvc2012_opengl\lib\Qt5Core.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Work\Qt\5.3\msvc2012_opengl\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>&quot;/MANIFESTDEPENDENCY:type=&apos;win32&apos; name=&apos;Microsoft.Windows.Common-Controls&apos; version=&apos;6.0.0.0&apos; publicKeyToken=&apos;6595b64144ccf1df&apos; language=&apos;*&apos; processorArchitecture=&apos;*&apos;&quot; %(AdditionalOptions)</AdditionalOptions>
+      <DataExecutionPrevention>true</DataExecutionPrevention>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <IgnoreImportLibrary>true</IgnoreImportLibrary>
+      <LinkIncremental>false</LinkIncremental>
+      <OutputFile>$(OutDir)\OPIconsole.exe</OutputFile>
+      <RandomizedBaseAddress>true</RandomizedBaseAddress>
+      <SubSystem>Windows</SubSystem>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </Link>
+    <Midl>
+      <DefaultCharType>Unsigned</DefaultCharType>
+      <EnableErrorChecks>None</EnableErrorChecks>
+      <WarningLevel>0</WarningLevel>
+    </Midl>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_WINDOWS;UNICODE;WIN32;QT_NO_DEBUG;QT_WIDGETS_LIB;QT_GUI_LIB;QT_CORE_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">
+    <ClCompile>
+      <AdditionalIncludeDirectories>&quot;.&quot;;&quot;..\Qt\5.3\msvc2012_opengl\include&quot;;&quot;..\Qt\5.3\msvc2012_opengl\include\QtWidgets&quot;;&quot;..\Qt\5.3\msvc2012_opengl\include\QtGui&quot;;&quot;..\Qt\5.3\msvc2012_opengl\include\QtCore&quot;;&quot;debug&quot;;&quot;.&quot;;..\Qt\5.3\msvc2012_opengl\mkspecs\win32-msvc2012;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>-Zm200 -w34100 -w34189 %(AdditionalOptions)</AdditionalOptions>
+      <AssemblerListingLocation>debug\</AssemblerListingLocation>
+      <BrowseInformation>false</BrowseInformation>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <ObjectFileName>debug\</ObjectFileName>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>_WINDOWS;UNICODE;WIN32;QT_WIDGETS_LIB;QT_GUI_LIB;QT_CORE_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessToFile>false</PreprocessToFile>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+      <WarningLevel>Level3</WarningLevel>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>glu32.lib;opengl32.lib;gdi32.lib;user32.lib;C:\Work\Qt\5.3\msvc2012_opengl\lib\qtmaind.lib;C:\Work\Qt\5.3\msvc2012_opengl\lib\Qt5Widgetsd.lib;C:\Work\Qt\5.3\msvc2012_opengl\lib\Qt5Guid.lib;C:\Work\Qt\5.3\msvc2012_opengl\lib\Qt5Cored.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Work\Qt\5.3\msvc2012_opengl\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>&quot;/MANIFESTDEPENDENCY:type=&apos;win32&apos; name=&apos;Microsoft.Windows.Common-Controls&apos; version=&apos;6.0.0.0&apos; publicKeyToken=&apos;6595b64144ccf1df&apos; language=&apos;*&apos; processorArchitecture=&apos;*&apos;&quot; %(AdditionalOptions)</AdditionalOptions>
+      <DataExecutionPrevention>true</DataExecutionPrevention>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreImportLibrary>true</IgnoreImportLibrary>
+      <OutputFile>$(OutDir)\OPIconsole.exe</OutputFile>
+      <RandomizedBaseAddress>true</RandomizedBaseAddress>
+      <SubSystem>Windows</SubSystem>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </Link>
+    <Midl>
+      <DefaultCharType>Unsigned</DefaultCharType>
+      <EnableErrorChecks>None</EnableErrorChecks>
+      <WarningLevel>0</WarningLevel>
+    </Midl>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_WINDOWS;UNICODE;WIN32;QT_WIDGETS_LIB;QT_GUI_LIB;QT_CORE_LIB;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="biofeedback\biofeedback.cpp" />
+    <ClCompile Include="config\configwindow.cpp" />
+    <ClCompile Include="consolewindow.cpp" />
+    <ClCompile Include="converter\convertoptionswindow.cpp" />
+    <ClCompile Include="converter\convertwindow.cpp" />
+    <ClCompile Include="license\licensedialog.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="medanalysis\medanalysiswindow.cpp" />
+    <ClCompile Include="converter\mixsignaldialog.cpp" />
+    <ClCompile Include="opi_helper.cpp" />
+    <ClCompile Include="opi_win.cpp" />
+    <ClCompile Include="profile\profiledialog.cpp" />
+    <ClCompile Include="FFT\qcomplexnumber.cpp" />
+    <ClCompile Include="FFT\qfouriercalculator.cpp" />
+    <ClCompile Include="FFT\qfourierfixedcalculator.cpp" />
+    <ClCompile Include="FFT\qfouriertransformer.cpp" />
+    <ClCompile Include="FFT\qfouriervariablecalculator.cpp" />
+    <ClCompile Include="converter\qqwidget.cpp" />
+    <ClCompile Include="FFT\qwindowfunction.cpp" />
+    <ClCompile Include="readmm\readmmdialog.cpp" />
+    <ClCompile Include="PDC\showdatawindow.cpp" />
+    <ClCompile Include="converter\signalviewer.cpp" />
+    <ClCompile Include="sleepanalysis\sleepanalysiswindow.cpp" />
+    <ClCompile Include="converter\spectrogram.cpp" />
+    <ClCompile Include="PDC\startwindow.cpp" />
+    <ClCompile Include="biofeedback\startwindowbf.cpp" />
+    <ClCompile Include="TutorialGame\tutorialgame.cpp" />
+    <ClCompile Include="converter\twodaccelviewer.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="FFT\Array.h" />
+    <ClInclude Include="FFT\Array.hpp" />
+    <ClInclude Include="FFT\DynArray.h" />
+    <ClInclude Include="FFT\DynArray.hpp" />
+    <ClInclude Include="FFT\FFTReal.h" />
+    <ClInclude Include="FFT\FFTReal.hpp" />
+    <ClInclude Include="FFT\FFTRealFixLen.h" />
+    <ClInclude Include="FFT\FFTRealFixLen.hpp" />
+    <ClInclude Include="FFT\FFTRealFixLenParam.h" />
+    <ClInclude Include="FFT\FFTRealPassDirect.h" />
+    <ClInclude Include="FFT\FFTRealPassDirect.hpp" />
+    <ClInclude Include="FFT\FFTRealPassInverse.h" />
+    <ClInclude Include="FFT\FFTRealPassInverse.hpp" />
+    <ClInclude Include="FFT\FFTRealSelect.h" />
+    <ClInclude Include="FFT\FFTRealSelect.hpp" />
+    <ClInclude Include="FFT\FFTRealUseTrigo.h" />
+    <ClInclude Include="FFT\FFTRealUseTrigo.hpp" />
+    <ClInclude Include="FFT\OscSinCos.h" />
+    <ClInclude Include="FFT\OscSinCos.hpp" />
+    <CustomBuild Include="biofeedback\biofeedback.h">
+      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">biofeedback\biofeedback.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">C:\Work\Qt\5.3\msvc2012_opengl\bin\moc.exe  -DUNICODE -DWIN32 -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -D_MSC_VER=1700 -D_WIN32 -IC:/Work/Qt/5.3/msvc2012_opengl/mkspecs/win32-msvc2012 -IC:/Work/opiconsole -IC:/Work/opiconsole -IC:/Work/Qt/5.3/msvc2012_opengl/include -IC:/Work/Qt/5.3/msvc2012_opengl/include/QtWidgets -IC:/Work/Qt/5.3/msvc2012_opengl/include/QtGui -IC:/Work/Qt/5.3/msvc2012_opengl/include/QtCore biofeedback\biofeedback.h -o release\moc_biofeedback.cpp</Command>
+      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">MOC biofeedback\biofeedback.h</Message>
+      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">release\moc_biofeedback.cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">biofeedback\biofeedback.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">C:\Work\Qt\5.3\msvc2012_opengl\bin\moc.exe  -DUNICODE -DWIN32 -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -D_MSC_VER=1700 -D_WIN32 -IC:/Work/Qt/5.3/msvc2012_opengl/mkspecs/win32-msvc2012 -IC:/Work/opiconsole -IC:/Work/opiconsole -IC:/Work/Qt/5.3/msvc2012_opengl/include -IC:/Work/Qt/5.3/msvc2012_opengl/include/QtWidgets -IC:/Work/Qt/5.3/msvc2012_opengl/include/QtGui -IC:/Work/Qt/5.3/msvc2012_opengl/include/QtCore biofeedback\biofeedback.h -o debug\moc_biofeedback.cpp</Command>
+      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">MOC biofeedback\biofeedback.h</Message>
+      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">debug\moc_biofeedback.cpp;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="config\configwindow.h">
+      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">config\configwindow.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">C:\Work\Qt\5.3\msvc2012_opengl\bin\moc.exe  -DUNICODE -DWIN32 -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -D_MSC_VER=1700 -D_WIN32 -IC:/Work/Qt/5.3/msvc2012_opengl/mkspecs/win32-msvc2012 -IC:/Work/opiconsole -IC:/Work/opiconsole -IC:/Work/Qt/5.3/msvc2012_opengl/include -IC:/Work/Qt/5.3/msvc2012_opengl/include/QtWidgets -IC:/Work/Qt/5.3/msvc2012_opengl/include/QtGui -IC:/Work/Qt/5.3/msvc2012_opengl/include/QtCore config\configwindow.h -o release\moc_configwindow.cpp</Command>
+      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">MOC config\configwindow.h</Message>
+      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">release\moc_configwindow.cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">config\configwindow.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">C:\Work\Qt\5.3\msvc2012_opengl\bin\moc.exe  -DUNICODE -DWIN32 -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -D_MSC_VER=1700 -D_WIN32 -IC:/Work/Qt/5.3/msvc2012_opengl/mkspecs/win32-msvc2012 -IC:/Work/opiconsole -IC:/Work/opiconsole -IC:/Work/Qt/5.3/msvc2012_opengl/include -IC:/Work/Qt/5.3/msvc2012_opengl/include/QtWidgets -IC:/Work/Qt/5.3/msvc2012_opengl/include/QtGui -IC:/Work/Qt/5.3/msvc2012_opengl/include/QtCore config\configwindow.h -o debug\moc_configwindow.cpp</Command>
+      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">MOC config\configwindow.h</Message>
+      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">debug\moc_configwindow.cpp;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="consolewindow.h">
+      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">consolewindow.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">C:\Work\Qt\5.3\msvc2012_opengl\bin\moc.exe  -DUNICODE -DWIN32 -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -D_MSC_VER=1700 -D_WIN32 -IC:/Work/Qt/5.3/msvc2012_opengl/mkspecs/win32-msvc2012 -IC:/Work/opiconsole -IC:/Work/opiconsole -IC:/Work/Qt/5.3/msvc2012_opengl/include -IC:/Work/Qt/5.3/msvc2012_opengl/include/QtWidgets -IC:/Work/Qt/5.3/msvc2012_opengl/include/QtGui -IC:/Work/Qt/5.3/msvc2012_opengl/include/QtCore consolewindow.h -o release\moc_consolewindow.cpp</Command>
+      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">MOC consolewindow.h</Message>
+      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">release\moc_consolewindow.cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">consolewindow.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">C:\Work\Qt\5.3\msvc2012_opengl\bin\moc.exe  -DUNICODE -DWIN32 -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -D_MSC_VER=1700 -D_WIN32 -IC:/Work/Qt/5.3/msvc2012_opengl/mkspecs/win32-msvc2012 -IC:/Work/opiconsole -IC:/Work/opiconsole -IC:/Work/Qt/5.3/msvc2012_opengl/include -IC:/Work/Qt/5.3/msvc2012_opengl/include/QtWidgets -IC:/Work/Qt/5.3/msvc2012_opengl/include/QtGui -IC:/Work/Qt/5.3/msvc2012_opengl/include/QtCore consolewindow.h -o debug\moc_consolewindow.cpp</Command>
+      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">MOC consolewindow.h</Message>
+      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">debug\moc_consolewindow.cpp;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="converter\convertoptionswindow.h">
+      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">converter\convertoptionswindow.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">C:\Work\Qt\5.3\msvc2012_opengl\bin\moc.exe  -DUNICODE -DWIN32 -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -D_MSC_VER=1700 -D_WIN32 -IC:/Work/Qt/5.3/msvc2012_opengl/mkspecs/win32-msvc2012 -IC:/Work/opiconsole -IC:/Work/opiconsole -IC:/Work/Qt/5.3/msvc2012_opengl/include -IC:/Work/Qt/5.3/msvc2012_opengl/include/QtWidgets -IC:/Work/Qt/5.3/msvc2012_opengl/include/QtGui -IC:/Work/Qt/5.3/msvc2012_opengl/include/QtCore converter\convertoptionswindow.h -o release\moc_convertoptionswindow.cpp</Command>
+      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">MOC converter\convertoptionswindow.h</Message>
+      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">release\moc_convertoptionswindow.cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">converter\convertoptionswindow.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">C:\Work\Qt\5.3\msvc2012_opengl\bin\moc.exe  -DUNICODE -DWIN32 -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -D_MSC_VER=1700 -D_WIN32 -IC:/Work/Qt/5.3/msvc2012_opengl/mkspecs/win32-msvc2012 -IC:/Work/opiconsole -IC:/Work/opiconsole -IC:/Work/Qt/5.3/msvc2012_opengl/include -IC:/Work/Qt/5.3/msvc2012_opengl/include/QtWidgets -IC:/Work/Qt/5.3/msvc2012_opengl/include/QtGui -IC:/Work/Qt/5.3/msvc2012_opengl/include/QtCore converter\convertoptionswindow.h -o debug\moc_convertoptionswindow.cpp</Command>
+      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">MOC converter\convertoptionswindow.h</Message>
+      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">debug\moc_convertoptionswindow.cpp;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="converter\convertwindow.h">
+      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">converter\convertwindow.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">C:\Work\Qt\5.3\msvc2012_opengl\bin\moc.exe  -DUNICODE -DWIN32 -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -D_MSC_VER=1700 -D_WIN32 -IC:/Work/Qt/5.3/msvc2012_opengl/mkspecs/win32-msvc2012 -IC:/Work/opiconsole -IC:/Work/opiconsole -IC:/Work/Qt/5.3/msvc2012_opengl/include -IC:/Work/Qt/5.3/msvc2012_opengl/include/QtWidgets -IC:/Work/Qt/5.3/msvc2012_opengl/include/QtGui -IC:/Work/Qt/5.3/msvc2012_opengl/include/QtCore converter\convertwindow.h -o release\moc_convertwindow.cpp</Command>
+      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">MOC converter\convertwindow.h</Message>
+      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">release\moc_convertwindow.cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">converter\convertwindow.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">C:\Work\Qt\5.3\msvc2012_opengl\bin\moc.exe  -DUNICODE -DWIN32 -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -D_MSC_VER=1700 -D_WIN32 -IC:/Work/Qt/5.3/msvc2012_opengl/mkspecs/win32-msvc2012 -IC:/Work/opiconsole -IC:/Work/opiconsole -IC:/Work/Qt/5.3/msvc2012_opengl/include -IC:/Work/Qt/5.3/msvc2012_opengl/include/QtWidgets -IC:/Work/Qt/5.3/msvc2012_opengl/include/QtGui -IC:/Work/Qt/5.3/msvc2012_opengl/include/QtCore converter\convertwindow.h -o debug\moc_convertwindow.cpp</Command>
+      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">MOC converter\convertwindow.h</Message>
+      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">debug\moc_convertwindow.cpp;%(Outputs)</Outputs>
+    </CustomBuild>
+    <ClInclude Include="FFT\def.h" />
+    <CustomBuild Include="license\licensedialog.h">
+      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">license\licensedialog.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">C:\Work\Qt\5.3\msvc2012_opengl\bin\moc.exe  -DUNICODE -DWIN32 -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -D_MSC_VER=1700 -D_WIN32 -IC:/Work/Qt/5.3/msvc2012_opengl/mkspecs/win32-msvc2012 -IC:/Work/opiconsole -IC:/Work/opiconsole -IC:/Work/Qt/5.3/msvc2012_opengl/include -IC:/Work/Qt/5.3/msvc2012_opengl/include/QtWidgets -IC:/Work/Qt/5.3/msvc2012_opengl/include/QtGui -IC:/Work/Qt/5.3/msvc2012_opengl/include/QtCore license\licensedialog.h -o release\moc_licensedialog.cpp</Command>
+      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">MOC license\licensedialog.h</Message>
+      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">release\moc_licensedialog.cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">license\licensedialog.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">C:\Work\Qt\5.3\msvc2012_opengl\bin\moc.exe  -DUNICODE -DWIN32 -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -D_MSC_VER=1700 -D_WIN32 -IC:/Work/Qt/5.3/msvc2012_opengl/mkspecs/win32-msvc2012 -IC:/Work/opiconsole -IC:/Work/opiconsole -IC:/Work/Qt/5.3/msvc2012_opengl/include -IC:/Work/Qt/5.3/msvc2012_opengl/include/QtWidgets -IC:/Work/Qt/5.3/msvc2012_opengl/include/QtGui -IC:/Work/Qt/5.3/msvc2012_opengl/include/QtCore license\licensedialog.h -o debug\moc_licensedialog.cpp</Command>
+      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">MOC license\licensedialog.h</Message>
+      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">debug\moc_licensedialog.cpp;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="medanalysis\medanalysiswindow.h">
+      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">medanalysis\medanalysiswindow.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">C:\Work\Qt\5.3\msvc2012_opengl\bin\moc.exe  -DUNICODE -DWIN32 -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -D_MSC_VER=1700 -D_WIN32 -IC:/Work/Qt/5.3/msvc2012_opengl/mkspecs/win32-msvc2012 -IC:/Work/opiconsole -IC:/Work/opiconsole -IC:/Work/Qt/5.3/msvc2012_opengl/include -IC:/Work/Qt/5.3/msvc2012_opengl/include/QtWidgets -IC:/Work/Qt/5.3/msvc2012_opengl/include/QtGui -IC:/Work/Qt/5.3/msvc2012_opengl/include/QtCore medanalysis\medanalysiswindow.h -o release\moc_medanalysiswindow.cpp</Command>
+      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">MOC medanalysis\medanalysiswindow.h</Message>
+      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">release\moc_medanalysiswindow.cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">medanalysis\medanalysiswindow.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">C:\Work\Qt\5.3\msvc2012_opengl\bin\moc.exe  -DUNICODE -DWIN32 -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -D_MSC_VER=1700 -D_WIN32 -IC:/Work/Qt/5.3/msvc2012_opengl/mkspecs/win32-msvc2012 -IC:/Work/opiconsole -IC:/Work/opiconsole -IC:/Work/Qt/5.3/msvc2012_opengl/include -IC:/Work/Qt/5.3/msvc2012_opengl/include/QtWidgets -IC:/Work/Qt/5.3/msvc2012_opengl/include/QtGui -IC:/Work/Qt/5.3/msvc2012_opengl/include/QtCore medanalysis\medanalysiswindow.h -o debug\moc_medanalysiswindow.cpp</Command>
+      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">MOC medanalysis\medanalysiswindow.h</Message>
+      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">debug\moc_medanalysiswindow.cpp;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="converter\mixsignaldialog.h">
+      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">converter\mixsignaldialog.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">C:\Work\Qt\5.3\msvc2012_opengl\bin\moc.exe  -DUNICODE -DWIN32 -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -D_MSC_VER=1700 -D_WIN32 -IC:/Work/Qt/5.3/msvc2012_opengl/mkspecs/win32-msvc2012 -IC:/Work/opiconsole -IC:/Work/opiconsole -IC:/Work/Qt/5.3/msvc2012_opengl/include -IC:/Work/Qt/5.3/msvc2012_opengl/include/QtWidgets -IC:/Work/Qt/5.3/msvc2012_opengl/include/QtGui -IC:/Work/Qt/5.3/msvc2012_opengl/include/QtCore converter\mixsignaldialog.h -o release\moc_mixsignaldialog.cpp</Command>
+      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">MOC converter\mixsignaldialog.h</Message>
+      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">release\moc_mixsignaldialog.cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">converter\mixsignaldialog.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">C:\Work\Qt\5.3\msvc2012_opengl\bin\moc.exe  -DUNICODE -DWIN32 -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -D_MSC_VER=1700 -D_WIN32 -IC:/Work/Qt/5.3/msvc2012_opengl/mkspecs/win32-msvc2012 -IC:/Work/opiconsole -IC:/Work/opiconsole -IC:/Work/Qt/5.3/msvc2012_opengl/include -IC:/Work/Qt/5.3/msvc2012_opengl/include/QtWidgets -IC:/Work/Qt/5.3/msvc2012_opengl/include/QtGui -IC:/Work/Qt/5.3/msvc2012_opengl/include/QtCore converter\mixsignaldialog.h -o debug\moc_mixsignaldialog.cpp</Command>
+      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">MOC converter\mixsignaldialog.h</Message>
+      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">debug\moc_mixsignaldialog.cpp;%(Outputs)</Outputs>
+    </CustomBuild>
+    <ClInclude Include="opi_helper.h" />
+    <ClInclude Include="opi_win.h" />
+    <CustomBuild Include="profile\profiledialog.h">
+      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">profile\profiledialog.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">C:\Work\Qt\5.3\msvc2012_opengl\bin\moc.exe  -DUNICODE -DWIN32 -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -D_MSC_VER=1700 -D_WIN32 -IC:/Work/Qt/5.3/msvc2012_opengl/mkspecs/win32-msvc2012 -IC:/Work/opiconsole -IC:/Work/opiconsole -IC:/Work/Qt/5.3/msvc2012_opengl/include -IC:/Work/Qt/5.3/msvc2012_opengl/include/QtWidgets -IC:/Work/Qt/5.3/msvc2012_opengl/include/QtGui -IC:/Work/Qt/5.3/msvc2012_opengl/include/QtCore profile\profiledialog.h -o release\moc_profiledialog.cpp</Command>
+      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">MOC profile\profiledialog.h</Message>
+      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">release\moc_profiledialog.cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">profile\profiledialog.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">C:\Work\Qt\5.3\msvc2012_opengl\bin\moc.exe  -DUNICODE -DWIN32 -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -D_MSC_VER=1700 -D_WIN32 -IC:/Work/Qt/5.3/msvc2012_opengl/mkspecs/win32-msvc2012 -IC:/Work/opiconsole -IC:/Work/opiconsole -IC:/Work/Qt/5.3/msvc2012_opengl/include -IC:/Work/Qt/5.3/msvc2012_opengl/include/QtWidgets -IC:/Work/Qt/5.3/msvc2012_opengl/include/QtGui -IC:/Work/Qt/5.3/msvc2012_opengl/include/QtCore profile\profiledialog.h -o debug\moc_profiledialog.cpp</Command>
+      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">MOC profile\profiledialog.h</Message>
+      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">debug\moc_profiledialog.cpp;%(Outputs)</Outputs>
+    </CustomBuild>
+    <ClInclude Include="FFT\qcomplexnumber.h" />
+    <ClInclude Include="FFT\qfouriercalculator.h" />
+    <ClInclude Include="FFT\qfourierfixedcalculator.h" />
+    <ClInclude Include="FFT\qfouriertransformer.h" />
+    <ClInclude Include="FFT\qfouriervariablecalculator.h" />
+    <ClInclude Include="converter\qqwidget.h" />
+    <ClInclude Include="FFT\qwindowfunction.h" />
+    <CustomBuild Include="readmm\readmmdialog.h">
+      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">readmm\readmmdialog.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">C:\Work\Qt\5.3\msvc2012_opengl\bin\moc.exe  -DUNICODE -DWIN32 -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -D_MSC_VER=1700 -D_WIN32 -IC:/Work/Qt/5.3/msvc2012_opengl/mkspecs/win32-msvc2012 -IC:/Work/opiconsole -IC:/Work/opiconsole -IC:/Work/Qt/5.3/msvc2012_opengl/include -IC:/Work/Qt/5.3/msvc2012_opengl/include/QtWidgets -IC:/Work/Qt/5.3/msvc2012_opengl/include/QtGui -IC:/Work/Qt/5.3/msvc2012_opengl/include/QtCore readmm\readmmdialog.h -o release\moc_readmmdialog.cpp</Command>
+      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">MOC readmm\readmmdialog.h</Message>
+      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">release\moc_readmmdialog.cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">readmm\readmmdialog.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">C:\Work\Qt\5.3\msvc2012_opengl\bin\moc.exe  -DUNICODE -DWIN32 -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -D_MSC_VER=1700 -D_WIN32 -IC:/Work/Qt/5.3/msvc2012_opengl/mkspecs/win32-msvc2012 -IC:/Work/opiconsole -IC:/Work/opiconsole -IC:/Work/Qt/5.3/msvc2012_opengl/include -IC:/Work/Qt/5.3/msvc2012_opengl/include/QtWidgets -IC:/Work/Qt/5.3/msvc2012_opengl/include/QtGui -IC:/Work/Qt/5.3/msvc2012_opengl/include/QtCore readmm\readmmdialog.h -o debug\moc_readmmdialog.cpp</Command>
+      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">MOC readmm\readmmdialog.h</Message>
+      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">debug\moc_readmmdialog.cpp;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="PDC\showdatawindow.h">
+      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">PDC\showdatawindow.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">C:\Work\Qt\5.3\msvc2012_opengl\bin\moc.exe  -DUNICODE -DWIN32 -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -D_MSC_VER=1700 -D_WIN32 -IC:/Work/Qt/5.3/msvc2012_opengl/mkspecs/win32-msvc2012 -IC:/Work/opiconsole -IC:/Work/opiconsole -IC:/Work/Qt/5.3/msvc2012_opengl/include -IC:/Work/Qt/5.3/msvc2012_opengl/include/QtWidgets -IC:/Work/Qt/5.3/msvc2012_opengl/include/QtGui -IC:/Work/Qt/5.3/msvc2012_opengl/include/QtCore PDC\showdatawindow.h -o release\moc_showdatawindow.cpp</Command>
+      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">MOC PDC\showdatawindow.h</Message>
+      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">release\moc_showdatawindow.cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">PDC\showdatawindow.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">C:\Work\Qt\5.3\msvc2012_opengl\bin\moc.exe  -DUNICODE -DWIN32 -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -D_MSC_VER=1700 -D_WIN32 -IC:/Work/Qt/5.3/msvc2012_opengl/mkspecs/win32-msvc2012 -IC:/Work/opiconsole -IC:/Work/opiconsole -IC:/Work/Qt/5.3/msvc2012_opengl/include -IC:/Work/Qt/5.3/msvc2012_opengl/include/QtWidgets -IC:/Work/Qt/5.3/msvc2012_opengl/include/QtGui -IC:/Work/Qt/5.3/msvc2012_opengl/include/QtCore PDC\showdatawindow.h -o debug\moc_showdatawindow.cpp</Command>
+      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">MOC PDC\showdatawindow.h</Message>
+      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">debug\moc_showdatawindow.cpp;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="converter\signalviewer.h">
+      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">converter\signalviewer.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">C:\Work\Qt\5.3\msvc2012_opengl\bin\moc.exe  -DUNICODE -DWIN32 -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -D_MSC_VER=1700 -D_WIN32 -IC:/Work/Qt/5.3/msvc2012_opengl/mkspecs/win32-msvc2012 -IC:/Work/opiconsole -IC:/Work/opiconsole -IC:/Work/Qt/5.3/msvc2012_opengl/include -IC:/Work/Qt/5.3/msvc2012_opengl/include/QtWidgets -IC:/Work/Qt/5.3/msvc2012_opengl/include/QtGui -IC:/Work/Qt/5.3/msvc2012_opengl/include/QtCore converter\signalviewer.h -o release\moc_signalviewer.cpp</Command>
+      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">MOC converter\signalviewer.h</Message>
+      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">release\moc_signalviewer.cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">converter\signalviewer.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">C:\Work\Qt\5.3\msvc2012_opengl\bin\moc.exe  -DUNICODE -DWIN32 -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -D_MSC_VER=1700 -D_WIN32 -IC:/Work/Qt/5.3/msvc2012_opengl/mkspecs/win32-msvc2012 -IC:/Work/opiconsole -IC:/Work/opiconsole -IC:/Work/Qt/5.3/msvc2012_opengl/include -IC:/Work/Qt/5.3/msvc2012_opengl/include/QtWidgets -IC:/Work/Qt/5.3/msvc2012_opengl/include/QtGui -IC:/Work/Qt/5.3/msvc2012_opengl/include/QtCore converter\signalviewer.h -o debug\moc_signalviewer.cpp</Command>
+      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">MOC converter\signalviewer.h</Message>
+      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">debug\moc_signalviewer.cpp;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="sleepanalysis\sleepanalysiswindow.h">
+      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">sleepanalysis\sleepanalysiswindow.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">C:\Work\Qt\5.3\msvc2012_opengl\bin\moc.exe  -DUNICODE -DWIN32 -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -D_MSC_VER=1700 -D_WIN32 -IC:/Work/Qt/5.3/msvc2012_opengl/mkspecs/win32-msvc2012 -IC:/Work/opiconsole -IC:/Work/opiconsole -IC:/Work/Qt/5.3/msvc2012_opengl/include -IC:/Work/Qt/5.3/msvc2012_opengl/include/QtWidgets -IC:/Work/Qt/5.3/msvc2012_opengl/include/QtGui -IC:/Work/Qt/5.3/msvc2012_opengl/include/QtCore sleepanalysis\sleepanalysiswindow.h -o release\moc_sleepanalysiswindow.cpp</Command>
+      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">MOC sleepanalysis\sleepanalysiswindow.h</Message>
+      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">release\moc_sleepanalysiswindow.cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">sleepanalysis\sleepanalysiswindow.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">C:\Work\Qt\5.3\msvc2012_opengl\bin\moc.exe  -DUNICODE -DWIN32 -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -D_MSC_VER=1700 -D_WIN32 -IC:/Work/Qt/5.3/msvc2012_opengl/mkspecs/win32-msvc2012 -IC:/Work/opiconsole -IC:/Work/opiconsole -IC:/Work/Qt/5.3/msvc2012_opengl/include -IC:/Work/Qt/5.3/msvc2012_opengl/include/QtWidgets -IC:/Work/Qt/5.3/msvc2012_opengl/include/QtGui -IC:/Work/Qt/5.3/msvc2012_opengl/include/QtCore sleepanalysis\sleepanalysiswindow.h -o debug\moc_sleepanalysiswindow.cpp</Command>
+      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">MOC sleepanalysis\sleepanalysiswindow.h</Message>
+      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">debug\moc_sleepanalysiswindow.cpp;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="converter\spectrogram.h">
+      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">converter\spectrogram.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">C:\Work\Qt\5.3\msvc2012_opengl\bin\moc.exe  -DUNICODE -DWIN32 -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -D_MSC_VER=1700 -D_WIN32 -IC:/Work/Qt/5.3/msvc2012_opengl/mkspecs/win32-msvc2012 -IC:/Work/opiconsole -IC:/Work/opiconsole -IC:/Work/Qt/5.3/msvc2012_opengl/include -IC:/Work/Qt/5.3/msvc2012_opengl/include/QtWidgets -IC:/Work/Qt/5.3/msvc2012_opengl/include/QtGui -IC:/Work/Qt/5.3/msvc2012_opengl/include/QtCore converter\spectrogram.h -o release\moc_spectrogram.cpp</Command>
+      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">MOC converter\spectrogram.h</Message>
+      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">release\moc_spectrogram.cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">converter\spectrogram.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">C:\Work\Qt\5.3\msvc2012_opengl\bin\moc.exe  -DUNICODE -DWIN32 -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -D_MSC_VER=1700 -D_WIN32 -IC:/Work/Qt/5.3/msvc2012_opengl/mkspecs/win32-msvc2012 -IC:/Work/opiconsole -IC:/Work/opiconsole -IC:/Work/Qt/5.3/msvc2012_opengl/include -IC:/Work/Qt/5.3/msvc2012_opengl/include/QtWidgets -IC:/Work/Qt/5.3/msvc2012_opengl/include/QtGui -IC:/Work/Qt/5.3/msvc2012_opengl/include/QtCore converter\spectrogram.h -o debug\moc_spectrogram.cpp</Command>
+      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">MOC converter\spectrogram.h</Message>
+      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">debug\moc_spectrogram.cpp;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="PDC\startwindow.h">
+      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">PDC\startwindow.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">C:\Work\Qt\5.3\msvc2012_opengl\bin\moc.exe  -DUNICODE -DWIN32 -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -D_MSC_VER=1700 -D_WIN32 -IC:/Work/Qt/5.3/msvc2012_opengl/mkspecs/win32-msvc2012 -IC:/Work/opiconsole -IC:/Work/opiconsole -IC:/Work/Qt/5.3/msvc2012_opengl/include -IC:/Work/Qt/5.3/msvc2012_opengl/include/QtWidgets -IC:/Work/Qt/5.3/msvc2012_opengl/include/QtGui -IC:/Work/Qt/5.3/msvc2012_opengl/include/QtCore PDC\startwindow.h -o release\moc_startwindow.cpp</Command>
+      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">MOC PDC\startwindow.h</Message>
+      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">release\moc_startwindow.cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">PDC\startwindow.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">C:\Work\Qt\5.3\msvc2012_opengl\bin\moc.exe  -DUNICODE -DWIN32 -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -D_MSC_VER=1700 -D_WIN32 -IC:/Work/Qt/5.3/msvc2012_opengl/mkspecs/win32-msvc2012 -IC:/Work/opiconsole -IC:/Work/opiconsole -IC:/Work/Qt/5.3/msvc2012_opengl/include -IC:/Work/Qt/5.3/msvc2012_opengl/include/QtWidgets -IC:/Work/Qt/5.3/msvc2012_opengl/include/QtGui -IC:/Work/Qt/5.3/msvc2012_opengl/include/QtCore PDC\startwindow.h -o debug\moc_startwindow.cpp</Command>
+      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">MOC PDC\startwindow.h</Message>
+      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">debug\moc_startwindow.cpp;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="biofeedback\startwindowbf.h">
+      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">biofeedback\startwindowbf.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">C:\Work\Qt\5.3\msvc2012_opengl\bin\moc.exe  -DUNICODE -DWIN32 -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -D_MSC_VER=1700 -D_WIN32 -IC:/Work/Qt/5.3/msvc2012_opengl/mkspecs/win32-msvc2012 -IC:/Work/opiconsole -IC:/Work/opiconsole -IC:/Work/Qt/5.3/msvc2012_opengl/include -IC:/Work/Qt/5.3/msvc2012_opengl/include/QtWidgets -IC:/Work/Qt/5.3/msvc2012_opengl/include/QtGui -IC:/Work/Qt/5.3/msvc2012_opengl/include/QtCore biofeedback\startwindowbf.h -o release\moc_startwindowbf.cpp</Command>
+      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">MOC biofeedback\startwindowbf.h</Message>
+      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">release\moc_startwindowbf.cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">biofeedback\startwindowbf.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">C:\Work\Qt\5.3\msvc2012_opengl\bin\moc.exe  -DUNICODE -DWIN32 -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -D_MSC_VER=1700 -D_WIN32 -IC:/Work/Qt/5.3/msvc2012_opengl/mkspecs/win32-msvc2012 -IC:/Work/opiconsole -IC:/Work/opiconsole -IC:/Work/Qt/5.3/msvc2012_opengl/include -IC:/Work/Qt/5.3/msvc2012_opengl/include/QtWidgets -IC:/Work/Qt/5.3/msvc2012_opengl/include/QtGui -IC:/Work/Qt/5.3/msvc2012_opengl/include/QtCore biofeedback\startwindowbf.h -o debug\moc_startwindowbf.cpp</Command>
+      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">MOC biofeedback\startwindowbf.h</Message>
+      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">debug\moc_startwindowbf.cpp;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="TutorialGame\tutorialgame.h">
+      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">TutorialGame\tutorialgame.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">C:\Work\Qt\5.3\msvc2012_opengl\bin\moc.exe  -DUNICODE -DWIN32 -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -D_MSC_VER=1700 -D_WIN32 -IC:/Work/Qt/5.3/msvc2012_opengl/mkspecs/win32-msvc2012 -IC:/Work/opiconsole -IC:/Work/opiconsole -IC:/Work/Qt/5.3/msvc2012_opengl/include -IC:/Work/Qt/5.3/msvc2012_opengl/include/QtWidgets -IC:/Work/Qt/5.3/msvc2012_opengl/include/QtGui -IC:/Work/Qt/5.3/msvc2012_opengl/include/QtCore TutorialGame\tutorialgame.h -o release\moc_tutorialgame.cpp</Command>
+      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">MOC TutorialGame\tutorialgame.h</Message>
+      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">release\moc_tutorialgame.cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">TutorialGame\tutorialgame.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">C:\Work\Qt\5.3\msvc2012_opengl\bin\moc.exe  -DUNICODE -DWIN32 -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -D_MSC_VER=1700 -D_WIN32 -IC:/Work/Qt/5.3/msvc2012_opengl/mkspecs/win32-msvc2012 -IC:/Work/opiconsole -IC:/Work/opiconsole -IC:/Work/Qt/5.3/msvc2012_opengl/include -IC:/Work/Qt/5.3/msvc2012_opengl/include/QtWidgets -IC:/Work/Qt/5.3/msvc2012_opengl/include/QtGui -IC:/Work/Qt/5.3/msvc2012_opengl/include/QtCore TutorialGame\tutorialgame.h -o debug\moc_tutorialgame.cpp</Command>
+      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">MOC TutorialGame\tutorialgame.h</Message>
+      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">debug\moc_tutorialgame.cpp;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="converter\twodaccelviewer.h">
+      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">converter\twodaccelviewer.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">C:\Work\Qt\5.3\msvc2012_opengl\bin\moc.exe  -DUNICODE -DWIN32 -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -D_MSC_VER=1700 -D_WIN32 -IC:/Work/Qt/5.3/msvc2012_opengl/mkspecs/win32-msvc2012 -IC:/Work/opiconsole -IC:/Work/opiconsole -IC:/Work/Qt/5.3/msvc2012_opengl/include -IC:/Work/Qt/5.3/msvc2012_opengl/include/QtWidgets -IC:/Work/Qt/5.3/msvc2012_opengl/include/QtGui -IC:/Work/Qt/5.3/msvc2012_opengl/include/QtCore converter\twodaccelviewer.h -o release\moc_twodaccelviewer.cpp</Command>
+      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">MOC converter\twodaccelviewer.h</Message>
+      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">release\moc_twodaccelviewer.cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">converter\twodaccelviewer.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">C:\Work\Qt\5.3\msvc2012_opengl\bin\moc.exe  -DUNICODE -DWIN32 -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -D_MSC_VER=1700 -D_WIN32 -IC:/Work/Qt/5.3/msvc2012_opengl/mkspecs/win32-msvc2012 -IC:/Work/opiconsole -IC:/Work/opiconsole -IC:/Work/Qt/5.3/msvc2012_opengl/include -IC:/Work/Qt/5.3/msvc2012_opengl/include/QtWidgets -IC:/Work/Qt/5.3/msvc2012_opengl/include/QtGui -IC:/Work/Qt/5.3/msvc2012_opengl/include/QtCore converter\twodaccelviewer.h -o debug\moc_twodaccelviewer.cpp</Command>
+      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">MOC converter\twodaccelviewer.h</Message>
+      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">debug\moc_twodaccelviewer.cpp;%(Outputs)</Outputs>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="debug\moc_biofeedback.cpp">
+      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="release\moc_biofeedback.cpp">
+      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="debug\moc_configwindow.cpp">
+      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="release\moc_configwindow.cpp">
+      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="debug\moc_consolewindow.cpp">
+      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="release\moc_consolewindow.cpp">
+      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="debug\moc_convertoptionswindow.cpp">
+      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="release\moc_convertoptionswindow.cpp">
+      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="debug\moc_convertwindow.cpp">
+      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="release\moc_convertwindow.cpp">
+      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="debug\moc_licensedialog.cpp">
+      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="release\moc_licensedialog.cpp">
+      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="debug\moc_medanalysiswindow.cpp">
+      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="release\moc_medanalysiswindow.cpp">
+      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="debug\moc_mixsignaldialog.cpp">
+      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="release\moc_mixsignaldialog.cpp">
+      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="debug\moc_profiledialog.cpp">
+      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="release\moc_profiledialog.cpp">
+      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="debug\moc_readmmdialog.cpp">
+      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="release\moc_readmmdialog.cpp">
+      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="debug\moc_showdatawindow.cpp">
+      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="release\moc_showdatawindow.cpp">
+      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="debug\moc_signalviewer.cpp">
+      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="release\moc_signalviewer.cpp">
+      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="debug\moc_sleepanalysiswindow.cpp">
+      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="release\moc_sleepanalysiswindow.cpp">
+      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="debug\moc_spectrogram.cpp">
+      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="release\moc_spectrogram.cpp">
+      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="debug\moc_startwindow.cpp">
+      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="release\moc_startwindow.cpp">
+      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="debug\moc_startwindowbf.cpp">
+      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="release\moc_startwindowbf.cpp">
+      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="debug\moc_tutorialgame.cpp">
+      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="release\moc_tutorialgame.cpp">
+      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="debug\moc_twodaccelviewer.cpp">
+      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="release\moc_twodaccelviewer.cpp">
+      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="debug\qrc_opiconsole.cpp">
+      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="release\qrc_opiconsole.cpp">
+      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClInclude Include="ui_biofeedback.h" />
+    <ClInclude Include="ui_configwindow.h" />
+    <ClInclude Include="ui_consolewindow.h" />
+    <ClInclude Include="ui_convertoptionswindow.h" />
+    <ClInclude Include="ui_convertwindow.h" />
+    <ClInclude Include="ui_licensedialog.h" />
+    <ClInclude Include="ui_medanalysiswindow.h" />
+    <ClInclude Include="ui_mixsignaldialog.h" />
+    <ClInclude Include="ui_profiledialog.h" />
+    <ClInclude Include="ui_readmmdialog.h" />
+    <ClInclude Include="ui_showdatawindow.h" />
+    <ClInclude Include="ui_signalviewer.h" />
+    <ClInclude Include="ui_sleepanalysiswindow.h" />
+    <ClInclude Include="ui_spectrogram.h" />
+    <ClInclude Include="ui_startwindow.h" />
+    <ClInclude Include="ui_startwindowbf.h" />
+    <ClInclude Include="ui_tutorialgame.h" />
+    <ClInclude Include="ui_twodaccelviewer.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="biofeedback\biofeedback.ui">
+      <FileType>Document</FileType>
+      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">biofeedback\biofeedback.ui;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">C:\Work\Qt\5.3\msvc2012_opengl\bin\uic.exe biofeedback\biofeedback.ui -o ui_biofeedback.h</Command>
+      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">UIC biofeedback\biofeedback.ui</Message>
+      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">ui_biofeedback.h;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">biofeedback\biofeedback.ui;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">C:\Work\Qt\5.3\msvc2012_opengl\bin\uic.exe biofeedback\biofeedback.ui -o ui_biofeedback.h</Command>
+      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">UIC biofeedback\biofeedback.ui</Message>
+      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">ui_biofeedback.h;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="config\configwindow.ui">
+      <FileType>Document</FileType>
+      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">config\configwindow.ui;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">C:\Work\Qt\5.3\msvc2012_opengl\bin\uic.exe config\configwindow.ui -o ui_configwindow.h</Command>
+      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">UIC config\configwindow.ui</Message>
+      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">ui_configwindow.h;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">config\configwindow.ui;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">C:\Work\Qt\5.3\msvc2012_opengl\bin\uic.exe config\configwindow.ui -o ui_configwindow.h</Command>
+      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">UIC config\configwindow.ui</Message>
+      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">ui_configwindow.h;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="consolewindow.ui">
+      <FileType>Document</FileType>
+      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">consolewindow.ui;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">C:\Work\Qt\5.3\msvc2012_opengl\bin\uic.exe consolewindow.ui -o ui_consolewindow.h</Command>
+      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">UIC consolewindow.ui</Message>
+      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">ui_consolewindow.h;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">consolewindow.ui;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">C:\Work\Qt\5.3\msvc2012_opengl\bin\uic.exe consolewindow.ui -o ui_consolewindow.h</Command>
+      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">UIC consolewindow.ui</Message>
+      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">ui_consolewindow.h;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="converter\convertoptionswindow.ui">
+      <FileType>Document</FileType>
+      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">converter\convertoptionswindow.ui;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">C:\Work\Qt\5.3\msvc2012_opengl\bin\uic.exe converter\convertoptionswindow.ui -o ui_convertoptionswindow.h</Command>
+      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">UIC converter\convertoptionswindow.ui</Message>
+      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">ui_convertoptionswindow.h;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">converter\convertoptionswindow.ui;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">C:\Work\Qt\5.3\msvc2012_opengl\bin\uic.exe converter\convertoptionswindow.ui -o ui_convertoptionswindow.h</Command>
+      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">UIC converter\convertoptionswindow.ui</Message>
+      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">ui_convertoptionswindow.h;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="converter\convertwindow.ui">
+      <FileType>Document</FileType>
+      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">converter\convertwindow.ui;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">C:\Work\Qt\5.3\msvc2012_opengl\bin\uic.exe converter\convertwindow.ui -o ui_convertwindow.h</Command>
+      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">UIC converter\convertwindow.ui</Message>
+      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">ui_convertwindow.h;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">converter\convertwindow.ui;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">C:\Work\Qt\5.3\msvc2012_opengl\bin\uic.exe converter\convertwindow.ui -o ui_convertwindow.h</Command>
+      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">UIC converter\convertwindow.ui</Message>
+      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">ui_convertwindow.h;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="license\licensedialog.ui">
+      <FileType>Document</FileType>
+      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">license\licensedialog.ui;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">C:\Work\Qt\5.3\msvc2012_opengl\bin\uic.exe license\licensedialog.ui -o ui_licensedialog.h</Command>
+      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">UIC license\licensedialog.ui</Message>
+      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">ui_licensedialog.h;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">license\licensedialog.ui;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">C:\Work\Qt\5.3\msvc2012_opengl\bin\uic.exe license\licensedialog.ui -o ui_licensedialog.h</Command>
+      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">UIC license\licensedialog.ui</Message>
+      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">ui_licensedialog.h;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="medanalysis\medanalysiswindow.ui">
+      <FileType>Document</FileType>
+      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">medanalysis\medanalysiswindow.ui;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">C:\Work\Qt\5.3\msvc2012_opengl\bin\uic.exe medanalysis\medanalysiswindow.ui -o ui_medanalysiswindow.h</Command>
+      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">UIC medanalysis\medanalysiswindow.ui</Message>
+      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">ui_medanalysiswindow.h;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">medanalysis\medanalysiswindow.ui;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">C:\Work\Qt\5.3\msvc2012_opengl\bin\uic.exe medanalysis\medanalysiswindow.ui -o ui_medanalysiswindow.h</Command>
+      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">UIC medanalysis\medanalysiswindow.ui</Message>
+      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">ui_medanalysiswindow.h;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="converter\mixsignaldialog.ui">
+      <FileType>Document</FileType>
+      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">converter\mixsignaldialog.ui;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">C:\Work\Qt\5.3\msvc2012_opengl\bin\uic.exe converter\mixsignaldialog.ui -o ui_mixsignaldialog.h</Command>
+      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">UIC converter\mixsignaldialog.ui</Message>
+      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">ui_mixsignaldialog.h;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">converter\mixsignaldialog.ui;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">C:\Work\Qt\5.3\msvc2012_opengl\bin\uic.exe converter\mixsignaldialog.ui -o ui_mixsignaldialog.h</Command>
+      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">UIC converter\mixsignaldialog.ui</Message>
+      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">ui_mixsignaldialog.h;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="profile\profiledialog.ui">
+      <FileType>Document</FileType>
+      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">profile\profiledialog.ui;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">C:\Work\Qt\5.3\msvc2012_opengl\bin\uic.exe profile\profiledialog.ui -o ui_profiledialog.h</Command>
+      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">UIC profile\profiledialog.ui</Message>
+      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">ui_profiledialog.h;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">profile\profiledialog.ui;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">C:\Work\Qt\5.3\msvc2012_opengl\bin\uic.exe profile\profiledialog.ui -o ui_profiledialog.h</Command>
+      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">UIC profile\profiledialog.ui</Message>
+      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">ui_profiledialog.h;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="readmm\readmmdialog.ui">
+      <FileType>Document</FileType>
+      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">readmm\readmmdialog.ui;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">C:\Work\Qt\5.3\msvc2012_opengl\bin\uic.exe readmm\readmmdialog.ui -o ui_readmmdialog.h</Command>
+      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">UIC readmm\readmmdialog.ui</Message>
+      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">ui_readmmdialog.h;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">readmm\readmmdialog.ui;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">C:\Work\Qt\5.3\msvc2012_opengl\bin\uic.exe readmm\readmmdialog.ui -o ui_readmmdialog.h</Command>
+      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">UIC readmm\readmmdialog.ui</Message>
+      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">ui_readmmdialog.h;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="PDC\showdatawindow.ui">
+      <FileType>Document</FileType>
+      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">PDC\showdatawindow.ui;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">C:\Work\Qt\5.3\msvc2012_opengl\bin\uic.exe PDC\showdatawindow.ui -o ui_showdatawindow.h</Command>
+      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">UIC PDC\showdatawindow.ui</Message>
+      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">ui_showdatawindow.h;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">PDC\showdatawindow.ui;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">C:\Work\Qt\5.3\msvc2012_opengl\bin\uic.exe PDC\showdatawindow.ui -o ui_showdatawindow.h</Command>
+      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">UIC PDC\showdatawindow.ui</Message>
+      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">ui_showdatawindow.h;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="converter\signalviewer.ui">
+      <FileType>Document</FileType>
+      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">converter\signalviewer.ui;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">C:\Work\Qt\5.3\msvc2012_opengl\bin\uic.exe converter\signalviewer.ui -o ui_signalviewer.h</Command>
+      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">UIC converter\signalviewer.ui</Message>
+      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">ui_signalviewer.h;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">converter\signalviewer.ui;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">C:\Work\Qt\5.3\msvc2012_opengl\bin\uic.exe converter\signalviewer.ui -o ui_signalviewer.h</Command>
+      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">UIC converter\signalviewer.ui</Message>
+      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">ui_signalviewer.h;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="sleepanalysis\sleepanalysiswindow.ui">
+      <FileType>Document</FileType>
+      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">sleepanalysis\sleepanalysiswindow.ui;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">C:\Work\Qt\5.3\msvc2012_opengl\bin\uic.exe sleepanalysis\sleepanalysiswindow.ui -o ui_sleepanalysiswindow.h</Command>
+      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">UIC sleepanalysis\sleepanalysiswindow.ui</Message>
+      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">ui_sleepanalysiswindow.h;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">sleepanalysis\sleepanalysiswindow.ui;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">C:\Work\Qt\5.3\msvc2012_opengl\bin\uic.exe sleepanalysis\sleepanalysiswindow.ui -o ui_sleepanalysiswindow.h</Command>
+      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">UIC sleepanalysis\sleepanalysiswindow.ui</Message>
+      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">ui_sleepanalysiswindow.h;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="converter\spectrogram.ui">
+      <FileType>Document</FileType>
+      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">converter\spectrogram.ui;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">C:\Work\Qt\5.3\msvc2012_opengl\bin\uic.exe converter\spectrogram.ui -o ui_spectrogram.h</Command>
+      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">UIC converter\spectrogram.ui</Message>
+      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">ui_spectrogram.h;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">converter\spectrogram.ui;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">C:\Work\Qt\5.3\msvc2012_opengl\bin\uic.exe converter\spectrogram.ui -o ui_spectrogram.h</Command>
+      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">UIC converter\spectrogram.ui</Message>
+      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">ui_spectrogram.h;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="PDC\startwindow.ui">
+      <FileType>Document</FileType>
+      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">PDC\startwindow.ui;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">C:\Work\Qt\5.3\msvc2012_opengl\bin\uic.exe PDC\startwindow.ui -o ui_startwindow.h</Command>
+      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">UIC PDC\startwindow.ui</Message>
+      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">ui_startwindow.h;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">PDC\startwindow.ui;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">C:\Work\Qt\5.3\msvc2012_opengl\bin\uic.exe PDC\startwindow.ui -o ui_startwindow.h</Command>
+      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">UIC PDC\startwindow.ui</Message>
+      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">ui_startwindow.h;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="biofeedback\startwindowbf.ui">
+      <FileType>Document</FileType>
+      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">biofeedback\startwindowbf.ui;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">C:\Work\Qt\5.3\msvc2012_opengl\bin\uic.exe biofeedback\startwindowbf.ui -o ui_startwindowbf.h</Command>
+      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">UIC biofeedback\startwindowbf.ui</Message>
+      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">ui_startwindowbf.h;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">biofeedback\startwindowbf.ui;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">C:\Work\Qt\5.3\msvc2012_opengl\bin\uic.exe biofeedback\startwindowbf.ui -o ui_startwindowbf.h</Command>
+      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">UIC biofeedback\startwindowbf.ui</Message>
+      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">ui_startwindowbf.h;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="TutorialGame\tutorialgame.ui">
+      <FileType>Document</FileType>
+      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">TutorialGame\tutorialgame.ui;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">C:\Work\Qt\5.3\msvc2012_opengl\bin\uic.exe TutorialGame\tutorialgame.ui -o ui_tutorialgame.h</Command>
+      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">UIC TutorialGame\tutorialgame.ui</Message>
+      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">ui_tutorialgame.h;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">TutorialGame\tutorialgame.ui;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">C:\Work\Qt\5.3\msvc2012_opengl\bin\uic.exe TutorialGame\tutorialgame.ui -o ui_tutorialgame.h</Command>
+      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">UIC TutorialGame\tutorialgame.ui</Message>
+      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">ui_tutorialgame.h;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="converter\twodaccelviewer.ui">
+      <FileType>Document</FileType>
+      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">converter\twodaccelviewer.ui;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">C:\Work\Qt\5.3\msvc2012_opengl\bin\uic.exe converter\twodaccelviewer.ui -o ui_twodaccelviewer.h</Command>
+      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">UIC converter\twodaccelviewer.ui</Message>
+      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">ui_twodaccelviewer.h;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">converter\twodaccelviewer.ui;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">C:\Work\Qt\5.3\msvc2012_opengl\bin\uic.exe converter\twodaccelviewer.ui -o ui_twodaccelviewer.h</Command>
+      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">UIC converter\twodaccelviewer.ui</Message>
+      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">ui_twodaccelviewer.h;%(Outputs)</Outputs>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="images\Application-Big.jpg" />
+    <None Include="images\Arrows.png" />
+    <None Include="images\Button-ball.png" />
+    <None Include="images\Console-BGtilevert.png" />
+    <None Include="images\Data-File-Convert.png" />
+    <None Include="images\Data-Setting.png" />
+    <None Include="images\LEDbar.png" />
+    <None Include="images\Launch-Icon.png" />
+    <None Include="images\Live-Biofeedback.png" />
+    <None Include="images\Live-Display.png" />
+    <None Include="images\MM.png" />
+    <None Include="images\Meditation.png" />
+    <None Include="images\Mood-Logger.png" />
+    <None Include="images\OPIICO.png" />
+    <None Include="images\OPlogo307.png" />
+    <None Include="images\Paired-Device.png" />
+    <None Include="images\Sleep.png" />
+    <None Include="images\Unpaired-Device.png" />
+    <None Include="images\User-Settings.png" />
+    <None Include="images\ball.png" />
+    <None Include="images\bioshare-BGtiletexturedMixedGloss600px.jpg" />
+    <None Include="images\bioshare1cropped800.png" />
+    <None Include="images\bioshareWhiteRevamp500.png" />
+    <None Include="images\blueblank.png" />
+    <None Include="images\bottom-slider.png" />
+    <None Include="images\button500x500.png" />
+    <None Include="images\game-applet-logo-500.png" />
+    <None Include="images\game-applet-logo.png" />
+    <None Include="images\logo.png" />
+    <CustomBuild Include="opiconsole.qrc">
+      <FileType>Document</FileType>
+      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">opiconsole.qrc;images\User-Settings.png;images\Launch-Icon.png;images\Meditation.png;images\refresh.png;images\Live-Biofeedback.png;images\bottom-slider.png;images\OPlogo307.png;images\Mood-Logger.png;images\Arrows.png;images\bioshare-BGtiletexturedMixedGloss600px.jpg;images\game-applet-logo-500.png;images\blueblank.png;images\LEDbar.png;images\ball.png;images\Data-Setting.png;images\uparrow.png;images\OPIICO.png;images\top-console.png;images\bioshare1cropped800.png;images\Button-ball.png;images\Data-File-Convert.png;images\game-applet-logo.png;images\Application-Big.jpg;images\orange-blank.png;images\button500x500.png;images\Unpaired-Device.png;images\Paired-Device.png;images\Live-Display.png;images\shutdown-button.png;images\bioshareWhiteRevamp500.png;images\logo.png;images\Console-BGtilevert.png;images\Sleep.png;images\MM.png;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">C:\Work\Qt\5.3\msvc2012_opengl\bin\rcc.exe -name opiconsole opiconsole.qrc -o release\qrc_opiconsole.cpp</Command>
+      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">RCC opiconsole.qrc</Message>
+      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">release\qrc_opiconsole.cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">opiconsole.qrc;images\User-Settings.png;images\Launch-Icon.png;images\Meditation.png;images\refresh.png;images\Live-Biofeedback.png;images\bottom-slider.png;images\OPlogo307.png;images\Mood-Logger.png;images\Arrows.png;images\bioshare-BGtiletexturedMixedGloss600px.jpg;images\game-applet-logo-500.png;images\blueblank.png;images\LEDbar.png;images\ball.png;images\Data-Setting.png;images\uparrow.png;images\OPIICO.png;images\top-console.png;images\bioshare1cropped800.png;images\Button-ball.png;images\Data-File-Convert.png;images\game-applet-logo.png;images\Application-Big.jpg;images\orange-blank.png;images\button500x500.png;images\Unpaired-Device.png;images\Paired-Device.png;images\Live-Display.png;images\shutdown-button.png;images\bioshareWhiteRevamp500.png;images\logo.png;images\Console-BGtilevert.png;images\Sleep.png;images\MM.png;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">C:\Work\Qt\5.3\msvc2012_opengl\bin\rcc.exe -name opiconsole opiconsole.qrc -o debug\qrc_opiconsole.cpp</Command>
+      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">RCC opiconsole.qrc</Message>
+      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">debug\qrc_opiconsole.cpp;%(Outputs)</Outputs>
+    </CustomBuild>
+    <None Include="images\orange-blank.png" />
+    <None Include="images\refresh.png" />
+    <None Include="images\shutdown-button.png" />
+    <None Include="images\top-console.png" />
+    <None Include="images\uparrow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="images\myIcon.rc" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets" />
+</Project>

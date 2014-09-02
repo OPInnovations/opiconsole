@@ -1,6 +1,7 @@
 #ifndef MIXSIGNALDIALOG_H
 #define MIXSIGNALDIALOG_H
 
+#include <QtWidgets>
 #include <QtGui>
 
 

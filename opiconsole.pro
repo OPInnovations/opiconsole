@@ -6,6 +6,7 @@ TEMPLATE = app
 TARGET = OPIconsole
 DEPENDPATH += . PDC
 INCLUDEPATH += .
+QT += widgets
 # Input
 HEADERS += \
            consolewindow.h \
@@ -106,6 +107,5 @@ SOURCES += consolewindow.cpp \
 
 RESOURCES += opiconsole.qrc
 RC_FILE += images/myIcon.rc
-
 
 

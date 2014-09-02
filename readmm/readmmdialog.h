@@ -1,6 +1,7 @@
 #ifndef READMMDIALOG_H
 #define READMMDIALOG_H
 
+#include <QtWidgets>
 #include <QtGui>
 
 

@@ -225,6 +225,9 @@ font: 75 8pt &quot;Arial&quot;;</string>
     <property name="mouseTracking">
      <bool>false</bool>
     </property>
+    <property name="toolTip">
+     <string/>
+    </property>
     <property name="text">
      <string/>
     </property>
@@ -356,7 +359,7 @@ font: 75 8pt &quot;Arial&quot;;</string>
      <bool>true</bool>
     </property>
    </widget>
-   <widget class="QRadioButton" name="sensARFRB">
+   <widget class="QCheckBox" name="sensARFRB">
     <property name="geometry">
      <rect>
       <x>220</x>
@@ -372,7 +375,7 @@ font: 75 8pt &quot;Arial&quot;;</string>
      <bool>false</bool>
     </property>
    </widget>
-   <widget class="QRadioButton" name="sensAMMRB">
+   <widget class="QCheckBox" name="sensAMMRB">
     <property name="geometry">
      <rect>
       <x>270</x>
@@ -388,7 +391,7 @@ font: 75 8pt &quot;Arial&quot;;</string>
      <bool>false</bool>
     </property>
    </widget>
-   <widget class="QRadioButton" name="sensADTRB">
+   <widget class="QCheckBox" name="sensADTRB">
     <property name="geometry">
      <rect>
       <x>320</x>
@@ -412,6 +415,9 @@ font: 75 8pt &quot;Arial&quot;;</string>
       <width>70</width>
       <height>27</height>
      </rect>
+    </property>
+    <property name="toolTip">
+     <string/>
     </property>
     <property name="text">
      <string/>
@@ -453,7 +459,7 @@ font: 75 8pt &quot;Arial&quot;;</string>
      <bool>true</bool>
     </property>
    </widget>
-   <widget class="QRadioButton" name="sensBMMRB">
+   <widget class="QCheckBox" name="sensBMMRB">
     <property name="enabled">
      <bool>true</bool>
     </property>
@@ -485,7 +491,7 @@ font: 75 8pt &quot;Arial&quot;;</string>
      <string>[ B ] ( 194 )</string>
     </property>
    </widget>
-   <widget class="QRadioButton" name="sensBDTRB">
+   <widget class="QCheckBox" name="sensBDTRB">
     <property name="enabled">
      <bool>true</bool>
     </property>
@@ -527,7 +533,7 @@ font: 75 8pt &quot;Arial&quot;;</string>
      </size>
     </property>
    </widget>
-   <widget class="QRadioButton" name="sensBRFRB">
+   <widget class="QCheckBox" name="sensBRFRB">
     <property name="enabled">
      <bool>true</bool>
     </property>
@@ -582,7 +588,7 @@ font: 75 8pt &quot;Arial&quot;;</string>
      <bool>true</bool>
     </property>
    </widget>
-   <widget class="QRadioButton" name="sensCRFRB">
+   <widget class="QCheckBox" name="sensCRFRB">
     <property name="enabled">
      <bool>true</bool>
     </property>
@@ -637,7 +643,7 @@ font: 75 8pt &quot;Arial&quot;;</string>
      <string>[ C ] ( 194 )</string>
     </property>
    </widget>
-   <widget class="QRadioButton" name="sensCMMRB">
+   <widget class="QCheckBox" name="sensCMMRB">
     <property name="enabled">
      <bool>true</bool>
     </property>
@@ -656,7 +662,7 @@ font: 75 8pt &quot;Arial&quot;;</string>
      <bool>false</bool>
     </property>
    </widget>
-   <widget class="QRadioButton" name="sensCDTRB">
+   <widget class="QCheckBox" name="sensCDTRB">
     <property name="enabled">
      <bool>true</bool>
     </property>
@@ -675,7 +681,7 @@ font: 75 8pt &quot;Arial&quot;;</string>
      <bool>false</bool>
     </property>
    </widget>
-   <widget class="QRadioButton" name="sensDDTRB">
+   <widget class="QCheckBox" name="sensDDTRB">
     <property name="enabled">
      <bool>true</bool>
     </property>
@@ -694,7 +700,7 @@ font: 75 8pt &quot;Arial&quot;;</string>
      <bool>false</bool>
     </property>
    </widget>
-   <widget class="QRadioButton" name="sensDMMRB">
+   <widget class="QCheckBox" name="sensDMMRB">
     <property name="enabled">
      <bool>true</bool>
     </property>
@@ -762,7 +768,7 @@ font: 75 8pt &quot;Arial&quot;;</string>
      <string>[ D ] ( 194 )</string>
     </property>
    </widget>
-   <widget class="QRadioButton" name="sensDRFRB">
+   <widget class="QCheckBox" name="sensDRFRB">
     <property name="enabled">
      <bool>true</bool>
     </property>
@@ -812,6 +818,9 @@ font: 75 8pt &quot;Arial&quot;;</string>
       <width>70</width>
       <height>27</height>
      </rect>
+    </property>
+    <property name="toolTip">
+     <string>Pair sensor</string>
     </property>
     <property name="text">
      <string/>
