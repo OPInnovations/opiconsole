@@ -76,9 +76,11 @@ build/
 #################
 
 ## Ignore Qt generated header files 
-
-# User-specific files
+Makefile
 ui_*.h
+moc_*.cpp
+qrc_*.cpp
+
 
 #############
 ## User defined rules

@@ -12,27 +12,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>180</width>
-    <height>190</height>
+    <width>280</width>
+    <height>250</height>
    </rect>
-  </property>
-  <property name="minimumSize">
-   <size>
-    <width>180</width>
-    <height>190</height>
-   </size>
-  </property>
-  <property name="maximumSize">
-   <size>
-    <width>180</width>
-    <height>190</height>
-   </size>
   </property>
   <property name="contextMenuPolicy">
    <enum>Qt::DefaultContextMenu</enum>
   </property>
   <property name="windowTitle">
-   <string>LiveDisp</string>
+   <string>Select Sensor</string>
   </property>
   <property name="windowIcon">
    <iconset resource="../opiconsole.qrc">
@@ -52,8 +40,8 @@ font: 75 8pt &quot;Arial&quot;;</string>
    <widget class="QPushButton" name="CBP1">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>40</y>
+      <x>30</x>
+      <y>60</y>
       <width>70</width>
       <height>27</height>
      </rect>
@@ -83,8 +71,8 @@ font: 75 8pt &quot;Arial&quot;;</string>
     </property>
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>10</y>
+      <x>30</x>
+      <y>30</y>
       <width>70</width>
       <height>27</height>
      </rect>
@@ -108,8 +96,8 @@ font: 75 8pt &quot;Arial&quot;;</string>
    <widget class="QPushButton" name="CBP3">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>100</y>
+      <x>30</x>
+      <y>120</y>
       <width>70</width>
       <height>27</height>
      </rect>
@@ -136,8 +124,8 @@ font: 75 8pt &quot;Arial&quot;;</string>
    <widget class="QPushButton" name="CBP2">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>70</y>
+      <x>30</x>
+      <y>90</y>
       <width>70</width>
       <height>27</height>
      </rect>
@@ -164,8 +152,8 @@ font: 75 8pt &quot;Arial&quot;;</string>
    <widget class="QPushButton" name="CBP4">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>130</y>
+      <x>30</x>
+      <y>150</y>
       <width>70</width>
       <height>27</height>
      </rect>
@@ -192,8 +180,8 @@ font: 75 8pt &quot;Arial&quot;;</string>
    <widget class="QPushButton" name="pushButton_2">
     <property name="geometry">
      <rect>
-      <x>110</x>
-      <y>100</y>
+      <x>180</x>
+      <y>120</y>
       <width>54</width>
       <height>54</height>
      </rect>
@@ -233,8 +221,8 @@ font: 75 8pt &quot;Arial&quot;;</string>
     </property>
     <property name="geometry">
      <rect>
-      <x>110</x>
-      <y>40</y>
+      <x>180</x>
+      <y>60</y>
       <width>54</width>
       <height>54</height>
      </rect>
@@ -265,8 +253,8 @@ font: 75 8pt &quot;Arial&quot;;</string>
    <widget class="QCheckBox" name="checkWriteFileBox">
     <property name="geometry">
      <rect>
-      <x>100</x>
-      <y>10</y>
+      <x>170</x>
+      <y>30</y>
       <width>71</width>
       <height>21</height>
      </rect>
@@ -282,6 +270,22 @@ font: 75 8pt &quot;Arial&quot;;</string>
     </property>
     <property name="text">
      <string>Recording</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lblUsageTip">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>190</y>
+      <width>221</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>After selecting the sensor you can remove it (and the memory module) from the controller.</string>
+    </property>
+    <property name="wordWrap">
+     <bool>true</bool>
     </property>
    </widget>
   </widget>

@@ -43,6 +43,9 @@ font: 75 8pt &quot;Arial&quot;;</string>
       <bold>false</bold>
      </font>
     </property>
+    <property name="toolTip">
+     <string>Show sensor data (live)</string>
+    </property>
     <property name="text">
      <string/>
     </property>
@@ -81,6 +84,9 @@ font: 75 8pt &quot;Arial&quot;;</string>
       <bold>false</bold>
      </font>
     </property>
+    <property name="toolTip">
+     <string>File Converter</string>
+    </property>
     <property name="styleSheet">
      <string notr="true"/>
     </property>
@@ -118,6 +124,9 @@ font: 75 8pt &quot;Arial&quot;;</string>
       <italic>false</italic>
       <bold>false</bold>
      </font>
+    </property>
+    <property name="toolTip">
+     <string>Advanced Configuration</string>
     </property>
     <property name="text">
      <string/>
@@ -226,7 +235,7 @@ font: 75 8pt &quot;Arial&quot;;</string>
      <bool>false</bool>
     </property>
     <property name="toolTip">
-     <string/>
+     <string>Scan for new devices</string>
     </property>
     <property name="text">
      <string/>
@@ -256,6 +265,9 @@ font: 75 8pt &quot;Arial&quot;;</string>
       <width>40</width>
       <height>40</height>
      </rect>
+    </property>
+    <property name="toolTip">
+     <string>Shut down controller</string>
     </property>
     <property name="text">
      <string/>
@@ -368,6 +380,10 @@ font: 75 8pt &quot;Arial&quot;;</string>
       <height>17</height>
      </rect>
     </property>
+    <property name="toolTip">
+     <string>Toggle RF (radio frequency) communication
+This will turn the ZigBee transmitter on/off. You must turn it on in order to have real time data from the sensor(s).</string>
+    </property>
     <property name="text">
      <string>RF</string>
     </property>
@@ -380,9 +396,13 @@ font: 75 8pt &quot;Arial&quot;;</string>
      <rect>
       <x>270</x>
       <y>55</y>
-      <width>51</width>
+      <width>41</width>
       <height>17</height>
      </rect>
+    </property>
+    <property name="toolTip">
+     <string>Toggle MM (Memory Module)
+If you want to record high quality data into the memory module then this must be checked.</string>
     </property>
     <property name="text">
      <string>MM</string>
@@ -399,6 +419,9 @@ font: 75 8pt &quot;Arial&quot;;</string>
       <width>51</width>
       <height>17</height>
      </rect>
+    </property>
+    <property name="toolTip">
+     <string>Toggle Double Tap</string>
     </property>
     <property name="text">
      <string>DTap</string>
@@ -417,7 +440,7 @@ font: 75 8pt &quot;Arial&quot;;</string>
      </rect>
     </property>
     <property name="toolTip">
-     <string/>
+     <string>Unpair sensor</string>
     </property>
     <property name="text">
      <string/>
@@ -441,6 +464,9 @@ font: 75 8pt &quot;Arial&quot;;</string>
       <width>40</width>
       <height>166</height>
      </rect>
+    </property>
+    <property name="toolTip">
+     <string>Shut down sensor(s)</string>
     </property>
     <property name="text">
      <string/>
@@ -467,9 +493,13 @@ font: 75 8pt &quot;Arial&quot;;</string>
      <rect>
       <x>270</x>
       <y>85</y>
-      <width>51</width>
+      <width>41</width>
       <height>17</height>
      </rect>
+    </property>
+    <property name="toolTip">
+     <string>Toggle MM (Memory Module)
+If you want to record high quality data into the memory module then this must be checked.</string>
     </property>
     <property name="text">
      <string>MM</string>
@@ -503,6 +533,9 @@ font: 75 8pt &quot;Arial&quot;;</string>
       <height>17</height>
      </rect>
     </property>
+    <property name="toolTip">
+     <string>Toggle Double Tap</string>
+    </property>
     <property name="text">
      <string>DTap</string>
     </property>
@@ -518,6 +551,9 @@ font: 75 8pt &quot;Arial&quot;;</string>
       <width>70</width>
       <height>27</height>
      </rect>
+    </property>
+    <property name="toolTip">
+     <string>Unpair sensor</string>
     </property>
     <property name="text">
      <string/>
@@ -544,6 +580,10 @@ font: 75 8pt &quot;Arial&quot;;</string>
       <width>41</width>
       <height>17</height>
      </rect>
+    </property>
+    <property name="toolTip">
+     <string>Toggle RF (radio frequency) communication
+This will turn the ZigBee transmitter on/off. You must turn it on in order to have real time data from the sensor(s).</string>
     </property>
     <property name="text">
      <string>RF</string>
@@ -600,6 +640,10 @@ font: 75 8pt &quot;Arial&quot;;</string>
       <height>17</height>
      </rect>
     </property>
+    <property name="toolTip">
+     <string>Toggle RF (radio frequency) communication
+This will turn the ZigBee transmitter on/off. You must turn it on in order to have real time data from the sensor(s).</string>
+    </property>
     <property name="text">
      <string>RF</string>
     </property>
@@ -615,6 +659,9 @@ font: 75 8pt &quot;Arial&quot;;</string>
       <width>70</width>
       <height>27</height>
      </rect>
+    </property>
+    <property name="toolTip">
+     <string>Unpair sensor</string>
     </property>
     <property name="text">
      <string/>
@@ -651,9 +698,13 @@ font: 75 8pt &quot;Arial&quot;;</string>
      <rect>
       <x>270</x>
       <y>115</y>
-      <width>51</width>
+      <width>41</width>
       <height>17</height>
      </rect>
+    </property>
+    <property name="toolTip">
+     <string>Toggle MM (Memory Module)
+If you want to record high quality data into the memory module then this must be checked.</string>
     </property>
     <property name="text">
      <string>MM</string>
@@ -674,6 +725,9 @@ font: 75 8pt &quot;Arial&quot;;</string>
       <height>17</height>
      </rect>
     </property>
+    <property name="toolTip">
+     <string>Toggle Double Tap</string>
+    </property>
     <property name="text">
      <string>DTap</string>
     </property>
@@ -693,6 +747,9 @@ font: 75 8pt &quot;Arial&quot;;</string>
       <height>17</height>
      </rect>
     </property>
+    <property name="toolTip">
+     <string>Toggle Double Tap</string>
+    </property>
     <property name="text">
      <string>DTap</string>
     </property>
@@ -708,9 +765,13 @@ font: 75 8pt &quot;Arial&quot;;</string>
      <rect>
       <x>270</x>
       <y>145</y>
-      <width>51</width>
+      <width>41</width>
       <height>17</height>
      </rect>
+    </property>
+    <property name="toolTip">
+     <string>Toggle MM (Memory Module)
+If you want to record high quality data into the memory module then this must be checked.</string>
     </property>
     <property name="text">
      <string>MM</string>
@@ -780,6 +841,10 @@ font: 75 8pt &quot;Arial&quot;;</string>
       <height>17</height>
      </rect>
     </property>
+    <property name="toolTip">
+     <string>Toggle RF (radio frequency) communication
+This will turn the ZigBee transmitter on/off. You must turn it on in order to have real time data from the sensor(s).</string>
+    </property>
     <property name="text">
      <string>RF</string>
     </property>
@@ -795,6 +860,9 @@ font: 75 8pt &quot;Arial&quot;;</string>
       <width>70</width>
       <height>27</height>
      </rect>
+    </property>
+    <property name="toolTip">
+     <string>Unpair sensor</string>
     </property>
     <property name="text">
      <string/>
@@ -958,6 +1026,9 @@ font: 75 8pt &quot;Arial&quot;;</string>
       <height>27</height>
      </rect>
     </property>
+    <property name="toolTip">
+     <string>Download data from the memory module to the computer</string>
+    </property>
     <property name="text">
      <string/>
     </property>
@@ -1006,6 +1077,9 @@ font: 75 8pt &quot;Arial&quot;;</string>
       <bold>false</bold>
      </font>
     </property>
+    <property name="toolTip">
+     <string>Show biofeedback (live)</string>
+    </property>
     <property name="styleSheet">
      <string notr="true"/>
     </property>
@@ -1043,6 +1117,9 @@ font: 75 8pt &quot;Arial&quot;;</string>
       <italic>false</italic>
       <bold>false</bold>
      </font>
+    </property>
+    <property name="toolTip">
+     <string>Meditation file analysis</string>
     </property>
     <property name="styleSheet">
      <string notr="true"/>
@@ -1082,6 +1159,9 @@ font: 75 8pt &quot;Arial&quot;;</string>
       <bold>false</bold>
      </font>
     </property>
+    <property name="toolTip">
+     <string>Sleep file analysis</string>
+    </property>
     <property name="styleSheet">
      <string notr="true"/>
     </property>
@@ -1120,6 +1200,9 @@ font: 75 8pt &quot;Arial&quot;;</string>
       <bold>false</bold>
      </font>
     </property>
+    <property name="toolTip">
+     <string>Tutorial game (live)</string>
+    </property>
     <property name="styleSheet">
      <string notr="true"/>
     </property>
@@ -1149,6 +1232,9 @@ font: 75 8pt &quot;Arial&quot;;</string>
       <height>27</height>
      </rect>
     </property>
+    <property name="toolTip">
+     <string>Erase all data from the memory module</string>
+    </property>
     <property name="text">
      <string>Erase</string>
     </property>
@@ -1167,6 +1253,9 @@ font: 75 8pt &quot;Arial&quot;;</string>
       <width>51</width>
       <height>27</height>
      </rect>
+    </property>
+    <property name="toolTip">
+     <string>Upload tags</string>
     </property>
     <property name="text">
      <string/>
@@ -1190,6 +1279,9 @@ font: 75 8pt &quot;Arial&quot;;</string>
       <width>71</width>
       <height>20</height>
      </rect>
+    </property>
+    <property name="toolTip">
+     <string>0 %</string>
     </property>
     <property name="value">
      <number>24</number>
