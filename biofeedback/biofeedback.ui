@@ -56,9 +56,9 @@ font: 75 8pt &quot;Arial&quot;;</string>
    <widget class="QTextEdit" name="fftcofactor">
     <property name="geometry">
      <rect>
-      <x>370</x>
+      <x>380</x>
       <y>10</y>
-      <width>41</width>
+      <width>31</width>
       <height>21</height>
      </rect>
     </property>
@@ -374,7 +374,7 @@ font: 75 8pt &quot;Arial&quot;;</string>
    <widget class="QPushButton" name="fftbutton">
     <property name="geometry">
      <rect>
-      <x>410</x>
+      <x>420</x>
       <y>10</y>
       <width>31</width>
       <height>21</height>
@@ -475,7 +475,7 @@ font: 75 8pt &quot;Arial&quot;;</string>
      <rect>
       <x>10</x>
       <y>40</y>
-      <width>61</width>
+      <width>351</width>
       <height>16</height>
      </rect>
     </property>
@@ -486,62 +486,62 @@ font: 75 8pt &quot;Arial&quot;;</string>
     </item>
     <item>
      <property name="text">
-      <string>RR</string>
+      <string>RR [Heart rate] (ECG/EKG)</string>
      </property>
     </item>
     <item>
      <property name="text">
-      <string>RPeak</string>
+      <string>RPeak [Heart rate peak] (ECG/EKG)</string>
      </property>
     </item>
     <item>
      <property name="text">
-      <string>M2</string>
+      <string>M2 [156.5-173.5, 186.5-191.5, 208.5-231.5, 248.5-255.5 Hz] (EEG)</string>
      </property>
     </item>
     <item>
      <property name="text">
-      <string>M1</string>
+      <string>M1 [104.5-115.5, 124.5-143.5 Hz] (EEG)</string>
      </property>
     </item>
     <item>
      <property name="text">
-      <string>G2</string>
+      <string>G2 [62.5-95.5 Hz] (EEG)</string>
      </property>
     </item>
     <item>
      <property name="text">
-      <string>G1</string>
+      <string>G1 [40.0-47.5, 52.5-57.5 Hz] (EEG)</string>
      </property>
     </item>
     <item>
      <property name="text">
-      <string>UP</string>
+      <string>UP [48.0-52.0, 58.0-62.0, 96.0-104.0, 116.0-124.0, 144.0-156.0, 174.0-186.0, 192.0-208.0, 232.0-248.0 Hz] (EEG)</string>
      </property>
     </item>
     <item>
      <property name="text">
-      <string>Beta</string>
+      <string>Beta [16.0-39.5 Hz] (EEG)</string>
      </property>
     </item>
     <item>
      <property name="text">
-      <string>Sigma</string>
+      <string>Sigma [11.5 +/- 1.0 Hz by default] (EEG)</string>
      </property>
     </item>
     <item>
      <property name="text">
-      <string>Alpha</string>
+      <string>Alpha [9.0 +/- 1.0 Hz by default] (EEG)</string>
      </property>
     </item>
     <item>
      <property name="text">
-      <string>Theta</string>
+      <string>Theta [4.0-6.5 Hz] (EEG)</string>
      </property>
     </item>
     <item>
      <property name="text">
-      <string>Delta</string>
+      <string>Delta [1.0-3.5 Hz] (EEG)</string>
      </property>
     </item>
    </widget>
@@ -580,9 +580,9 @@ font: 75 8pt &quot;Arial&quot;;</string>
    <widget class="QLabel" name="Sigmalabel">
     <property name="geometry">
      <rect>
-      <x>190</x>
+      <x>200</x>
       <y>10</y>
-      <width>41</width>
+      <width>31</width>
       <height>21</height>
      </rect>
     </property>
@@ -614,7 +614,7 @@ font: 75 8pt &quot;Arial&quot;;</string>
      <rect>
       <x>10</x>
       <y>240</y>
-      <width>61</width>
+      <width>351</width>
       <height>16</height>
      </rect>
     </property>
@@ -689,7 +689,7 @@ font: 75 8pt &quot;Arial&quot;;</string>
      <rect>
       <x>10</x>
       <y>290</y>
-      <width>61</width>
+      <width>351</width>
       <height>16</height>
      </rect>
     </property>
@@ -764,7 +764,7 @@ font: 75 8pt &quot;Arial&quot;;</string>
      <rect>
       <x>10</x>
       <y>340</y>
-      <width>61</width>
+      <width>351</width>
       <height>16</height>
      </rect>
     </property>
@@ -839,7 +839,7 @@ font: 75 8pt &quot;Arial&quot;;</string>
      <rect>
       <x>10</x>
       <y>390</y>
-      <width>61</width>
+      <width>351</width>
       <height>16</height>
      </rect>
     </property>
@@ -912,7 +912,7 @@ font: 75 8pt &quot;Arial&quot;;</string>
    <widget class="QPushButton" name="pushButton_5">
     <property name="geometry">
      <rect>
-      <x>260</x>
+      <x>270</x>
       <y>10</y>
       <width>31</width>
       <height>21</height>
@@ -989,7 +989,7 @@ font: 75 8pt &quot;Arial&quot;;</string>
    <widget class="QCheckBox" name="CheckInvertShow">
     <property name="geometry">
      <rect>
-      <x>70</x>
+      <x>380</x>
       <y>40</y>
       <width>51</width>
       <height>17</height>

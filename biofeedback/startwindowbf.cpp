@@ -492,7 +492,7 @@ void startwindowbf::on_pushButton_clicked()
             get_opipkt_total=opiucd_getPDN();
             if(!get_opipkt_total)
             {
-                show_message.setText("there is no pdn devices");
+                show_message.setText("there are no PDN devices");
                 show_message.show();
                 show_message.exec();
             }
@@ -517,7 +517,7 @@ void startwindowbf::on_pushButton_clicked()
         {
             portOn = false;
             *comPortUserp = BFCOMPORTFREE;
-            show_message.setText("Connect the Device again");
+            show_message.setText("Connect the device again");
             show_message.show();
             show_message.exec();
         }
@@ -539,7 +539,7 @@ void startwindowbf::on_pushButton_clicked()
             get_opipkt_total=opiucd_getPDN();
             if(!get_opipkt_total)
             {
-                show_message.setText("there is no pdn devices");
+                show_message.setText("there are no PDN devices");
                 show_message.show();
                 show_message.exec();
             }
@@ -564,14 +564,14 @@ void startwindowbf::on_pushButton_clicked()
         {
             portOn = false;
             *comPortUserp = BFCOMPORTFREE;
-            show_message.setText("Connect the Device again");
+            show_message.setText("Connect the device again");
             show_message.show();
             show_message.exec();
         }
     }//other device doesn't use comport
     else //other device uses comport
     {
-        show_message.setText("Comport is busy,try again later");
+        show_message.setText("COM port is busy, try again later");
         show_message.show();
         show_message.exec();
     }
