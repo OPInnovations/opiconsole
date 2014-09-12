@@ -2071,7 +2071,7 @@ OPIPKT_DC01_SDC01_t buildDC01SDC01(OPIPKT_t package)
 
 	packageSDC01.accelerometerZ = (packageSDC01.accelerometerZs[0] + packageSDC01.accelerometerZs[1] + packageSDC01.accelerometerZs[2] + packageSDC01.accelerometerZs[3]) / 4;
 
-	packageSDC01.ed = package.payload[endOfADCDataOffset + 7] & 0x7F;
+	packageSDC01.ed = package.payload[endOfADCDataOffset + 8] & 0x7F;
 
 	return packageSDC01;
 }

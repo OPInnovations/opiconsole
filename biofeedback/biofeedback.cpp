@@ -77,17 +77,15 @@ void biofeedback::secretstart(bool setgamemode)
 }
 
 
-void biofeedback::showDataControl(void)
+void biofeedback::showDataControl(byte rfValue)
 {
     //RF
-    ui->EDM->setText(QString("%1").arg(PACKAGE_t.payload[144]));
+    ui->EDM->setText(QString("%1").arg(rfValue));
 }
 
 // process the data in PACKAGE_t and fill the temp_new_data, x_new_data, y_new_data, z_new_data, adc_new_data
-int biofeedback::calNewPack(void)
-{
-	OPIPKT_DC01_SDC01_t packet = buildDC01SDC01(PACKAGE_t);
-
+int biofeedback::calNewPack(OPIPKT_DC01_SDC01_t packet)
+{	
 	int i,k;
     QVector <qint16> accxQV,accyQV,acczQV;
 
@@ -398,11 +396,12 @@ qint16 biofeedback::fftDoubleQInt16Conversion(double fftAmpSq)
 }
 
 
-int biofeedback::routinedrawgroup()
+int biofeedback::routinedrawgroup(OPIPKT_DC01_SDC01_t packet)
 {
     if(newdata&&(!ui->CheckPauseShow->isChecked()))
     {
-        calNewPack();
+        calNewPack(packet);
+
         //draw start
         if(!gamemode)   //BIOFEEDBACK routine
         {
@@ -634,11 +633,11 @@ int biofeedback::routinedrawgroup()
             case DELTA:
                 draweeg(true,ui->drawSignalE,sceneSignalE,BFDELTAMAX,BFDELTAMIN,&countlinedelta,ui->timeSlider->value()*TIMEMORESTEP,ui->label_SignalE,&deltaoldvalue,eegdeltaQV.at(0),other_zoomrate);
                 break;}
-            showDataControl();
+            showDataControl(packet.ed);
         } //end of BIOFEEDBACK routine
         else   //GAMEMODE routine
         {
-            tg->setdata(PACKAGE_t.payload[144],RRvaluenew,ampvaluenew,
+            tg->setdata(packet.ed,RRvaluenew,ampvaluenew,
                         eegM2QV.at(0),eegM1QV.at(0),
                         eegG2QV.at(0),eegG1QV.at(0),
                         eegUPQV.at(0),eegBetaQV.at(0),
@@ -1021,14 +1020,12 @@ biofeedback::~biofeedback()
 
 int biofeedback::getStruct(OPIPKT_t* opipointer)
 {
-    int i;
+	OPIPKT_DC01_SDC01_t packet = {};
+	packet = buildDC01SDC01(*opipointer);
+    
+	newdata=true;
 
-    PACKAGE_t.dataCode=opipointer->dataCode;
-    PACKAGE_t.length=opipointer->length;
-    for(i=0;i<opipointer->length;i++)
-        PACKAGE_t.payload[i]=opipointer->payload[i];
-     newdata=true;
-    return this->routinedrawgroup();
+    return this->routinedrawgroup(packet);
 }
 
 
