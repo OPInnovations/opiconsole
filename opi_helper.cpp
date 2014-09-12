@@ -2,6 +2,9 @@
  * Helper functions definition file
  * OP Innovations
  *
+ * v0.98 - 20140912 afuchs
+ * --------------------------
+ * 1. Added buildDC01SDC01 which builds the default wireless package struct
  *
  * v0.97 - 20130306 mpeng
  * --------------------------
@@ -2001,4 +2004,74 @@ qint8 writeConfigValue(QString keyIndex, QString valueQS)
     delete configQTSp;
 
     return 0;
+}
+
+/***
+  * Builds the DataCode 01, Sub-Data Code 01 package from the general OPIPKT_T
+  * Inputs:
+  *     package, the raw package
+  * Returns:
+  *     OPIPKT_DC01_SDC01_t
+  */
+OPIPKT_DC01_SDC01_t buildDC01SDC01(OPIPKT_t package)
+{
+	OPIPKT_DC01_SDC01_t packageSDC01;
+
+	// package payload structure can be found in the OPIWiredFrameDefinition_v1.10_release_20131122.pdf file
+	// one packet contans information about 1/8 seconds of sensoral data
+
+	packageSDC01.dataCode = package.dataCode;
+	packageSDC01.length = package.length;
+	memcpy(packageSDC01.payload, package.payload, sizeof(package.payload));
+	packageSDC01.subDataCode = package.payload[0];
+
+	// we can only handle the packets with sub data code 1
+	if ((packageSDC01.dataCode != 1) || (packageSDC01.subDataCode != 1)) return packageSDC01;
+
+	packageSDC01.timeStamp = ((long long)package.payload[1] << 40) + ((long long)package.payload[2] << 32) + ((long)package.payload[3] << 24) + ((long)package.payload[4] << 16) + (package.payload[5] << 8) + (package.payload[6]);
+	QDateTime qtTimeStamp(QDate(2012, 9, 28), QTime(8, 0), Qt::TimeSpec::UTC, 0);
+	qtTimeStamp = qtTimeStamp.addSecs(packageSDC01.timeStamp / 4096);
+	qtTimeStamp = qtTimeStamp.addMSecs((packageSDC01.timeStamp % 4096) * (1000.0f / 4096.0f));
+
+	QString dateTime = qtTimeStamp.toString("yyyy-MM-dd HH:mm:ss.zzz");
+	packageSDC01.timeStampStr = dateTime.toLatin1().data();
+
+	packageSDC01.sensorPDN = package.payload[7];
+	unsigned char misc = package.payload[8];
+	packageSDC01.adcDataSampleCount = ((misc & 0x80) >> 7) == 0 ? 64 : 62; 
+	packageSDC01.wirelessDataCode = (misc & 0x70) >> 4;
+	packageSDC01.lowBattery = (misc & 0x01) == 0;
+
+	packageSDC01.wirelessDataCorrectionCode = package.payload[10] & 0x03;
+	packageSDC01.adcValues = new short[packageSDC01.adcDataSampleCount];
+	for (int i=0; i<packageSDC01.adcDataSampleCount; i++)
+	{
+		unsigned short adcValue = (package.payload[9 + i*2] & 0xFF) << 8 + (package.payload[10 + i*2] & 0xFC);
+		packageSDC01.adcValues[i] = adcValue <= 32767 ? adcValue : adcValue - 65536;
+	}
+	
+	int endOfADCDataOffset = 8 + packageSDC01.adcDataSampleCount*2;
+	packageSDC01.temperatureData = package.payload[endOfADCDataOffset + 1] * 1.13 - 46.8;
+
+	byte accelerometerData = package.payload[endOfADCDataOffset + 2];
+	packageSDC01.accelerometerX = accelerometerData <= 127 ? accelerometerData : accelerometerData - 256;
+
+	accelerometerData = package.payload[endOfADCDataOffset + 3];
+	packageSDC01.accelerometerY = accelerometerData <= 127 ? accelerometerData : accelerometerData - 256;
+		
+	packageSDC01.accelerometerZs = new char[4];
+	accelerometerData = package.payload[endOfADCDataOffset + 4];
+	packageSDC01.accelerometerZs[0] = accelerometerData <= 127 ? accelerometerData : accelerometerData - 256;
+	accelerometerData = package.payload[endOfADCDataOffset + 5];
+	packageSDC01.accelerometerZs[1] = accelerometerData <= 127 ? accelerometerData : accelerometerData - 256;
+	accelerometerData = package.payload[endOfADCDataOffset + 6];
+	packageSDC01.accelerometerZs[2] = accelerometerData <= 127 ? accelerometerData : accelerometerData - 256;
+	accelerometerData = package.payload[endOfADCDataOffset + 7];
+	packageSDC01.accelerometerZs[3] = accelerometerData <= 127 ? accelerometerData : accelerometerData - 256;
+
+	packageSDC01.accelerometerZ = (packageSDC01.accelerometerZs[0] + packageSDC01.accelerometerZs[1] + packageSDC01.accelerometerZs[2] + packageSDC01.accelerometerZs[3]) / 4;
+
+	packageSDC01.ed = package.payload[endOfADCDataOffset + 7] & 0x7F;
+
+	return packageSDC01;
 }

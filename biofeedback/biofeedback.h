@@ -94,7 +94,7 @@ class biofeedback : public QMainWindow
     //struct of opipkt
     OPIPKT_t PACKAGE_t;
     //Save the gamemode data
-    float temp_last_data,temp_new_data;
+    float temp_new_data;
     float x_new_data,y_new_data,z_new_data[TG_NUMPOINTSAMPLE_Z],z_new_data_average;
 
     //save the new data start
@@ -221,7 +221,7 @@ public:
 private:
     Ui::biofeedback *ui;
     void showDataControl(void);
-    int calNewPack(void);
+	int calNewPack(void);
     void setUpTotalScene();
 
     int drawRR(bool validHRmax,QGraphicsView *view,QGraphicsScene *scene,int max,int min,

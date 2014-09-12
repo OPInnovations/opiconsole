@@ -1,0 +1,15 @@
+UserLicenseAccepted
+Alpha	9.0
+Sigma	11.5
+Sleep_DeltaTH2	10.5
+Sleep_DeltaTH1	8.0
+Sleep_ThetaTH	10.0
+Sleep_SigmaTH	7.0
+Sleep_BetaTH	10.0
+Sleep_G1TH	4.5
+Med_DeltaTH2	10.5
+Med_ThetaTH	10.0
+Med_AlphaTH	8.0
+Med_SigmaTH	7.0
+Med_BetaTH	10.0
+Med_G1TH	4.5

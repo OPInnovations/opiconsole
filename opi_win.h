@@ -93,10 +93,37 @@ typedef struct OPIPKT_struct
 {
     unsigned char dataCode;  	// dataCode, 1 byte
     unsigned short length;		// length of payload, 2 bytes
-    unsigned char payload[1024];	// payload array, 1024 byte array
-                                    //(should never be greater than 1K)
+    unsigned char payload[1024];	// payload array, 1024 byte array (should never be greater than 1K)
 } OPIPKT_t;
 
+typedef struct OPIPKT_DC01_SDC01_struct
+{
+    unsigned char dataCode;  	// data code, 1 byte
+    unsigned short length;		// length of payload, 2 bytes
+    unsigned char payload[1024];	// payload array, 1024 byte array (should never be greater than 1K)
+
+	unsigned char subDataCode;  // sub-data code, 1 byte
+	unsigned long long timeStamp;
+	const char* timeStampStr;
+
+	unsigned char sensorPDN;
+	unsigned char adcDataSampleCount; 
+	unsigned char wirelessDataCode;
+	bool lowBattery;
+
+	unsigned char wirelessDataCorrectionCode;
+	short *adcValues;
+	
+	float temperatureData;
+
+	char accelerometerX;
+	char accelerometerY;
+	char *accelerometerZs;
+	char accelerometerZ;
+
+	unsigned char ed;
+
+} OPIPKT_DC01_SDC01_t;
 
 /***
   * Prototypes

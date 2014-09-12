@@ -83,40 +83,35 @@ void biofeedback::showDataControl(void)
     ui->EDM->setText(QString("%1").arg(PACKAGE_t.payload[144]));
 }
 
-
+// process the data in PACKAGE_t and fill the temp_new_data, x_new_data, y_new_data, z_new_data, adc_new_data
 int biofeedback::calNewPack(void)
 {
-    int i,k;
+	OPIPKT_DC01_SDC01_t packet = buildDC01SDC01(PACKAGE_t);
+
+	int i,k;
     QVector <qint16> accxQV,accyQV,acczQV;
-    //temperature
+
+    
+	//temperature
     //from here to moving-8 x100
-    temp_last_data = temp_new_data *0.875;
-    temp_new_data=temp_last_data + 0.125*(PACKAGE_t.payload[1+TSLEN+WLFRMHDRLEN+2*ADCLEN]*113-4680); // moving8 x100
+    float temp_last_data = temp_new_data * 0.875;
+    temp_new_data = temp_last_data + 0.125 * packet.temperatureData; // moving8 x100
     //end temperature
-    //accx
-    //from here
-    x_new_data=PACKAGE_t.payload[138];
-    x_new_data=(x_new_data>127)?(x_new_data-256):x_new_data;
-    accxQV.append(wirelessaccscale(x_new_data));
-    //end accx
-    //accy
-    //from here
-    y_new_data=PACKAGE_t.payload[139];
-    y_new_data=(y_new_data>127)?(y_new_data-256):y_new_data;
-    accyQV.append(wirelessaccscale(y_new_data));
-    //end accy
-    //accz
-    //from here
-    z_new_data_average=0;
-    for(i=0; i<TG_NUMPOINTSAMPLE_Z; i++)
-    {
-        z_new_data[i]=PACKAGE_t.payload[140+i];
-        z_new_data[i]=(z_new_data[i]>127)?(z_new_data[i]-256):z_new_data[i];
-        acczQV.append(wirelessaccscale(z_new_data[i]));
-        z_new_data_average+=z_new_data[i];
-    }
-    z_new_data_average=z_new_data_average/TG_NUMPOINTSAMPLE_Z;
-    //end accz
+    
+	x_new_data = packet.accelerometerX;
+	y_new_data = packet.accelerometerY;
+	//z_new_data = packet.accelerometerZs;
+	z_new_data_average = packet.accelerometerZ;
+
+    accxQV.append(wirelessaccscale(packet.accelerometerX));
+    accyQV.append(wirelessaccscale(packet.accelerometerY));    
+    acczQV.append(wirelessaccscale(packet.accelerometerZs[0]));
+	acczQV.append(wirelessaccscale(packet.accelerometerZs[1]));
+	acczQV.append(wirelessaccscale(packet.accelerometerZs[2]));
+	acczQV.append(wirelessaccscale(packet.accelerometerZs[3]));
+
+	packet.accelerometerZ = wirelessaccscale(packet.accelerometerZ);
+
     TDV->livedisplayroutine(&accxQV,&accyQV,&acczQV);
 
     if(gamemode)
@@ -127,7 +122,8 @@ int biofeedback::calNewPack(void)
     int max_min_pair;
     max_min_pair=ADCLEN/BFNUMPOINTSAMPLE;  //skip range
     for(i=0; i<BFNUMPOINTSAMPLE; i++)//skip range
-    {    adc_new_data[adc_data_index_count]=((PACKAGE_t.payload[1+TSLEN+WLFRMHDRLEN+2*(max_min_pair*i)] << 8) + PACKAGE_t.payload[1+TSLEN+WLFRMHDRLEN+2*(max_min_pair*i)+1])*(ui->CheckInvertShow->isChecked()?-1:1);
+    {    
+		adc_new_data[adc_data_index_count]=(packet.adcValues[i])*(ui->CheckInvertShow->isChecked()?-1:1);
         adc_fft_new_data[adc_fft_data_index_count]=adc_new_data[adc_data_index_count];
         if(!gamemode && ecgmode)  adc_data_index_count++;  //ECG AND !gamemode
         if(gamemode || eegmode) adc_fft_data_index_count++; //EEG or gamemode
@@ -648,7 +644,7 @@ int biofeedback::routinedrawgroup()
                         eegUPQV.at(0),eegBetaQV.at(0),
                         eegSigmaQV.at(0),eegalphaQV.at(0),
                         eegthetaQV.at(0),eegdeltaQV.at(0),
-                        x_new_data,y_new_data,z_new_data_average,FFTFLAG);
+                        x_new_data, y_new_data, z_new_data_average, FFTFLAG);
         } //end of GAMEMODE routine
         newdata=false;
         return 1;

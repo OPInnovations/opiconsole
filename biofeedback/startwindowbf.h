@@ -31,9 +31,14 @@ class startwindowbf : public QMainWindow
     int Show_count;
     //for loop counter
     int i;
-    //file pointer
-    FILE *file;
-    //for showing message
+    
+	//file pointer to the output OPI file
+    FILE *opiFile;
+
+	//file pointer to the output EDF file
+    FILE *edfFile;
+
+	//for showing message
     QMessageBox show_message;
     //save the word of pdn number to show on the screen
     QString pdntemp;
@@ -102,12 +107,12 @@ protected:
      void showEvent(QShowEvent *);
 
 private slots:
-     void on_CBP1_clicked();
-     void on_CBP2_clicked();
-     void on_CBP3_clicked();
-     void on_CBP4_clicked();
-     void on_pushButton_clicked();
-     void on_pushButton_2_clicked();
+     void on_btnCBP1_clicked();
+     void on_btnCBP2_clicked();
+     void on_btnCBP3_clicked();
+     void on_btnCBP4_clicked();
+     void on_btnRefresh_clicked();
+     void on_btnStart_clicked();
 };
 
 #endif // STARTWINDOWBF_H
