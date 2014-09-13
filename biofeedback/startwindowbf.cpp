@@ -1,6 +1,8 @@
 #include "startwindowbf.h"
 #include "ui_startwindowbf.h"
 
+#define fclose(fp)  ((fp) ? fclose(fp) : 0, (fp) = 0)
+
 startwindowbf::startwindowbf(qint32 *comPortUser,bool setgamemode, QWidget *parent) :
 	ui(new Ui::startwindowbf)
 {
@@ -23,26 +25,32 @@ startwindowbf::startwindowbf(qint32 *comPortUser,bool setgamemode, QWidget *pare
 	hide_check_pdn();
 	//initialize
 	Show_count = 0;
-	firsttimer=true;
+
+	timeid = 0;
+
 	for(int i=0;i<=255;i++)
 		PDN_LOCATION[i]=0;
+
 	for(int i=0;i<OPIWANT_MAX_BF+1;i++)
-	{ PDNBOX[i]=false;
-	pdnOn[i]=false;
-	PDN_NUMBER[i]=0xff;
+	{ 
+		PDNBOX[i]=false;
+		pdnOn[i]=false;
+		PDN_NUMBER[i]=0xff;
 	}
 
 	//initialize the pdn is first used
 	//so that if it is the second time we use we will get the information from showdatawindow
 	for(int i=0;i<5;i++)
 		firstpdn[i]=true;
-	//portOn off not yet connect
-	portOn = false;
+	
+	com = 0;
+
 	//set window icon
 	this->setWindowIcon(QIcon("../images/opi_ico.ico"));
 	ui->btnRefresh->setEnabled(true);
-	//file is the first time open
-	firstfile=true;
+
+	opiFile = NULL;
+	edfFile = NULL;
 }
 
 startwindowbf::~startwindowbf()
@@ -54,22 +62,18 @@ startwindowbf::~startwindowbf()
 
 void startwindowbf::timerEvent(QTimerEvent *event)
 {   
-	if(portOn&&(pdnshowcountp>0))
+	if((com > 0)&&(pdnshowcountp>0))
 	{
 		fresh();
 	}
 	else if(pdnshowcountp==0)
 	{
-		if(portOn)
-			opi_closeucd_com(&com);
-		portOn=false;
-		*comPortUserp = BFCOMPORTFREE;
-		if(!firsttimer)
-			this->killTimer(timeid);
-		if(!firstfile)
-			fclose(opiFile);
-		firsttimer=true;
-		firstfile=true;
+		closeComPort();
+
+		killUIRefreshTimer();
+
+		closeFiles();
+
 		ui->chkSaveToOPI->setDisabled(false);
 		ui->chkSaveToEDF->setDisabled(false);
 	}
@@ -79,23 +83,26 @@ void startwindowbf::timerEvent(QTimerEvent *event)
 // get new data from the sensor
 int startwindowbf::fresh()
 {
-	if((opiucd_getwltsdata(&com,&PACKAGE_tp[0])==NEWDATAGETCODE_BF)) //check new data
+	OPIPKT_t receivedPackage = {};	// Data Code 0x01, 0x10 or 0x40
+
+	if((opiucd_getwltsdata(&com,&receivedPackage) == NEWDATAGETCODE_BF)) //continue if the Data Code is 0x01 (Interpreted/Fixed Received Wireless TrueSense Data)
 	{
-		if(((PACKAGE_tp[0].payload[1+TSLEN+WLFRMHDRLEN+1])&(0X03))<3) //check quality 0=clean, 1=0fix, 2=<20fix, 3=>20fix
+		OPIPKT_DC01_SDC01_t trueSenseData = {};
+		trueSenseData = buildDC01SDC01(receivedPackage);
+
+		if (trueSenseData.wirelessDataCorrectionCode < 3) //check quality 0=clean, 1=0fix, 2=<20fix, 3=>20fix
 		{
-			freshpdnindex=PDN_LOCATION[PACKAGE_tp[0].payload[7]];
-			if(PACKAGE_tp[0].payload[7]==sdw[freshpdnindex]->PDN_NUMBER)
+			int freshPDNIndex = PDN_LOCATION[trueSenseData.sensorPDN];
+			if(trueSenseData.sensorPDN == sdw[freshPDNIndex]->PDN_NUMBER)
 			{
-				if(sdw[freshpdnindex]->getStruct(&PACKAGE_tp[0])==1)//if we get the struct then we draw
-				{
-					if(ui->chkSaveToOPI->isChecked())
-						opipkt_put_file(&PACKAGE_tp[0], opiFile);   // write to OPI file
+				if(ui->chkSaveToOPI->isChecked())
+					opipkt_put_file(&receivedPackage, opiFile);   // write to OPI file
 
-					//if(ui->chkSaveToEDF->isChecked())
-					//	writeDataToEDFFile(&PACKAGE_tp[0], edfFile);   // write to EDF file
-
-					//draw routine end
-				}//if get structure end
+				//if(ui->chkSaveToEDF->isChecked())
+				//	writeDataToEDFFile(&receivedPackage, edfFile);   // write to EDF file
+				
+				// update the UI controls
+				sdw[freshPDNIndex]->getStruct(trueSenseData);
 			}
 		}//if new data end
 		else
@@ -107,6 +114,7 @@ int startwindowbf::fresh()
 	}//if quality end
 	else
 	{
+		// this package was not a TrueSense Data package os just skip it
 		return 0;
 	}
 
@@ -165,42 +173,44 @@ int startwindowbf::opiucd_getPDN(void)
 	int totalcount=0;
 	int i;
 
-	opiucd_status(&com,&PACKAGE_tp[0]);
+	OPIPKT_t statusInfoPackage = {};	// Data Code 0x10
+
+	opiucd_status(&com,&statusInfoPackage);	// returns UCD Status Info of slave
 
 
 	for(i=0;i<5;i++)
-		ucd[i]= PACKAGE_tp[0].payload[i];
+		ucd[i]= statusInfoPackage.payload[i];
 
-	if(PACKAGE_tp[0].payload[20]!=0xFF)
+	if(statusInfoPackage.payload[20]!=0xFF)
 	{
-		PDN_NUMBER[1]=PACKAGE_tp[0].payload[20];
+		PDN_NUMBER[1]=statusInfoPackage.payload[20];
 		totalcount++;
 	}
 	else
 		PDN_NUMBER[1]=0xff;
-	if(PACKAGE_tp[0].payload[21]!=0xFF)
+	if(statusInfoPackage.payload[21]!=0xFF)
 	{
-		PDN_NUMBER[2]=PACKAGE_tp[0].payload[21];
+		PDN_NUMBER[2]=statusInfoPackage.payload[21];
 		totalcount++;
 	}
 	else
 		PDN_NUMBER[2]=0xff;
-	if(PACKAGE_tp[0].payload[22]!=0xFF)
+	if(statusInfoPackage.payload[22]!=0xFF)
 	{
-		PDN_NUMBER[3]=PACKAGE_tp[0].payload[22];
+		PDN_NUMBER[3]=statusInfoPackage.payload[22];
 		totalcount++;
 	}
 	else
 		PDN_NUMBER[3]=0xff;
-	if(PACKAGE_tp[0].payload[23]!=0xFF)
+	if(statusInfoPackage.payload[23]!=0xFF)
 	{
-		PDN_NUMBER[4]=PACKAGE_tp[0].payload[23];
+		PDN_NUMBER[4]=statusInfoPackage.payload[23];
 		totalcount++;
 	}
 	else
 		PDN_NUMBER[4]=0xff;
 
-	zbchan=PACKAGE_tp[0].payload[28];
+	zbchan=statusInfoPackage.payload[28];
 	return totalcount;
 
 }
@@ -211,29 +221,21 @@ void startwindowbf::closeEvent(QCloseEvent *)
 	qApp->processEvents();
 	int i;
 
-	if(portOn&&!get_opipkt_total&&(pdnshowcountp==0))
+	if((com > 0)&&!get_opipkt_total&&(pdnshowcountp==0))
 	{
-		if(!firsttimer)
-			this->killTimer(timeid);
-		if(!firstfile)
-			fclose(opiFile);
-		firstfile=true;
-		firsttimer=true;
-		if(portOn)
-			opi_closeucd_com(&com);
-		portOn=false;
-		*comPortUserp = BFCOMPORTFREE;
+		killUIRefreshTimer();
+
+		closeFiles();
+
+		closeComPort();
 	}
-	else if(portOn&&get_opipkt_total&&(pdnshowcountp==0))
+	else if((com > 0)&&get_opipkt_total&&(pdnshowcountp==0))
 	{
-		firsttimer=true;
-		if(portOn)
-			opi_closeucd_com(&com);
-		if(!firstfile)
-			fclose(opiFile);
-		firstfile=true;
-		portOn=false;
-		*comPortUserp = BFCOMPORTFREE;
+		//firsttimer=true;
+		
+		closeComPort();
+
+		closeFiles();
 	}
 
 	for( i=0;i<OPIWANT_MAX_BF+1;i++)
@@ -258,13 +260,9 @@ void startwindowbf::closeEvent(QCloseEvent *)
 
 void startwindowbf::borrowCOM(void)
 {
-	if(portOn)
-		opi_closeucd_com(&com);
-	if(!firstfile)
-		fclose(opiFile);
-	firstfile=true;
-	*comPortUserp = BFCOMPORTFREE;
-	portOn = false;
+	closeComPort();
+
+	closeFiles();
 }
 
 
@@ -278,14 +276,14 @@ void startwindowbf::showEvent(QShowEvent *)
 {
 	if((*comPortUserp==BFCOMPORTFREE||*comPortUserp==BFCOMPORTUSER)&&(!gamemode))
 	{
-		if(portOn)
-			opi_closeucd_com(&com);
+		closeComPort();
+
 		hide_check_pdn();
-		portOn = false;
+
 		if(opi_openucd_com(&com)==0)
 		{
-			portOn = true;
 			*comPortUserp = BFCOMPORTUSER;
+
 			get_opipkt_total=opiucd_getPDN();
 			if(!get_opipkt_total)
 			{
@@ -298,8 +296,8 @@ void startwindowbf::showEvent(QShowEvent *)
 		}
 		else
 		{
-			portOn = false;
 			*comPortUserp = BFCOMPORTFREE;
+
 			show_message.setText("Connect the Device again");
 			show_message.show();
 			show_message.exec();
@@ -307,25 +305,21 @@ void startwindowbf::showEvent(QShowEvent *)
 		//if all showdatawindow are close then close the comport
 		if(!sdw[0]->isVisible()&&!sdw[1]->isVisible()&&!sdw[2]->isVisible()&&!sdw[3]->isVisible()&&!sdw[4]->isVisible())
 		{
-			if(portOn)
-				opi_closeucd_com(&com);
-			if(!firstfile)
-				fclose(opiFile);
-			firstfile=true;
-			portOn = false;
-			*comPortUserp = BFCOMPORTFREE;
+			closeComPort();
+
+			closeFiles();
 		}
 	}//comport free for pdc
 	else if((*comPortUserp==BFCOMPORTFREE||*comPortUserp==TGCOMPORTUSER)&&(gamemode))
 	{
-		if(portOn)
-			opi_closeucd_com(&com);
+		closeComPort();
+
 		hide_check_pdn();
-		portOn = false;
+
 		if(opi_openucd_com(&com)==0)
 		{
-			portOn = true;
 			*comPortUserp = TGCOMPORTUSER;
+
 			get_opipkt_total=opiucd_getPDN();
 			if(!get_opipkt_total)
 			{
@@ -338,8 +332,8 @@ void startwindowbf::showEvent(QShowEvent *)
 		}
 		else
 		{
-			portOn = false;
-			*comPortUserp = BFCOMPORTFREE;
+			closeComPort();
+
 			show_message.setText("Connect the Device again");
 			show_message.show();
 			show_message.exec();
@@ -347,13 +341,9 @@ void startwindowbf::showEvent(QShowEvent *)
 		//if all showdatawindow are close then close the comport
 		if(!sdw[0]->isVisible()&&!sdw[1]->isVisible()&&!sdw[2]->isVisible()&&!sdw[3]->isVisible()&&!sdw[4]->isVisible())
 		{
-			if(portOn)
-				opi_closeucd_com(&com);
-			if(!firstfile)
-				fclose(opiFile);
-			firstfile=true;
-			portOn = false;
-			*comPortUserp = BFCOMPORTFREE;
+			closeComPort();
+
+			closeFiles();
 		}
 	}//comport free for pdc
 	else
@@ -485,18 +475,16 @@ void startwindowbf::on_btnRefresh_clicked()
 {
 	if((*comPortUserp==BFCOMPORTFREE||*comPortUserp==BFCOMPORTUSER)&&(!gamemode))
 	{
-		if(portOn)
-			opi_closeucd_com(&com);
-		if(!firstfile)
-			fclose(opiFile);
-		firstfile=true;
-		*comPortUserp = BFCOMPORTFREE;
+		closeComPort();
+			
+		closeFiles();
+		
 		hide_check_pdn();
-		portOn = false;
+		
 		if(opi_openucd_com(&com)==0)
 		{
-			portOn = true;
 			*comPortUserp = BFCOMPORTUSER;
+
 			get_opipkt_total=opiucd_getPDN();
 			if(!get_opipkt_total)
 			{
@@ -509,22 +497,17 @@ void startwindowbf::on_btnRefresh_clicked()
 			//after open comport if no pdn is showing then close the comport
 			if(pdnshowcountp==0)
 			{
-				if(portOn)
-					opi_closeucd_com(&com);
-				portOn=false;
-				*comPortUserp = BFCOMPORTFREE;
-				if(!firsttimer)
-					this->killTimer(timeid);
-				if(!firstfile)
-					fclose(opiFile);
-				firsttimer=true;
-				firstfile=true;
+				closeComPort();
+				
+				killUIRefreshTimer();
+				
+				closeFiles();
 			}
 		}
 		else
 		{
-			portOn = false;
-			*comPortUserp = BFCOMPORTFREE;
+			closeComPort();
+
 			show_message.setText("Connect the device again");
 			show_message.show();
 			show_message.exec();
@@ -532,17 +515,14 @@ void startwindowbf::on_btnRefresh_clicked()
 	}//other device doesn't use comport
 	else if((*comPortUserp==BFCOMPORTFREE||*comPortUserp==TGCOMPORTUSER)&&(gamemode))
 	{
-		if(portOn)
-			opi_closeucd_com(&com);
-		if(!firstfile)
-			fclose(opiFile);
-		firstfile=true;
-		*comPortUserp = BFCOMPORTFREE;
+		closeComPort();
+
+		closeFiles();
+
 		hide_check_pdn();
-		portOn = false;
+		
 		if(opi_openucd_com(&com)==0)
 		{
-			portOn = true;
 			*comPortUserp = TGCOMPORTUSER;
 			get_opipkt_total=opiucd_getPDN();
 			if(!get_opipkt_total)
@@ -556,22 +536,17 @@ void startwindowbf::on_btnRefresh_clicked()
 			//after open comport if no pdn is showing then close the comport
 			if(pdnshowcountp==0)
 			{
-				if(portOn)
-					opi_closeucd_com(&com);
-				portOn=false;
-				*comPortUserp = BFCOMPORTFREE;
-				if(!firsttimer)
-					this->killTimer(timeid);
-				if(!firstfile)
-					fclose(opiFile);
-				firsttimer=true;
-				firstfile=true;
+				closeComPort();
+				
+				killUIRefreshTimer();
+
+				closeFiles();
 			}
 		}
 		else
 		{
-			portOn = false;
-			*comPortUserp = BFCOMPORTFREE;
+			closeComPort();
+
 			show_message.setText("Connect the device again");
 			show_message.show();
 			show_message.exec();
@@ -588,25 +563,19 @@ void startwindowbf::on_btnRefresh_clicked()
 
 void startwindowbf::on_btnStart_clicked()
 {
-	OPIPKT_t opipkttmp;
-	quint8 tempui8arr[512];
-	int i;
-
 	//re open the comport
 	if((*comPortUserp==BFCOMPORTFREE||*comPortUserp==BFCOMPORTUSER)&&(!gamemode))
 	{
-		if(portOn)
-			opi_closeucd_com(&com);
-		if(!firstfile)
-			fclose(opiFile);
-		firstfile=true;
-		*comPortUserp = BFCOMPORTFREE;
+		closeFiles();
+
+		closeComPort();
+		
 		hide_check_pdn();
-		portOn = false;
+		
 		if(opi_openucd_com(&com)==0)
 		{
-			portOn = true;
 			*comPortUserp = BFCOMPORTUSER;
+
 			get_opipkt_total=opiucd_getPDN();
 			if(!get_opipkt_total)
 			{
@@ -620,8 +589,8 @@ void startwindowbf::on_btnStart_clicked()
 		}
 		else
 		{
-			portOn = false;
-			*comPortUserp = BFCOMPORTFREE;
+			closeComPort();
+
 			show_message.setText("Connect the Device again");
 			show_message.show();
 			show_message.exec();
@@ -630,18 +599,16 @@ void startwindowbf::on_btnStart_clicked()
 	}//other device doesnt use comport
 	else if((*comPortUserp==BFCOMPORTFREE||*comPortUserp==TGCOMPORTUSER)&&(gamemode))
 	{
-		if(portOn)
-			opi_closeucd_com(&com);
-		if(!firstfile)
-			fclose(opiFile);
-		firstfile=true;
-		*comPortUserp = BFCOMPORTFREE;
+		closeFiles();
+
+		closeComPort();
+
 		hide_check_pdn();
-		portOn = false;
+
 		if(opi_openucd_com(&com)==0)
 		{
-			portOn = true;
 			*comPortUserp = TGCOMPORTUSER;
+			
 			get_opipkt_total=opiucd_getPDN();
 			if(!get_opipkt_total)
 			{
@@ -655,8 +622,8 @@ void startwindowbf::on_btnStart_clicked()
 		}
 		else
 		{
-			portOn = false;
-			*comPortUserp = BFCOMPORTFREE;
+			closeComPort();
+
 			show_message.setText("Connect the Device again");
 			show_message.show();
 			show_message.exec();
@@ -670,11 +637,12 @@ void startwindowbf::on_btnStart_clicked()
 		show_message.exec();
 		return ;
 	}
-
 	//re open the comport end
-	if(!(portOn))
+
+	if (com == 0)
 	{
 		*comPortUserp = BFCOMPORTFREE;
+
 		show_message.setText("You have to connect a Device");
 		show_message.show();
 		show_message.exec();
@@ -697,27 +665,41 @@ void startwindowbf::on_btnStart_clicked()
 		//if user opened the showdatawindow, then he can't control whether write file or not
 		ui->chkSaveToOPI->setDisabled(true);
 		ui->chkSaveToEDF->setDisabled(true);
-
-		if(!firstfile)
-			fclose(opiFile);
 		
 		//regulatefilename = userfilename;
-		opiucd_status(&com, &opipkttmp);    // should have opened device successfully before
+		OPIPKT_t statusInfoPackage = {};
+		opiucd_status(&com, &statusInfoPackage);    // get the status of the sensor
+
 		QDateTime stDT = QDateTime::currentDateTime();
 		regulatefilename = QString("D%1_ALL").arg(stDT.toString("yyyyMMdd_hhmmss"));
-		
+	
+		closeFiles();
 		if(ui->chkSaveToOPI->isChecked()) //if true then write it
 		{
-			firstfile=false;
 			opiFile = fopen(regulatefilename.append(".opi").toLatin1().data(), "wb+");
-			// write opihdr information
-			fwrite(opipkttmp.payload, 1, OPIUCDSTLEN-1, opiFile);
-			for(i = 0; i < (512-(OPIUCDSTLEN-1)); i++) tempui8arr[i] = 0xFF;
+			
+			// write OPI header which was received from the controller (127 bytes)
+			fwrite(statusInfoPackage.payload, 1, OPIUCDSTLEN-1, opiFile);
+			
+			// the OPI header must be 512 bytes long, so we will the remaining part with 0xFF
+			quint8 tempui8arr[512];
+			for(int i = 0; i < (512-(OPIUCDSTLEN-1)); i++) 
+			{
+				tempui8arr[i] = 0xFF;
+			}
 			fwrite(tempui8arr, 1, (512-(OPIUCDSTLEN-1)), opiFile);
 		}
-		else
+
+		if(ui->chkSaveToEDF->isChecked()) //if true then write it
 		{
-			firstfile=true;
+			OPIPKT_DC10_t status = buildDC10(statusInfoPackage);
+
+			edfFile = fopen(regulatefilename.append(".edf").toLatin1().data(), "wb+");
+			
+			// write the header of the EDF file
+			//fwrite(opipkttmp.payload, 1, OPIUCDSTLEN-1, opiFile);
+			//for(i = 0; i < (512-(OPIUCDSTLEN-1)); i++) tempui8arr[i] = 0xFF;
+			//fwrite(tempui8arr, 1, (512-(OPIUCDSTLEN-1)), opiFile);
 		}
 
 		//check which the pdn the user what to show
@@ -749,11 +731,28 @@ void startwindowbf::on_btnStart_clicked()
 				}
 			}
 		}
+
 		//to avoid reopening timer
-		if(firsttimer)
-		{
-			timeid=QObject::startTimer(startwindow_fresh_time_BF);
-			firsttimer=false;
-		}
+		if(!timeid)	timeid=QObject::startTimer(startwindow_fresh_time_BF);
 	}
+}
+
+void startwindowbf::killUIRefreshTimer()
+{
+	if(timeid) this->killTimer(timeid);
+
+	timeid = 0;
+}
+
+void startwindowbf::closeComPort()
+{
+	if (com) opi_closeucd_com(&com);
+	*comPortUserp = BFCOMPORTFREE;
+	com = 0;
+}
+
+void startwindowbf::closeFiles()
+{
+	fclose(opiFile);
+	fclose(edfFile);
 }

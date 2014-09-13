@@ -1018,11 +1018,8 @@ biofeedback::~biofeedback()
 }
 
 
-int biofeedback::getStruct(OPIPKT_t* opipointer)
-{
-	OPIPKT_DC01_SDC01_t packet = {};
-	packet = buildDC01SDC01(*opipointer);
-    
+int biofeedback::getStruct(OPIPKT_DC01_SDC01_t packet)
+{   
 	newdata=true;
 
     return this->routinedrawgroup(packet);

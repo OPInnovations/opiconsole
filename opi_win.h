@@ -91,20 +91,21 @@
   */
 typedef struct OPIPKT_struct
 {
-    unsigned char dataCode;  	// dataCode, 1 byte
-    unsigned short length;		// length of payload, 2 bytes
-    unsigned char payload[1024];	// payload array, 1024 byte array (should never be greater than 1K)
+	unsigned char dataCode;  	// dataCode, 1 byte
+	unsigned short length;		// length of payload, 2 bytes
+	unsigned char payload[1024];	// payload array, 1024 byte array (should never be greater than 1K)
 } OPIPKT_t;
 
+// Interpreted/Fixed Received Wireless TrueSense Data
 typedef struct OPIPKT_DC01_SDC01_struct
 {
-    unsigned char dataCode;  	// data code, 1 byte
-    unsigned short length;		// length of payload, 2 bytes
-    unsigned char payload[1024];	// payload array, 1024 byte array (should never be greater than 1K)
+	unsigned char dataCode;  			// Data Code
+	unsigned short length;		
+	unsigned char payload[1024];
 
-	unsigned char subDataCode;  // sub-data code, 1 byte
-	unsigned long long timeStamp;
-	const char* timeStampStr;
+	unsigned char subDataCode;			// Sub-Data Code
+	unsigned long long timeStamp;		// The timestamp is 6 bytes starting with the MSB currently in the device. The timestamp is the number of ticks of a 4096Hz clock/counter from a reference date and time of September 28, 2012 08:00:00.000.
+	const char* timeStampStr;			// Human readable format of the timestamp
 
 	unsigned char sensorPDN;
 	unsigned char adcDataSampleCount; 
@@ -124,6 +125,43 @@ typedef struct OPIPKT_DC01_SDC01_struct
 	unsigned char ed;
 
 } OPIPKT_DC01_SDC01_t;
+
+// UCD Status Info of slave
+typedef struct OPIPKT_DC10_PDNSettings_struct
+{
+	unsigned long long sensorDSN;		// Device Serial Number (DSN) is 5 bytes that uniquely identifies the (TrueSense) sensor. This is a serial number programmed during production and is read MSB to LSB.
+	unsigned short firmwareVersion;		// Firmware version
+	unsigned char zigBeeChannel;		// The ZigBee channel, 1 byte, indicates the zigbee channel the sensor is using to send data to the controller.
+	unsigned char rfOutputPower;
+	unsigned char rfTransmitPower;
+	unsigned char rfTimeout;
+	unsigned char memoryModuleWrite;
+} OPIPKT_DC10_PDNSettings_t;
+
+// UCD Status Info of slave
+typedef struct OPIPKT_DC10_struct
+{
+	unsigned char dataCode;				// Data Code
+	unsigned short length;
+	unsigned char payload[1024];
+
+	unsigned char subDataCode;			// Sub-Data Code
+	unsigned long long receiverDSN;		// Device Serial Number (DSN) is 5 bytes that uniquely identifies the unified controller. This is a serial number programmed during production and is read MSB to LSB.
+	unsigned long long timeStamp;		// The timestamp is 6 bytes starting with the MSB currently in the device. The timestamp is the number of ticks of a 4096Hz clock/counter from a reference date and time of September 28, 2012 08:00:00.000.
+	const char* timeStampStr;			// Human readable format of the timestamp
+
+	unsigned char opiucd[6];			// "OPIUCD" This allows recognition of this device to be a unified controller.
+	unsigned short firmwareVersion;		// Firmware version
+	
+	unsigned char mode;					// The Mode is 1 byte indicating the mode the unified controller is in. Normal operation has the unified controller in mode 0 most of the time.
+	unsigned char associatedPDNs[8];	// PDNs are 8 bytes representing the eight Paired Device Numbers, or devices, that are paired with this unified controller. Although there is room for eight paired devices, it is not recommended to have more than 4. These should fill the first 4 slots.
+	unsigned char zigBeeChannel;		// The ZigBee channel, 1 byte, indicates the zigbee channel the unified controller is using to receive data from devices.
+	unsigned char uSDType;				// The uSD byte indicates the status of the uSD slot on the unified controller. If the unified controller is disabling the power of the device in the uSD slot, the 3rd LSB will be 0. If the unified controller is enabling the power of the device in the uSD slot, the 3rd LSB will be 1. If the unified controller detects a TrueSense device in the uSD slot, then the 2nd LSB will be 1, or 0 if there is no detected TrueSense device in the slot. If the unified controller detects a memory module in the uSD slot, then the LSB will be 1, or 0 if there is no detected memory module. It is possible that these 3 bits are all one since we allow a tandem configuration with TrueSense plugged into the Memory module.It is impossible to have the 3rd bit low with the first bit high because TrueSense, if it is in the slot will be shutoff and thus unrecognizable to the unified controller.
+	unsigned char chargerStatus;		// Indicates 1 or 0 if the charger IC on the unified controller is actively charging (either the unified controller battery, or the truesense battery if it is plugged in).
+	
+	unsigned char pdnSettingsRaw[8][12];	// The PDN0-7 Info represents settings of the paired devices during pairing. These include the sensor (TrueSense) DSN, firmware version, ZigBee Channel, RF output power, RF transmit mode, RF timeout value, and memory module write.
+	OPIPKT_DC10_PDNSettings_t pdnSettings[8];
+} OPIPKT_DC10_t;
 
 /***
   * Prototypes

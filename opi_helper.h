@@ -89,5 +89,6 @@ qint32 eraseMM(HANDLE *comportptr);
 QString getConfigValue(QString keyIndex);
 qint8 writeConfigValue(QString keyIndex, QString valueQS);
 OPIPKT_DC01_SDC01_t buildDC01SDC01(OPIPKT_t package);
+OPIPKT_DC10_t buildDC10(OPIPKT_t package);
 
 #endif // OPI_HELPER_H
