@@ -51,6 +51,8 @@ startwindowbf::startwindowbf(qint32 *comPortUser,bool setgamemode, QWidget *pare
 
 	opiFile = NULL;
 	edfFile = NULL;
+
+	edfFileHandle = -1;
 }
 
 startwindowbf::~startwindowbf()
@@ -98,8 +100,8 @@ int startwindowbf::fresh()
 				if(ui->chkSaveToOPI->isChecked())
 					opipkt_put_file(&receivedPackage, opiFile);   // write to OPI file
 
-				//if(ui->chkSaveToEDF->isChecked())
-				//	writeDataToEDFFile(&receivedPackage, edfFile);   // write to EDF file
+				if(ui->chkSaveToEDF->isChecked())
+					writeDataToEDFFile(trueSenseData, edfFileHandle);   // write to EDF file
 				
 				// update the UI controls
 				sdw[freshPDNIndex]->getStruct(trueSenseData);
@@ -671,12 +673,11 @@ void startwindowbf::on_btnStart_clicked()
 		opiucd_status(&com, &statusInfoPackage);    // get the status of the sensor
 
 		QDateTime stDT = QDateTime::currentDateTime();
-		regulatefilename = QString("D%1_ALL").arg(stDT.toString("yyyyMMdd_hhmmss"));
-	
+
 		closeFiles();
 		if(ui->chkSaveToOPI->isChecked()) //if true then write it
 		{
-			opiFile = fopen(regulatefilename.append(".opi").toLatin1().data(), "wb+");
+			opiFile = fopen(QString("D%1_ALL").arg(stDT.toString("yyyyMMdd_hhmmss")).append(".opi").toLatin1().data(), "wb+");
 			
 			// write OPI header which was received from the controller (127 bytes)
 			fwrite(statusInfoPackage.payload, 1, OPIUCDSTLEN-1, opiFile);
@@ -694,12 +695,83 @@ void startwindowbf::on_btnStart_clicked()
 		{
 			OPIPKT_DC10_t status = buildDC10(statusInfoPackage);
 
-			edfFile = fopen(regulatefilename.append(".edf").toLatin1().data(), "wb+");
-			
-			// write the header of the EDF file
-			//fwrite(opipkttmp.payload, 1, OPIUCDSTLEN-1, opiFile);
-			//for(i = 0; i < (512-(OPIUCDSTLEN-1)); i++) tempui8arr[i] = 0xFF;
-			//fwrite(tempui8arr, 1, (512-(OPIUCDSTLEN-1)), opiFile);
+			edfFileHandle = edfopen_file_writeonly(QString("D%1_ALL").arg(stDT.toString("yyyyMMdd_hhmmss")).append(".edf").toLatin1().data(), EDFLIB_FILETYPE_EDFPLUS, 8);	// ADC, AccelX, AccelY, AccelZ, Temperature, ED, Data Correction Type, Low Battery, (EDF Annotations)
+			edf_set_datarecord_duration(edfFileHandle, 12500);		// one data record represents 1/8 seconds
+
+			edf_set_label(edfFileHandle, 0, "ADC");
+			edf_set_samplefrequency(edfFileHandle, 0, 512 / 8);		// we must set the sample frequency per data record
+			edf_set_digital_minimum(edfFileHandle, 0, -8192);
+			edf_set_digital_maximum(edfFileHandle, 0, +8191);
+			edf_set_physical_minimum(edfFileHandle, 0, -800);
+			edf_set_physical_maximum(edfFileHandle, 0, +800);
+			edf_set_physical_dimension(edfFileHandle, 0, "uV");
+
+			edf_set_label(edfFileHandle, 1, "Accelerometer X");
+			edf_set_samplefrequency(edfFileHandle, 1, 8 / 8);
+			edf_set_digital_minimum(edfFileHandle, 1, -128);
+			edf_set_digital_maximum(edfFileHandle, 1, +127);
+			edf_set_physical_minimum(edfFileHandle, 1, -2);
+			edf_set_physical_maximum(edfFileHandle, 1, +2);
+			edf_set_physical_dimension(edfFileHandle, 1, "g");
+
+			edf_set_label(edfFileHandle, 2, "Accelerometer Y");
+			edf_set_samplefrequency(edfFileHandle, 2, 8 / 8);
+			edf_set_digital_minimum(edfFileHandle, 2, -128);
+			edf_set_digital_maximum(edfFileHandle, 2, +127);
+			edf_set_physical_minimum(edfFileHandle, 2, -2);
+			edf_set_physical_maximum(edfFileHandle, 2, +2);
+			edf_set_physical_dimension(edfFileHandle, 2, "g");
+
+			edf_set_label(edfFileHandle, 3, "Accelerometer Z");
+			edf_set_samplefrequency(edfFileHandle, 3, 32 / 8);
+			edf_set_digital_minimum(edfFileHandle, 3, -127);
+			edf_set_digital_maximum(edfFileHandle, 3, +128);
+			edf_set_physical_minimum(edfFileHandle, 3, -2);
+			edf_set_physical_maximum(edfFileHandle, 3, +2);
+			edf_set_physical_dimension(edfFileHandle, 3, "g");
+
+			edf_set_label(edfFileHandle, 4, "Temperature");
+			edf_set_samplefrequency(edfFileHandle, 4, 8 / 8);
+			edf_set_digital_minimum(edfFileHandle, 4,  -470);
+			edf_set_digital_maximum(edfFileHandle, 4, +2410);
+			edf_set_physical_minimum(edfFileHandle, 4,  -47);
+			edf_set_physical_maximum(edfFileHandle, 4, +241);
+			edf_set_physical_dimension(edfFileHandle, 4, "degreeC");
+
+			edf_set_label(edfFileHandle, 5, "Wireless Signal Strength");
+			edf_set_samplefrequency(edfFileHandle, 5, 8 / 8);
+			edf_set_digital_minimum(edfFileHandle, 5,  0);
+			edf_set_digital_maximum(edfFileHandle, 5, +84);
+			edf_set_physical_minimum(edfFileHandle, 5,  0);
+			edf_set_physical_maximum(edfFileHandle, 5, +84);
+			edf_set_physical_dimension(edfFileHandle, 5, "dB");
+
+			edf_set_label(edfFileHandle, 6, "Data Correction Type");
+			edf_set_samplefrequency(edfFileHandle, 6, 8 / 8);
+			edf_set_digital_minimum(edfFileHandle, 6,  0);
+			edf_set_digital_maximum(edfFileHandle, 6, +3);
+			edf_set_physical_minimum(edfFileHandle, 6,  0);
+			edf_set_physical_maximum(edfFileHandle, 6, +3);
+			edf_set_physical_dimension(edfFileHandle, 6, "");
+
+			edf_set_label(edfFileHandle, 7, "Low Battery");
+			edf_set_samplefrequency(edfFileHandle, 7, 8 / 8);
+			edf_set_digital_minimum(edfFileHandle, 7,  0);
+			edf_set_digital_maximum(edfFileHandle, 7, +1);
+			edf_set_physical_minimum(edfFileHandle, 7,  0);
+			edf_set_physical_maximum(edfFileHandle, 7, +1);
+			edf_set_physical_dimension(edfFileHandle, 7, "");
+
+			//edf_set_label(edfFileHandle, 8, "Annotations");
+			//edf_set_samplefrequency(edfFileHandle, 8, 8 / 8);
+			//edf_set_digital_minimum(edfFileHandle, 8,  0);
+			//edf_set_digital_maximum(edfFileHandle, 8, +1);
+			//edf_set_physical_minimum(edfFileHandle, 8, 0);
+			//edf_set_physical_maximum(edfFileHandle, 8, 0);
+			//edf_set_physical_dimension(edfFileHandle, 8, "");
+
+			QDateTime currentTime = QDateTime::currentDateTime();
+			edf_set_startdatetime(edfFileHandle, currentTime.date().year(), currentTime.date().month(), currentTime.date().day(), currentTime.time().hour(), currentTime.time().minute(), currentTime.time().second());
 		}
 
 		//check which the pdn the user what to show
@@ -755,4 +827,37 @@ void startwindowbf::closeFiles()
 {
 	fclose(opiFile);
 	fclose(edfFile);
+
+	if (edfFileHandle >= 0)
+	{
+		edfclose_file(edfFileHandle);
+		edfFileHandle = -1;
+	}
+}
+
+void startwindowbf::writeDataToEDFFile(OPIPKT_DC01_SDC01_t package, int edfFileHandle)
+{
+	int* buffer = (int*)malloc(sizeof(int) * 74);
+
+	for (int i=0; i<package.adcDataSampleCount; i++)
+	{
+		buffer[i] = package.adcValues[i];
+	}
+
+	buffer[package.adcDataSampleCount+0] = package.accelerometerX;
+	buffer[package.adcDataSampleCount+1] = package.accelerometerY;
+	
+	for (int i=0; i<4; i++)
+	{
+		buffer[package.adcDataSampleCount+2+i] = package.accelerometerZs[i];
+	}
+
+	buffer[package.adcDataSampleCount+6] = (int)(package.temperatureData*10);
+	buffer[package.adcDataSampleCount+7] = package.ed;
+	buffer[package.adcDataSampleCount+8] = package.wirelessDataCorrectionCode;
+	buffer[package.adcDataSampleCount+9] = package.lowBattery;
+
+	edf_blockwrite_digital_samples(edfFileHandle, buffer);
+
+	free(buffer);
 }

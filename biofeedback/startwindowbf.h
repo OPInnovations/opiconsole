@@ -3,8 +3,8 @@
 
 #include <QtGui>
 #include "opi_win.h"
+#include "edflib\edflib.h"
 #include "biofeedback.h"
-
 
 #define BFWORNNINGWORDSIZE 10
 //get package time (ms)
@@ -37,6 +37,9 @@ class startwindowbf : public QMainWindow
 
 	//file pointer to the output EDF file
     FILE *edfFile;
+
+	// (edflib) file handle of the EDF file
+	int edfFileHandle;
 
 	//for showing message
     QMessageBox show_message;
@@ -75,10 +78,7 @@ class startwindowbf : public QMainWindow
     
 	//save the opiucd code and zbchan
     int  ucd[5],zbchan;
-    
-	//save the filename of the user want
-    QString userfilename,regulatefilename;
-       
+          
 	//check if the pdn is the first uie
     bool firstpdn[5]; //initial true
     
@@ -108,6 +108,8 @@ private:
     int fresh(void);
 
     int opipkt_put_file(OPIPKT_t* pktptr, FILE* fileptr);
+
+	void writeDataToEDFFile(OPIPKT_DC01_SDC01_t package, int edfFileHandle);
 
 	// kill the timer
 	void killUIRefreshTimer();

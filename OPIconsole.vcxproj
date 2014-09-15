@@ -141,6 +141,7 @@
     <ClCompile Include="consolewindow.cpp" />
     <ClCompile Include="converter\convertoptionswindow.cpp" />
     <ClCompile Include="converter\convertwindow.cpp" />
+    <ClCompile Include="edflib\edflib.c" />
     <ClCompile Include="license\licensedialog.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="medanalysis\medanalysiswindow.cpp" />
@@ -166,6 +167,7 @@
     <ClCompile Include="converter\twodaccelviewer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="edflib\edflib.h" />
     <ClInclude Include="FFT\Array.h" />
     <ClInclude Include="FFT\Array.hpp" />
     <ClInclude Include="FFT\DynArray.h" />

@@ -2046,8 +2046,10 @@ OPIPKT_DC01_SDC01_t buildDC01SDC01(OPIPKT_t package)
 	packageSDC01.adcValues = new short[packageSDC01.adcDataSampleCount];
 	for (int i=0; i<packageSDC01.adcDataSampleCount; i++)
 	{
-		unsigned short adcValue = (package.payload[9 + i*2] & 0xFF) << 8 + (package.payload[10 + i*2] & 0xFC);
-		packageSDC01.adcValues[i] = adcValue <= 32767 ? adcValue : adcValue - 65536;
+		//unsigned short adcValue = ((package.payload[9 + i*2] & 0xFF) << 8) + (package.payload[10 + i*2] & 0xFC);
+		//packageSDC01.adcValues[i] = adcValue <= 32767 ? adcValue : adcValue - 65536;
+		unsigned short adcValue = (((package.payload[9 + i*2] & 0xFF) << 8) + (package.payload[10 + i*2] & 0xFC)) >> 2;
+		packageSDC01.adcValues[i] = adcValue <= 8191 ? adcValue : adcValue - 16384;
 	}
 	
 	int endOfADCDataOffset = 8 + packageSDC01.adcDataSampleCount*2;

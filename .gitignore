@@ -92,3 +92,6 @@ qrc_*.cpp
 !debug/*.pdb
 !release/*.exe
 !release/*.dll
+
+*.opi
+*.edf

@@ -91,9 +91,9 @@
   */
 typedef struct OPIPKT_struct
 {
-	unsigned char dataCode;  	// dataCode, 1 byte
-	unsigned short length;		// length of payload, 2 bytes
-	unsigned char payload[1024];	// payload array, 1024 byte array (should never be greater than 1K)
+	unsigned char dataCode;  	// Data Code
+	unsigned short length;		// Length of payload
+	unsigned char payload[1024];	// Payload array, 1024 byte array (should never be greater than 1K)
 } OPIPKT_t;
 
 // Interpreted/Fixed Received Wireless TrueSense Data
@@ -107,22 +107,22 @@ typedef struct OPIPKT_DC01_SDC01_struct
 	unsigned long long timeStamp;		// The timestamp is 6 bytes starting with the MSB currently in the device. The timestamp is the number of ticks of a 4096Hz clock/counter from a reference date and time of September 28, 2012 08:00:00.000.
 	const char* timeStampStr;			// Human readable format of the timestamp
 
-	unsigned char sensorPDN;
-	unsigned char adcDataSampleCount; 
-	unsigned char wirelessDataCode;
-	bool lowBattery;
+	unsigned char sensorPDN;			// Paired Device Number (PDN): The paired device number identifies the device the data is associated with using an unsigned byte.
+	unsigned char adcDataSampleCount;	// ADC sample length information (ADC data in this packet has 62 or 64 samples)
+	unsigned char wirelessDataCode;		// Signify the wireless datacode and is related to the wireless data received. If it is from the standard TrueSense, then it should usually be 1.
+	bool lowBattery;					// If this is false, then the battery level is above 3.15V. If this is true, then the battery level is below 3.15V.
 
-	unsigned char wirelessDataCorrectionCode;
-	short *adcValues;
+	unsigned char wirelessDataCorrectionCode;	// If this equala to 0, then there was no wireless data corruption and no error correction was applied. If this equals to 3, then the wireless corruption was high, and the ADC data has been blanked, the temperature and accelerometer data are extrapolated from previous samples. Intermediate values describe the level of error correction applied.
+	short *adcValues;					// The physical range is -/+800uV with +800uV corresponding to +32767 and -800uV corresponding to -32768.
 	
-	float temperatureData;
+	float temperatureData;				// The temperature data, sampled every 1/8 of a second, representing the temperature if Celsius. Note that the temperature resolution is more than one degree, but can be made finer by oversampling and decimating, which are not used by default. Also, due to the IC used, the absolute accuracy of the temperature is poor (~3 degrees tolerance).
 
-	char accelerometerX;
-	char accelerometerY;
-	char *accelerometerZs;
-	char accelerometerZ;
+	char accelerometerX;				// The accelerometer data in the X and Y direction are sampled at 8Hz and represented in 2’s complement with a single byte in the range from -2g to +2g.
+	char accelerometerY;				// The accelerometer data in the X and Y direction are sampled at 8Hz and represented in 2’s complement with a single byte in the range from -2g to +2g.
+	char *accelerometerZs;				// The accelerometer data in the z-axis has the same representation as the other 2 axes, but is sampled at 32Hz, thus it has 4 times the data as the other directions.
+	char accelerometerZ;				// This is the average of the 4 samples of Z accelerometer values.
 
-	unsigned char ed;
+	unsigned char ed;					// The ED is the lowest 7 bits of the last byte and gives the received level in a range of 0-84 with units of dB.
 
 } OPIPKT_DC01_SDC01_t;
 
