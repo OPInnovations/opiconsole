@@ -943,7 +943,7 @@ void ConsoleWindow::on_sensShutdownPB_clicked(bool checked)
             conReturnCom();
             return;
         }
-        myQMB.setText("Insert & remove each Sensor for low-power storage");
+        myQMB.setText("Shut down was successful, remove each sensor for low-power storage.");
         myQMB.setStandardButtons(QMessageBox::Ok);
         myQMB.exec();
     }
@@ -990,7 +990,7 @@ void ConsoleWindow::on_contShutdownPB_clicked()
         }
         ucRefresh(&comport);
         qApp->processEvents();
-        myQMB.setText("Insert & remove each Sensor for low-power storage");
+        myQMB.setText("Shutdown was successfull, unplug the controller from the USB port for low-power storage.");
         myQMB.setStandardButtons(QMessageBox::Ok);
         myQMB.exec();
     }

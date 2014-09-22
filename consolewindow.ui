@@ -14,7 +14,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>OPI Console</string>
+   <string>OPI Console v1.45</string>
   </property>
   <property name="windowIcon">
    <iconset resource="opiconsole.qrc">
@@ -267,7 +267,8 @@ font: 75 8pt &quot;Arial&quot;;</string>
      </rect>
     </property>
     <property name="toolTip">
-     <string>Shut down controller</string>
+     <string>Shut down controller
+Your controller goes shut down mode. After shutting it down you can unplug it from your USB port and store it for up to 2 months without charging it again.</string>
     </property>
     <property name="text">
      <string/>
@@ -466,7 +467,8 @@ If you want to record high quality data into the memory module then this must be
      </rect>
     </property>
     <property name="toolTip">
-     <string>Shut down sensor(s)</string>
+     <string>Shut down sensor(s)
+After shutting them down, detach all the sensor(s) from the controller in order to keep their battery healthy.</string>
     </property>
     <property name="text">
      <string/>
@@ -1233,7 +1235,8 @@ This will turn the ZigBee transmitter on/off. You must turn it on in order to ha
      </rect>
     </property>
     <property name="toolTip">
-     <string>Erase all data from the memory module</string>
+     <string>Erase all data from the memory module
+You must empty the memory module before every new recording!</string>
     </property>
     <property name="text">
      <string>Erase</string>

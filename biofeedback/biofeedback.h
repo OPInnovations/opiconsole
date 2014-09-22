@@ -212,7 +212,7 @@ public:
     //check the window is open or hide
     bool already_open;
     int PDN_NUMBER;
-    int biofeedback::getStruct(OPIPKT_DC01_SDC01_t packet);
+    int getStruct(OPIPKT_DC01_SDC01_t packet);
     void setPdnNum(int num);
     int routinedrawgroup(OPIPKT_DC01_SDC01_t packet);
     void reset(bool setgamemode);

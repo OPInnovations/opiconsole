@@ -3,8 +3,8 @@
 
 #include <QtGui>
 #include "opi_win.h"
-#include "edflib\edflib.h"
 #include "biofeedback.h"
+#include "../edflib/edflib.h"
 
 #define BFWORNNINGWORDSIZE 10
 //get package time (ms)

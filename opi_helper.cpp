@@ -2029,7 +2029,7 @@ OPIPKT_DC01_SDC01_t buildDC01SDC01(OPIPKT_t package)
 	if ((packageSDC01.dataCode != 0x01) || (packageSDC01.subDataCode != 0x01)) return packageSDC01;
 
 	packageSDC01.timeStamp = ((long long)package.payload[1] << 40) + ((long long)package.payload[2] << 32) + ((long)package.payload[3] << 24) + ((long)package.payload[4] << 16) + (package.payload[5] << 8) + (package.payload[6]);
-	QDateTime qtTimeStamp(QDate(2012, 9, 28), QTime(8, 0), Qt::TimeSpec::UTC, 0);
+    QDateTime qtTimeStamp(QDate(2012, 9, 28), QTime(8, 0), Qt::UTC, 0);
 	qtTimeStamp = qtTimeStamp.addSecs(packageSDC01.timeStamp / 4096);
 	qtTimeStamp = qtTimeStamp.addMSecs((packageSDC01.timeStamp % 4096) * (1000.0f / 4096.0f));
 
@@ -2094,7 +2094,7 @@ OPIPKT_DC10_t buildDC10(OPIPKT_t package)
 
 	packageDC10.receiverDSN = ((long long)package.payload[0] << 32) + ((long long)package.payload[1] << 24) + ((long)package.payload[2] << 16) + ((long)package.payload[3] << 8) + (package.payload[4]);
 	packageDC10.timeStamp = ((long long)package.payload[5] << 40) + ((long long)package.payload[6] << 32) + ((long)package.payload[7] << 24) + ((long)package.payload[8] << 16) + (package.payload[9] << 8) + (package.payload[10]);
-	QDateTime qtTimeStamp(QDate(2012, 9, 28), QTime(8, 0), Qt::TimeSpec::UTC, 0);
+    QDateTime qtTimeStamp(QDate(2012, 9, 28), QTime(8, 0), Qt::UTC, 0);
 	qtTimeStamp = qtTimeStamp.addSecs(packageDC10.timeStamp / 4096);
 	qtTimeStamp = qtTimeStamp.addMSecs((packageDC10.timeStamp % 4096) * (1000.0f / 4096.0f));
 
