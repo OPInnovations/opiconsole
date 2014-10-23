@@ -700,8 +700,10 @@ void startwindowbf::on_btnStart_clicked()
 
 			edf_set_label(edfFileHandle, 0, "ADC");
 			edf_set_samplefrequency(edfFileHandle, 0, 512 / 8);		// we must set the sample frequency per data record
-			edf_set_digital_minimum(edfFileHandle, 0, -8192);
-			edf_set_digital_maximum(edfFileHandle, 0, +8191);
+			edf_set_digital_minimum(edfFileHandle, 0, -20480);
+			edf_set_digital_maximum(edfFileHandle, 0, +20480);
+			//edf_set_digital_minimum(edfFileHandle, 0, -8192);
+			//edf_set_digital_maximum(edfFileHandle, 0, +8191);
 			edf_set_physical_minimum(edfFileHandle, 0, -800);
 			edf_set_physical_maximum(edfFileHandle, 0, +800);
 			edf_set_physical_dimension(edfFileHandle, 0, "uV");
