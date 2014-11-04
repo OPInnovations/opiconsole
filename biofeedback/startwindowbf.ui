@@ -6,12 +6,12 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>189</width>
-    <height>192</height>
+    <width>280</width>
+    <height>250</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>BioFB</string>
+   <string>Select Sensor</string>
   </property>
   <property name="windowIcon">
    <iconset resource="../opiconsole.qrc">
@@ -22,13 +22,13 @@
 font: 75 8pt &quot;Arial&quot;;</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QCheckBox" name="checkWriteFileBox">
+   <widget class="QCheckBox" name="chkSaveToOPI">
     <property name="geometry">
      <rect>
-      <x>100</x>
-      <y>10</y>
-      <width>81</width>
-      <height>21</height>
+      <x>140</x>
+      <y>60</y>
+      <width>111</width>
+      <height>16</height>
      </rect>
     </property>
     <property name="font">
@@ -40,15 +40,18 @@ font: 75 8pt &quot;Arial&quot;;</string>
       <bold>false</bold>
      </font>
     </property>
+    <property name="toolTip">
+     <string>Save the data recevied from the sensor to an OPI file.</string>
+    </property>
     <property name="text">
-     <string>Recording</string>
+     <string>Save to OPI file</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_2">
+   <widget class="QPushButton" name="btnStart">
     <property name="geometry">
      <rect>
-      <x>110</x>
-      <y>100</y>
+      <x>200</x>
+      <y>120</y>
       <width>54</width>
       <height>54</height>
      </rect>
@@ -64,6 +67,9 @@ font: 75 8pt &quot;Arial&quot;;</string>
     </property>
     <property name="cursor">
      <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="toolTip">
+     <string>Start</string>
     </property>
     <property name="text">
      <string/>
@@ -82,11 +88,11 @@ font: 75 8pt &quot;Arial&quot;;</string>
      <bool>false</bool>
     </property>
    </widget>
-   <widget class="QPushButton" name="CBP1">
+   <widget class="QPushButton" name="btnCBP1">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>40</y>
+      <x>30</x>
+      <y>60</y>
       <width>70</width>
       <height>27</height>
      </rect>
@@ -110,11 +116,11 @@ font: 75 8pt &quot;Arial&quot;;</string>
      <bool>true</bool>
     </property>
    </widget>
-   <widget class="QPushButton" name="CBP4">
+   <widget class="QPushButton" name="btnCBP4">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>130</y>
+      <x>30</x>
+      <y>150</y>
       <width>70</width>
       <height>27</height>
      </rect>
@@ -138,14 +144,14 @@ font: 75 8pt &quot;Arial&quot;;</string>
      <bool>true</bool>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton">
+   <widget class="QPushButton" name="btnRefresh">
     <property name="enabled">
      <bool>true</bool>
     </property>
     <property name="geometry">
      <rect>
-      <x>110</x>
-      <y>40</y>
+      <x>140</x>
+      <y>120</y>
       <width>54</width>
       <height>54</height>
      </rect>
@@ -162,6 +168,9 @@ font: 75 8pt &quot;Arial&quot;;</string>
     <property name="cursor">
      <cursorShape>PointingHandCursor</cursorShape>
     </property>
+    <property name="toolTip">
+     <string>Refresh sensor list</string>
+    </property>
     <property name="icon">
      <iconset resource="../opiconsole.qrc">
       <normaloff>:/images/images/refresh.png</normaloff>:/images/images/refresh.png</iconset>
@@ -173,14 +182,14 @@ font: 75 8pt &quot;Arial&quot;;</string>
      </size>
     </property>
    </widget>
-   <widget class="QLabel" name="opsign">
+   <widget class="QLabel" name="lblOPSign">
     <property name="enabled">
      <bool>true</bool>
     </property>
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>10</y>
+      <x>30</x>
+      <y>30</y>
       <width>70</width>
       <height>27</height>
      </rect>
@@ -201,11 +210,11 @@ font: 75 8pt &quot;Arial&quot;;</string>
      <bool>true</bool>
     </property>
    </widget>
-   <widget class="QPushButton" name="CBP2">
+   <widget class="QPushButton" name="btnCBP2">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>70</y>
+      <x>30</x>
+      <y>90</y>
       <width>70</width>
       <height>27</height>
      </rect>
@@ -229,11 +238,11 @@ font: 75 8pt &quot;Arial&quot;;</string>
      <bool>true</bool>
     </property>
    </widget>
-   <widget class="QPushButton" name="CBP3">
+   <widget class="QPushButton" name="btnCBP3">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>100</y>
+      <x>30</x>
+      <y>120</y>
       <width>70</width>
       <height>27</height>
      </rect>
@@ -255,6 +264,48 @@ font: 75 8pt &quot;Arial&quot;;</string>
     </property>
     <property name="checkable">
      <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lblUsageTip">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>190</y>
+      <width>221</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>After selecting the sensor you can remove it (and the memory module) from the controller.</string>
+    </property>
+    <property name="wordWrap">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="chkSaveToEDF">
+    <property name="geometry">
+     <rect>
+      <x>140</x>
+      <y>90</y>
+      <width>111</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>8</pointsize>
+      <weight>9</weight>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="toolTip">
+     <string>Save the data recevied from the sensor to a standard EDF file.
+This file can be opened and analyzed with many tools (like EDFBrowser).</string>
+    </property>
+    <property name="text">
+     <string>Save to EDF file</string>
     </property>
    </widget>
   </widget>

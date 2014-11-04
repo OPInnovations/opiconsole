@@ -1,6 +1,7 @@
 #ifndef CONFIGWINDOW_H
 #define CONFIGWINDOW_H
 
+#include <QtWidgets>
 #include <QtGui>
 #include "opi_win.h"
 

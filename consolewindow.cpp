@@ -164,7 +164,7 @@ void ConsoleWindow::closeEvent(QCloseEvent *)
         opiucd_status(&comport, &ucOpipkt);
         ucusdStatus = ucOpipkt.payload[DSNLEN+TSLEN+6+FWVLEN+1+PDNLISTLEN+1];
         opiucd_offmode(&comport);
-        myQMB.setText("Shutdown each Sensor for low-power storage");
+        myQMB.setText("Don't forget to shut down each sensor and the controller for low-power storage! (Plug the sensor into the controller and press the minus button for at least 3 seconds. Then detach the sensor and press the minus button for at least 6 seconds. Leave them separated until you use them again.)");
         myQMB.setStandardButtons(QMessageBox::Ok);
         myQMB.exec();
     }
@@ -760,6 +760,7 @@ qint32 ConsoleWindow::ucRefresh(HANDLE *comportptr)
             }
             ui->memFPktDTLa->setText(QString("%1").arg(memDT.toString("yyyyMMdd_hhmmss")));
             ui->memFullQPB->setValue(i*100/20);
+            ui->memFullQPB->setToolTip(QString("%1 %").arg(i*100/20));
         }
     }
     return 0;
@@ -942,7 +943,7 @@ void ConsoleWindow::on_sensShutdownPB_clicked(bool checked)
             conReturnCom();
             return;
         }
-        myQMB.setText("Insert & remove each Sensor for low-power storage");
+        myQMB.setText("Shut down was successful, remove each sensor for low-power storage.");
         myQMB.setStandardButtons(QMessageBox::Ok);
         myQMB.exec();
     }
@@ -989,7 +990,7 @@ void ConsoleWindow::on_contShutdownPB_clicked()
         }
         ucRefresh(&comport);
         qApp->processEvents();
-        myQMB.setText("Insert & remove each Sensor for low-power storage");
+        myQMB.setText("Shutdown was successfull, unplug the controller from the USB port for low-power storage.");
         myQMB.setStandardButtons(QMessageBox::Ok);
         myQMB.exec();
     }

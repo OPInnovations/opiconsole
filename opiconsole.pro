@@ -6,6 +6,7 @@ TEMPLATE = app
 TARGET = OPIconsole
 DEPENDPATH += . PDC
 INCLUDEPATH += .
+QT += widgets
 # Input
 HEADERS += \
            consolewindow.h \
@@ -54,7 +55,26 @@ HEADERS += \
     medanalysis/medanalysiswindow.h \
     converter/mixsignaldialog.h \
     converter/spectrogram.h \
-    converter/qqwidget.h
+    converter/qqwidget.h \
+    edflib/edflib.h \
+    ui_biofeedback.h \
+    ui_configwindow.h \
+    ui_consolewindow.h \
+    ui_convertoptionswindow.h \
+    ui_convertwindow.h \
+    ui_licensedialog.h \
+    ui_medanalysiswindow.h \
+    ui_mixsignaldialog.h \
+    ui_profiledialog.h \
+    ui_readmmdialog.h \
+    ui_showdatawindow.h \
+    ui_signalviewer.h \
+    ui_sleepanalysiswindow.h \
+    ui_spectrogram.h \
+    ui_startwindow.h \
+    ui_startwindowbf.h \
+    ui_tutorialgame.h \
+    ui_twodaccelviewer.h
 
 FORMS += consolewindow.ui \
          PDC/showdatawindow.ui \
@@ -102,10 +122,10 @@ SOURCES += consolewindow.cpp \
     medanalysis/medanalysiswindow.cpp \
     converter/mixsignaldialog.cpp \
     converter/spectrogram.cpp \
-    converter/qqwidget.cpp
+    converter/qqwidget.cpp \
+    edflib/edflib.c \
 
 RESOURCES += opiconsole.qrc
 RC_FILE += images/myIcon.rc
-
 
 

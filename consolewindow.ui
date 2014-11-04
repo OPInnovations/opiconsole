@@ -14,7 +14,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>OPI Console</string>
+   <string>OPI Console v1.45</string>
   </property>
   <property name="windowIcon">
    <iconset resource="opiconsole.qrc">
@@ -42,6 +42,9 @@ font: 75 8pt &quot;Arial&quot;;</string>
       <italic>false</italic>
       <bold>false</bold>
      </font>
+    </property>
+    <property name="toolTip">
+     <string>Show sensor data (live)</string>
     </property>
     <property name="text">
      <string/>
@@ -81,6 +84,9 @@ font: 75 8pt &quot;Arial&quot;;</string>
       <bold>false</bold>
      </font>
     </property>
+    <property name="toolTip">
+     <string>File Converter</string>
+    </property>
     <property name="styleSheet">
      <string notr="true"/>
     </property>
@@ -118,6 +124,9 @@ font: 75 8pt &quot;Arial&quot;;</string>
       <italic>false</italic>
       <bold>false</bold>
      </font>
+    </property>
+    <property name="toolTip">
+     <string>Advanced Configuration</string>
     </property>
     <property name="text">
      <string/>
@@ -225,6 +234,9 @@ font: 75 8pt &quot;Arial&quot;;</string>
     <property name="mouseTracking">
      <bool>false</bool>
     </property>
+    <property name="toolTip">
+     <string>Scan for new devices</string>
+    </property>
     <property name="text">
      <string/>
     </property>
@@ -253,6 +265,10 @@ font: 75 8pt &quot;Arial&quot;;</string>
       <width>40</width>
       <height>40</height>
      </rect>
+    </property>
+    <property name="toolTip">
+     <string>Shut down controller
+Your controller goes shut down mode. After shutting it down you can unplug it from your USB port and store it for up to 2 months without charging it again.</string>
     </property>
     <property name="text">
      <string/>
@@ -356,7 +372,7 @@ font: 75 8pt &quot;Arial&quot;;</string>
      <bool>true</bool>
     </property>
    </widget>
-   <widget class="QRadioButton" name="sensARFRB">
+   <widget class="QCheckBox" name="sensARFRB">
     <property name="geometry">
      <rect>
       <x>220</x>
@@ -365,6 +381,10 @@ font: 75 8pt &quot;Arial&quot;;</string>
       <height>17</height>
      </rect>
     </property>
+    <property name="toolTip">
+     <string>Toggle RF (radio frequency) communication
+This will turn the ZigBee transmitter on/off. You must turn it on in order to have real time data from the sensor(s).</string>
+    </property>
     <property name="text">
      <string>RF</string>
     </property>
@@ -372,14 +392,18 @@ font: 75 8pt &quot;Arial&quot;;</string>
      <bool>false</bool>
     </property>
    </widget>
-   <widget class="QRadioButton" name="sensAMMRB">
+   <widget class="QCheckBox" name="sensAMMRB">
     <property name="geometry">
      <rect>
       <x>270</x>
       <y>55</y>
-      <width>51</width>
+      <width>41</width>
       <height>17</height>
      </rect>
+    </property>
+    <property name="toolTip">
+     <string>Toggle MM (Memory Module)
+If you want to record high quality data into the memory module then this must be checked.</string>
     </property>
     <property name="text">
      <string>MM</string>
@@ -388,7 +412,7 @@ font: 75 8pt &quot;Arial&quot;;</string>
      <bool>false</bool>
     </property>
    </widget>
-   <widget class="QRadioButton" name="sensADTRB">
+   <widget class="QCheckBox" name="sensADTRB">
     <property name="geometry">
      <rect>
       <x>320</x>
@@ -396,6 +420,9 @@ font: 75 8pt &quot;Arial&quot;;</string>
       <width>51</width>
       <height>17</height>
      </rect>
+    </property>
+    <property name="toolTip">
+     <string>Toggle Double Tap</string>
     </property>
     <property name="text">
      <string>DTap</string>
@@ -412,6 +439,9 @@ font: 75 8pt &quot;Arial&quot;;</string>
       <width>70</width>
       <height>27</height>
      </rect>
+    </property>
+    <property name="toolTip">
+     <string>Unpair sensor</string>
     </property>
     <property name="text">
      <string/>
@@ -436,6 +466,10 @@ font: 75 8pt &quot;Arial&quot;;</string>
       <height>166</height>
      </rect>
     </property>
+    <property name="toolTip">
+     <string>Shut down sensor(s)
+After shutting them down, detach all the sensor(s) from the controller in order to keep their battery healthy.</string>
+    </property>
     <property name="text">
      <string/>
     </property>
@@ -453,7 +487,7 @@ font: 75 8pt &quot;Arial&quot;;</string>
      <bool>true</bool>
     </property>
    </widget>
-   <widget class="QRadioButton" name="sensBMMRB">
+   <widget class="QCheckBox" name="sensBMMRB">
     <property name="enabled">
      <bool>true</bool>
     </property>
@@ -461,9 +495,13 @@ font: 75 8pt &quot;Arial&quot;;</string>
      <rect>
       <x>270</x>
       <y>85</y>
-      <width>51</width>
+      <width>41</width>
       <height>17</height>
      </rect>
+    </property>
+    <property name="toolTip">
+     <string>Toggle MM (Memory Module)
+If you want to record high quality data into the memory module then this must be checked.</string>
     </property>
     <property name="text">
      <string>MM</string>
@@ -485,7 +523,7 @@ font: 75 8pt &quot;Arial&quot;;</string>
      <string>[ B ] ( 194 )</string>
     </property>
    </widget>
-   <widget class="QRadioButton" name="sensBDTRB">
+   <widget class="QCheckBox" name="sensBDTRB">
     <property name="enabled">
      <bool>true</bool>
     </property>
@@ -496,6 +534,9 @@ font: 75 8pt &quot;Arial&quot;;</string>
       <width>51</width>
       <height>17</height>
      </rect>
+    </property>
+    <property name="toolTip">
+     <string>Toggle Double Tap</string>
     </property>
     <property name="text">
      <string>DTap</string>
@@ -513,6 +554,9 @@ font: 75 8pt &quot;Arial&quot;;</string>
       <height>27</height>
      </rect>
     </property>
+    <property name="toolTip">
+     <string>Unpair sensor</string>
+    </property>
     <property name="text">
      <string/>
     </property>
@@ -527,7 +571,7 @@ font: 75 8pt &quot;Arial&quot;;</string>
      </size>
     </property>
    </widget>
-   <widget class="QRadioButton" name="sensBRFRB">
+   <widget class="QCheckBox" name="sensBRFRB">
     <property name="enabled">
      <bool>true</bool>
     </property>
@@ -538,6 +582,10 @@ font: 75 8pt &quot;Arial&quot;;</string>
       <width>41</width>
       <height>17</height>
      </rect>
+    </property>
+    <property name="toolTip">
+     <string>Toggle RF (radio frequency) communication
+This will turn the ZigBee transmitter on/off. You must turn it on in order to have real time data from the sensor(s).</string>
     </property>
     <property name="text">
      <string>RF</string>
@@ -582,7 +630,7 @@ font: 75 8pt &quot;Arial&quot;;</string>
      <bool>true</bool>
     </property>
    </widget>
-   <widget class="QRadioButton" name="sensCRFRB">
+   <widget class="QCheckBox" name="sensCRFRB">
     <property name="enabled">
      <bool>true</bool>
     </property>
@@ -593,6 +641,10 @@ font: 75 8pt &quot;Arial&quot;;</string>
       <width>41</width>
       <height>17</height>
      </rect>
+    </property>
+    <property name="toolTip">
+     <string>Toggle RF (radio frequency) communication
+This will turn the ZigBee transmitter on/off. You must turn it on in order to have real time data from the sensor(s).</string>
     </property>
     <property name="text">
      <string>RF</string>
@@ -609,6 +661,9 @@ font: 75 8pt &quot;Arial&quot;;</string>
       <width>70</width>
       <height>27</height>
      </rect>
+    </property>
+    <property name="toolTip">
+     <string>Unpair sensor</string>
     </property>
     <property name="text">
      <string/>
@@ -637,7 +692,7 @@ font: 75 8pt &quot;Arial&quot;;</string>
      <string>[ C ] ( 194 )</string>
     </property>
    </widget>
-   <widget class="QRadioButton" name="sensCMMRB">
+   <widget class="QCheckBox" name="sensCMMRB">
     <property name="enabled">
      <bool>true</bool>
     </property>
@@ -645,9 +700,13 @@ font: 75 8pt &quot;Arial&quot;;</string>
      <rect>
       <x>270</x>
       <y>115</y>
-      <width>51</width>
+      <width>41</width>
       <height>17</height>
      </rect>
+    </property>
+    <property name="toolTip">
+     <string>Toggle MM (Memory Module)
+If you want to record high quality data into the memory module then this must be checked.</string>
     </property>
     <property name="text">
      <string>MM</string>
@@ -656,7 +715,7 @@ font: 75 8pt &quot;Arial&quot;;</string>
      <bool>false</bool>
     </property>
    </widget>
-   <widget class="QRadioButton" name="sensCDTRB">
+   <widget class="QCheckBox" name="sensCDTRB">
     <property name="enabled">
      <bool>true</bool>
     </property>
@@ -668,6 +727,9 @@ font: 75 8pt &quot;Arial&quot;;</string>
       <height>17</height>
      </rect>
     </property>
+    <property name="toolTip">
+     <string>Toggle Double Tap</string>
+    </property>
     <property name="text">
      <string>DTap</string>
     </property>
@@ -675,7 +737,7 @@ font: 75 8pt &quot;Arial&quot;;</string>
      <bool>false</bool>
     </property>
    </widget>
-   <widget class="QRadioButton" name="sensDDTRB">
+   <widget class="QCheckBox" name="sensDDTRB">
     <property name="enabled">
      <bool>true</bool>
     </property>
@@ -687,6 +749,9 @@ font: 75 8pt &quot;Arial&quot;;</string>
       <height>17</height>
      </rect>
     </property>
+    <property name="toolTip">
+     <string>Toggle Double Tap</string>
+    </property>
     <property name="text">
      <string>DTap</string>
     </property>
@@ -694,7 +759,7 @@ font: 75 8pt &quot;Arial&quot;;</string>
      <bool>false</bool>
     </property>
    </widget>
-   <widget class="QRadioButton" name="sensDMMRB">
+   <widget class="QCheckBox" name="sensDMMRB">
     <property name="enabled">
      <bool>true</bool>
     </property>
@@ -702,9 +767,13 @@ font: 75 8pt &quot;Arial&quot;;</string>
      <rect>
       <x>270</x>
       <y>145</y>
-      <width>51</width>
+      <width>41</width>
       <height>17</height>
      </rect>
+    </property>
+    <property name="toolTip">
+     <string>Toggle MM (Memory Module)
+If you want to record high quality data into the memory module then this must be checked.</string>
     </property>
     <property name="text">
      <string>MM</string>
@@ -762,7 +831,7 @@ font: 75 8pt &quot;Arial&quot;;</string>
      <string>[ D ] ( 194 )</string>
     </property>
    </widget>
-   <widget class="QRadioButton" name="sensDRFRB">
+   <widget class="QCheckBox" name="sensDRFRB">
     <property name="enabled">
      <bool>true</bool>
     </property>
@@ -773,6 +842,10 @@ font: 75 8pt &quot;Arial&quot;;</string>
       <width>41</width>
       <height>17</height>
      </rect>
+    </property>
+    <property name="toolTip">
+     <string>Toggle RF (radio frequency) communication
+This will turn the ZigBee transmitter on/off. You must turn it on in order to have real time data from the sensor(s).</string>
     </property>
     <property name="text">
      <string>RF</string>
@@ -789,6 +862,9 @@ font: 75 8pt &quot;Arial&quot;;</string>
       <width>70</width>
       <height>27</height>
      </rect>
+    </property>
+    <property name="toolTip">
+     <string>Unpair sensor</string>
     </property>
     <property name="text">
      <string/>
@@ -812,6 +888,9 @@ font: 75 8pt &quot;Arial&quot;;</string>
       <width>70</width>
       <height>27</height>
      </rect>
+    </property>
+    <property name="toolTip">
+     <string>Pair sensor</string>
     </property>
     <property name="text">
      <string/>
@@ -949,6 +1028,9 @@ font: 75 8pt &quot;Arial&quot;;</string>
       <height>27</height>
      </rect>
     </property>
+    <property name="toolTip">
+     <string>Download data from the memory module to the computer</string>
+    </property>
     <property name="text">
      <string/>
     </property>
@@ -997,6 +1079,9 @@ font: 75 8pt &quot;Arial&quot;;</string>
       <bold>false</bold>
      </font>
     </property>
+    <property name="toolTip">
+     <string>Show biofeedback (live)</string>
+    </property>
     <property name="styleSheet">
      <string notr="true"/>
     </property>
@@ -1034,6 +1119,9 @@ font: 75 8pt &quot;Arial&quot;;</string>
       <italic>false</italic>
       <bold>false</bold>
      </font>
+    </property>
+    <property name="toolTip">
+     <string>Meditation file analysis</string>
     </property>
     <property name="styleSheet">
      <string notr="true"/>
@@ -1073,6 +1161,9 @@ font: 75 8pt &quot;Arial&quot;;</string>
       <bold>false</bold>
      </font>
     </property>
+    <property name="toolTip">
+     <string>Sleep file analysis</string>
+    </property>
     <property name="styleSheet">
      <string notr="true"/>
     </property>
@@ -1111,6 +1202,9 @@ font: 75 8pt &quot;Arial&quot;;</string>
       <bold>false</bold>
      </font>
     </property>
+    <property name="toolTip">
+     <string>Tutorial game (live)</string>
+    </property>
     <property name="styleSheet">
      <string notr="true"/>
     </property>
@@ -1140,6 +1234,10 @@ font: 75 8pt &quot;Arial&quot;;</string>
       <height>27</height>
      </rect>
     </property>
+    <property name="toolTip">
+     <string>Erase all data from the memory module
+You must empty the memory module before every new recording!</string>
+    </property>
     <property name="text">
      <string>Erase</string>
     </property>
@@ -1158,6 +1256,9 @@ font: 75 8pt &quot;Arial&quot;;</string>
       <width>51</width>
       <height>27</height>
      </rect>
+    </property>
+    <property name="toolTip">
+     <string>Upload tags</string>
     </property>
     <property name="text">
      <string/>
@@ -1181,6 +1282,9 @@ font: 75 8pt &quot;Arial&quot;;</string>
       <width>71</width>
       <height>20</height>
      </rect>
+    </property>
+    <property name="toolTip">
+     <string>0 %</string>
     </property>
     <property name="value">
      <number>24</number>

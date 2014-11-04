@@ -739,7 +739,7 @@ qint32 ConvertWindow::edfMecgread(QDataStream *instrp, QDateTime startDT, qint32
 
 
         // take care of annotations
-        annsQL = QString::fromAscii((const char *)tempanns,128).split(QChar(0),QString::SkipEmptyParts);
+        annsQL = QString::fromLatin1((const char *)tempanns,128).split(QChar(0),QString::SkipEmptyParts);
         for(i = 0; i < annsQL.size(); i++)
         {
             annQL = annsQL.at(i).split(QChar(20),QString::SkipEmptyParts); // split each entry
@@ -1340,7 +1340,7 @@ qint32 ConvertWindow::edfMeegread(QDataStream *instrp, QDateTime startDT, qint32
        }
 
         // take care of annotations
-        annsQL = QString::fromAscii((const char *)tempanns,128).split(QChar(0),QString::SkipEmptyParts);
+        annsQL = QString::fromLatin1((const char *)tempanns,128).split(QChar(0),QString::SkipEmptyParts);
         for(i = 0; i < annsQL.size(); i++)
         {
             annQL = annsQL.at(i).split(QChar(20),QString::SkipEmptyParts); // split each entry
@@ -1502,105 +1502,105 @@ qint32 ConvertWindow::edfhdrread(QDataStream *instrp, QString *lpidp, QString *l
 
     //8 ascii : version of this data format (0)
     if(instrp->readRawData(buff,8) < 0) return -1;
-    if(QString::compare(QString::fromAscii(buff,8), "0       ")) return -1;
+    if(QString::compare(QString::fromLatin1(buff,8), "0       ")) return -1;
 
     //80 ascii : local patient identification
     if(instrp->readRawData(buff,80) < 0) return -1;
-    *lpidp = QString::fromAscii(buff,80);
+    *lpidp = QString::fromLatin1(buff,80);
 
     //80 ascii : local recording identification.
     if(instrp->readRawData(buff,80) < 0) return -1;
-    *lridp = QString::fromAscii(buff,80);
+    *lridp = QString::fromLatin1(buff,80);
 
     //8 ascii : startdate of recording (dd.mm.yy),
     //+8 ascii : starttime of recording (hh.mm.ss).
     if(instrp->readRawData(buff,16) < 0) return -1;
-    *startDTp = QDateTime::fromString(QString::fromAscii(buff,16),"dd.MM.yyHH.mm.ss");
+    *startDTp = QDateTime::fromString(QString::fromLatin1(buff,16),"dd.MM.yyHH.mm.ss");
     if(*startDTp < QDateTime::fromString("19850101","yyyyMMdd")) // if yy=13 should be 2013
         *startDTp = startDTp->addYears(100);
 
     //8 ascii : number of bytes in header record
     if(instrp->readRawData(buff,8) < 0) return -1;
-    hdrBytes = QString::fromAscii(buff,8).toInt();
+    hdrBytes = QString::fromLatin1(buff,8).toInt();
 
     //44 ascii : reserved
     if(instrp->readRawData(buff,44) < 0) return -1;
-    if(QString::compare(QString::fromAscii(buff,44), QString("EDF+C").leftJustified(44,' ')))
+    if(QString::compare(QString::fromLatin1(buff,44), QString("EDF+C").leftJustified(44,' ')))
         return -1;
 
     //8 ascii : number of data records (-1 if unknown)
     if(instrp->readRawData(buff,8) < 0) return -1;
-    *numDataRecsp = QString::fromAscii(buff,8).toInt();
+    *numDataRecsp = QString::fromLatin1(buff,8).toInt();
 
     //8 ascii : duration of a data record, in seconds
     if(instrp->readRawData(buff,8) < 0) return -1;
-    *dataRecDurp = QString::fromAscii(buff,8).toInt();
+    *dataRecDurp = QString::fromLatin1(buff,8).toInt();
 
     //4 ascii : number of signals (ns) in data record
     if(instrp->readRawData(buff,4) < 0) return -1;
-    *numSignalsp = QString::fromAscii(buff,4).toInt();
+    *numSignalsp = QString::fromLatin1(buff,4).toInt();
 
     //ns * 16 ascii : ns * label
     for(i = 0; i < (*numSignalsp); i++)
     {
         if(instrp->readRawData(buff,16) < 0) return -1;
-        labelSignalsQVp->append(QString::fromAscii(buff,16));
+        labelSignalsQVp->append(QString::fromLatin1(buff,16));
     }
 
     //ns * 80 ascii : ns * transducer type (e.g. AgAgCl electrode)
     for(i = 0; i < (*numSignalsp); i++)
     {
         if(instrp->readRawData(buff,80) < 0) return -1;
-        transTypeQVp->append(QString::fromAscii(buff,80));
+        transTypeQVp->append(QString::fromLatin1(buff,80));
     }
 
     //ns * 8 ascii : ns * physical dimension (e.g. uV)
     for(i = 0; i < (*numSignalsp); i++)
     {
         if(instrp->readRawData(buff,8) < 0) return -1;
-        physDimQVp->append(QString::fromAscii(buff,8));
+        physDimQVp->append(QString::fromLatin1(buff,8));
     }
 
     //ns * 8 ascii : ns * physical minimum (e.g. -500 or 34)
     for(i = 0; i < (*numSignalsp); i++)
     {
         if(instrp->readRawData(buff,8) < 0) return -1;
-        physMinQVp->append(QString::fromAscii(buff,8).toInt());
+        physMinQVp->append(QString::fromLatin1(buff,8).toInt());
     }
 
     //ns * 8 ascii : ns * physical maximum (e.g. 500 or 40)
     for(i = 0; i < (*numSignalsp); i++)
     {
         if(instrp->readRawData(buff,8) < 0) return -1;
-        physMaxQVp->append(QString::fromAscii(buff,8).toInt());
+        physMaxQVp->append(QString::fromLatin1(buff,8).toInt());
     }
 
     //ns * 8 ascii : ns * digital minimum (e.g. -2048)
     for(i = 0; i < (*numSignalsp); i++)
     {
         if(instrp->readRawData(buff,8) < 0) return -1;
-        digMinQVp->append(QString::fromAscii(buff,8).toInt());
+        digMinQVp->append(QString::fromLatin1(buff,8).toInt());
     }
 
     //ns * 8 ascii : ns * digital maximum (e.g. 2047)
     for(i = 0; i < (*numSignalsp); i++)
     {
         if(instrp->readRawData(buff,8) < 0) return -1;
-        digMaxQVp->append(QString::fromAscii(buff,8).toInt());
+        digMaxQVp->append(QString::fromLatin1(buff,8).toInt());
     }
 
     //ns * 80 ascii : ns * prefiltering (e.g. HP:0.1Hz LP:75Hz)
     for(i = 0; i < (*numSignalsp); i++)
     {
         if(instrp->readRawData(buff,80) < 0) return -1;
-        prefiltQVp->append(QString::fromAscii(buff,8));
+        prefiltQVp->append(QString::fromLatin1(buff,8));
     }
 
     //ns * 8 ascii : ns * nr of samples in each data record
     for(i = 0; i < (*numSignalsp); i++)
     {
         if(instrp->readRawData(buff,8) < 0) return -1;
-        sampsPerDRQVp->append(QString::fromAscii(buff,8).toInt());
+        sampsPerDRQVp->append(QString::fromLatin1(buff,8).toInt());
     }
 
     //ns * 32 ascii : ns * reserved
@@ -4425,7 +4425,7 @@ qint32 ConvertWindow::edfDread(QDataStream *instrp, QDateTime startDT,
             edQVp->append(0);
         }
         // take care of annotations
-        annsQL = QString::fromAscii((const char *)tempanns,128).split(QChar(0),QString::SkipEmptyParts);
+        annsQL = QString::fromLatin1((const char *)tempanns,128).split(QChar(0),QString::SkipEmptyParts);
         for(i = 0; i < annsQL.size(); i++)
         {
             annQL = annsQL.at(i).split(QChar(20),QString::SkipEmptyParts); // split each entry

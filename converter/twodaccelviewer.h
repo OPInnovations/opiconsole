@@ -1,6 +1,7 @@
 #ifndef TWODACCELVIEWER_H
 #define TWODACCELVIEWER_H
 
+#include <QtWidgets>
 #include <QtGui>
 #include "../opi_win.h"
 #include "../opi_helper.h"

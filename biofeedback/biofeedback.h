@@ -92,9 +92,9 @@ class biofeedback : public QMainWindow
     //count the numbers of  pdn showing window
     qint32 *pdnshowcount;
     //struct of opipkt
-    OPIPKT_t PACKAGE_t;
+    //OPIPKT_t PACKAGE_t;
     //Save the gamemode data
-    float temp_last_data,temp_new_data;
+    float temp_new_data;
     float x_new_data,y_new_data,z_new_data[TG_NUMPOINTSAMPLE_Z],z_new_data_average;
 
     //save the new data start
@@ -212,16 +212,16 @@ public:
     //check the window is open or hide
     bool already_open;
     int PDN_NUMBER;
-    int getStruct(OPIPKT_t* opipointer);
+    int getStruct(OPIPKT_DC01_SDC01_t packet);
     void setPdnNum(int num);
-    int routinedrawgroup(void);
+    int routinedrawgroup(OPIPKT_DC01_SDC01_t packet);
     void reset(bool setgamemode);
     void showgamewindow(int pdnnumber);
     void secretstart(bool setgamemode);
 private:
     Ui::biofeedback *ui;
-    void showDataControl(void);
-    int calNewPack(void);
+    void showDataControl(byte rfValue);
+	int calNewPack(OPIPKT_DC01_SDC01_t packet);
     void setUpTotalScene();
 
     int drawRR(bool validHRmax,QGraphicsView *view,QGraphicsScene *scene,int max,int min,
