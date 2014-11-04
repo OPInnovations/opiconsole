@@ -710,30 +710,38 @@ void startwindowbf::on_btnStart_clicked()
 
 			edf_set_label(edfFileHandle, 1, "Accelerometer X");
 			edf_set_samplefrequency(edfFileHandle, 1, 8 / 8);
-			edf_set_digital_minimum(edfFileHandle, 1, -128);
-			edf_set_digital_maximum(edfFileHandle, 1, +127);
+			edf_set_digital_minimum(edfFileHandle, 1, -32768);
+			edf_set_digital_maximum(edfFileHandle, 1, +32767);
+			//edf_set_digital_minimum(edfFileHandle, 1, -128);
+			//edf_set_digital_maximum(edfFileHandle, 1, +127);
 			edf_set_physical_minimum(edfFileHandle, 1, -2);
 			edf_set_physical_maximum(edfFileHandle, 1, +2);
 			edf_set_physical_dimension(edfFileHandle, 1, "g");
 
 			edf_set_label(edfFileHandle, 2, "Accelerometer Y");
 			edf_set_samplefrequency(edfFileHandle, 2, 8 / 8);
-			edf_set_digital_minimum(edfFileHandle, 2, -128);
-			edf_set_digital_maximum(edfFileHandle, 2, +127);
+			edf_set_digital_minimum(edfFileHandle, 2, -32768);
+			edf_set_digital_maximum(edfFileHandle, 2, +32767);
+			//edf_set_digital_minimum(edfFileHandle, 2, -128);
+			//edf_set_digital_maximum(edfFileHandle, 2, +127);
 			edf_set_physical_minimum(edfFileHandle, 2, -2);
 			edf_set_physical_maximum(edfFileHandle, 2, +2);
 			edf_set_physical_dimension(edfFileHandle, 2, "g");
 
 			edf_set_label(edfFileHandle, 3, "Accelerometer Z");
 			edf_set_samplefrequency(edfFileHandle, 3, 32 / 8);
-			edf_set_digital_minimum(edfFileHandle, 3, -127);
-			edf_set_digital_maximum(edfFileHandle, 3, +128);
+			edf_set_digital_minimum(edfFileHandle, 3, -32768);
+			edf_set_digital_maximum(edfFileHandle, 3, +32767);
+			//edf_set_digital_minimum(edfFileHandle, 3, -127);
+			//edf_set_digital_maximum(edfFileHandle, 3, +128);
 			edf_set_physical_minimum(edfFileHandle, 3, -2);
 			edf_set_physical_maximum(edfFileHandle, 3, +2);
 			edf_set_physical_dimension(edfFileHandle, 3, "g");
 
 			edf_set_label(edfFileHandle, 4, "Temperature");
 			edf_set_samplefrequency(edfFileHandle, 4, 8 / 8);
+			//edf_set_digital_minimum(edfFileHandle, 4,  0);
+			//edf_set_digital_maximum(edfFileHandle, 4, +4080);
 			edf_set_digital_minimum(edfFileHandle, 4,  -470);
 			edf_set_digital_maximum(edfFileHandle, 4, +2410);
 			edf_set_physical_minimum(edfFileHandle, 4,  -47);
@@ -742,8 +750,12 @@ void startwindowbf::on_btnStart_clicked()
 
 			edf_set_label(edfFileHandle, 5, "Wireless Signal Strength");
 			edf_set_samplefrequency(edfFileHandle, 5, 8 / 8);
+			//edf_set_digital_minimum(edfFileHandle, 5, -32768);
+			//edf_set_digital_maximum(edfFileHandle, 5, +32767);
 			edf_set_digital_minimum(edfFileHandle, 5,  0);
 			edf_set_digital_maximum(edfFileHandle, 5, +84);
+			//edf_set_physical_minimum(edfFileHandle, 5, -50);
+			//edf_set_physical_maximum(edfFileHandle, 5, +50);
 			edf_set_physical_minimum(edfFileHandle, 5,  0);
 			edf_set_physical_maximum(edfFileHandle, 5, +84);
 			edf_set_physical_dimension(edfFileHandle, 5, "dB");
